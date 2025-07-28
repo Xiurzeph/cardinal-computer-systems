@@ -1,0 +1,497 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cardinal Computer Systems - Professional IT Services in Maryland</title>
+    <meta name="description" content="Professional computer services, custom systems, and IT support across Maryland. CompTIA certified technician available M-F 9am-5pm with extended hours.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #FAF7F0;
+        }
+
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #C41E3A 0%, #8B0000 100%);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: white;
+            padding: 5px;
+        }
+
+
+        .company-info h1 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+
+
+        .company-info .tagline {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+
+        .contact-header {
+            text-align: right;
+        }
+
+
+        .contact-header .phone {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+
+        .contact-header .email {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(196, 30, 58, 0.8), rgba(139, 0, 0, 0.8)), url('https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1') center/cover;
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+
+        .cta-button {
+            display: inline-block;
+            background: #000;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+
+        /* Certifications */
+        .certifications {
+            background: white;
+            padding: 40px 0;
+            text-align: center;
+            border-bottom: 3px solid #C41E3A;
+        }
+
+
+        .cert-badge {
+            display: inline-block;
+            margin: 0 20px;
+        }
+
+
+        .cert-badge img {
+            width: 120px;
+            height: auto;
+        }
+
+
+        .cert-text {
+            margin-top: 20px;
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+
+        /* Services Section */
+        .services {
+            padding: 80px 0;
+            background: #FAF7F0;
+        }
+
+
+        .services h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: #C41E3A;
+        }
+
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+
+        .service-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            border-top: 4px solid #C41E3A;
+        }
+
+
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+
+
+        .service-card h3 {
+            color: #C41E3A;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+
+        .service-card p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+
+        .service-button {
+            background: #C41E3A;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            transition: background 0.3s;
+        }
+
+
+        .service-button:hover {
+            background: #8B0000;
+        }
+
+
+        /* About Section */
+        .about {
+            padding: 80px 0;
+            background: white;
+        }
+
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+
+        .about-text h2 {
+            color: #C41E3A;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+        }
+
+
+        .about-text p {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+
+        .about-image {
+            text-align: center;
+        }
+
+
+        .about-image img {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+
+        /* Contact Section */
+        .contact {
+            background: linear-gradient(135deg, #C41E3A 0%, #8B0000 100%);
+            color: white;
+            padding: 80px 0;
+        }
+
+
+        .contact h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+        }
+
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+
+        .contact-item {
+            text-align: center;
+        }
+
+
+        .contact-item h3 {
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+
+        .contact-item p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+
+        /* Footer */
+        footer {
+            background: #000;
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+        }
+
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                justify-content: center;
+                text-align: center;
+                gap: 20px;
+            }
+
+
+            .contact-header {
+                text-align: center;
+            }
+
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+
+            .services h2, .about-text h2, .contact h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <img src="./cardinal-logo.png" alt="Cardinal Computer Systems Logo" class="logo">
+                    <div class="company-info">
+                        <h1>Cardinal Computer Systems</h1>
+                        <p class="tagline">Professional IT Services & Custom Solutions</p>
+                    </div>
+                </div>
+                <div class="contact-header">
+                    <a href="tel:2024135403" class="phone" style="color: white; text-decoration: none;">(202) 413-5403</a>
+                    <a href="mailto:joseph@myruiz.com" class="email" style="color: white; text-decoration: none;">joseph@myruiz.com</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h2>Professional Computer Services Across Maryland</h2>
+            <p>From custom system builds to comprehensive IT support, we deliver tailored solutions that meet your specific needs. CompTIA certified technician with years of experience.</p>
+            <a href="mailto:joseph@myruiz.com?subject=Professional Computer Services" class="cta-button">Get Started Today</a>
+        </div>
+    </section>
+
+
+    <!-- Certifications -->
+    <section class="certifications">
+        <div class="container">
+            <div class="cert-badge">
+                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDEyMCAxMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxjaXJjbGUgY3g9IjYwIiBjeT0iNjAiIHI9IjU4IiBmaWxsPSIjRkZGIiBzdHJva2U9IiM2NjY2NjYiIHN0cm9rZS13aWR0aD0iNCIvPgo8Y2lyY2xlIGN4PSI2MCIgY3k9IjYwIiByPSI0NSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjNjY2NjY2IiBzdHJva2Utd2lkdGg9IjIiLz4KPHRleHQgeD0iNjAiIHk9IjQwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjQzQxRTNBIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTQiIGZvbnQtd2VpZ2h0PSJib2xkIj5Db21wVElBPC90ZXh0Pgo8cmVjdCB4PSIyMCIgeT0iNTAiIHdpZHRoPSI4MCIgaGVpZ2h0PSIyMCIgZmlsbD0iI0M0MUUzQSIgcng9IjMiLz4KPHRleHQgeD0iNjAiIHk9IjY0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjRkZGIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSJib2xkIj5UZWNoKzwvdGV4dD4KPHRleHQgeD0iNjAiIHk9IjgwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjQzQxRTNBIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTAiIGZvbnQtd2VpZ2h0PSJib2xkIj5DRVJUSUZJRUQ8L3RleHQ+Cjwvc3ZnPgo=" alt="CompTIA Tech+ Certified">
+            </div>
+            <p class="cert-text"><strong>CompTIA Tech+ Certified Professional</strong> - Your assurance of expert technical knowledge and professional service standards.</p>
+        </div>
+    </section>
+
+
+    <!-- Services Section -->
+    <section class="services">
+        <div class="container">
+            <h2>Our Services</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>Remote System Support</h3>
+                    <p>It's never a good day when your computer or cellphone stops working. Get back online quickly with our remote support services. Subscribe to maintenance for priority assistance whenever you need it.</p>
+                    <a href="mailto:joseph@myruiz.com?subject=Remote System Support" class="service-button">Request Support</a>
+                </div>
+
+
+                <div class="service-card">
+                    <h3>Managed Antivirus Protection</h3>
+                    <p>Protect your personal data and business secrets with comprehensive security solutions. Keep your systems, intellectual property, and customer data safe from ransomware, phishing, malware, and cyberattacks.</p>
+                    <a href="mailto:joseph@myruiz.com?subject=Managed Antivirus Protection" class="service-button">Get Protected</a>
+                </div>
+
+
+                <div class="service-card">
+                    <h3>Smart Home Consultation</h3>
+                    <p>Transform your home into a smart, secure, and comfortable living space. We recommend and install smart devices that automate your daily routines and enhance your home security.</p>
+                    <a href="mailto:joseph@myruiz.com?subject=Smart Home Consultation" class="service-button">Schedule Consultation</a>
+                </div>
+
+
+                <div class="service-card">
+                    <h3>Wi-Fi Health Checkup</h3>
+                    <p>Experiencing slow internet despite paying for high-speed service? We'll optimize your router placement and install multiple access points throughout your home or business for seamless connectivity.</p>
+                    <a href="mailto:joseph@myruiz.com?subject=Wi-Fi Health Checkup" class="service-button">Check My Wi-Fi</a>
+                </div>
+
+
+                <div class="service-card">
+                    <h3>IT Consultation</h3>
+                    <p>Strategic technology planning for your business. We assess your current infrastructure, identify improvements, and create cost-effective solutions to boost productivity and efficiency.</p>
+                    <a href="mailto:joseph@myruiz.com?subject=IT Consultation" class="service-button">Book Consultation</a>
+                </div>
+
+
+                <div class="service-card">
+                    <h3>Software Installation & Training</h3>
+                    <p>Get new software up and running properly with professional installation and personalized training. We ensure your team knows how to use new applications effectively and maximize your software investment.</p>
+                    <a href="mailto:joseph@myruiz.com?subject=Software Installation & Training" class="service-button">Schedule Training</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- About Section -->
+    <section class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Who We Are</h2>
+                    <p>Cardinal Computer Systems takes a different approach to the IT industry. We believe everyone deserves technology solutions tailored to their specific needs.</p>
+                    <p>Our team of certified engineers, designers, and technicians work closely with you to create the perfect system for your requirements. Whether you're a gamer, business owner, or casual user, we deliver custom solutions that exceed expectations.</p>
+                    <p>As a CompTIA Tech+ certified professional serving Maryland, we combine technical expertise with personalized service to ensure your technology works as hard as you do.</p>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=400&h=600&dpr=1" alt="Diverse IT Team Collaboration">
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Contact Section -->
+    <section class="contact">
+        <div class="container">
+            <h2>Contact Us</h2>
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <h3>Phone</h3>
+                    <p><a href="tel:2024135403" style="color: white; text-decoration: none;">(202) 413-5403</a></p>
+                </div>
+                <div class="contact-item">
+                    <h3>Email</h3>
+                    <p><a href="mailto:joseph@myruiz.com" style="color: white; text-decoration: none;">joseph@myruiz.com</a></p>
+                </div>
+                <div class="contact-item">
+                    <h3>Service Area</h3>
+                    <p>Maryland State</p>
+                </div>
+                <div class="contact-item">
+                    <h3>Business Hours</h3>
+                    <p>Monday - Friday: 9am - 5pm<br>
+                    <small>Extended hours available upon request</small></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Cardinal Computer Systems. All rights reserved. | Professional IT Services across Maryland</p>
+        </div>
+    </footer>
+</body>
+</html>
