@@ -1,17 +1,125 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cardinal Computer Systems - Professional IT Services in Maryland</title>
     <meta name="description" content="Professional computer services, custom systems, and IT support across Maryland. CompTIA certified technician available M-F 9am-5pm with extended hours.">
+    <meta name="keywords" content="IT services Maryland, computer repair, remote support, smart home, wifi setup, antivirus protection, custom PC builds, software installation, IT consultation, CompTIA certified">
+    <meta name="author" content="Joseph Ruiz, Cardinal Computer Systems">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="en-US">
+    <meta name="geo.region" content="US-MD">
+    <meta name="geo.placename" content="Maryland">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Cardinal Computer Systems - Professional IT Services in Maryland">
+    <meta property="og:description" content="CompTIA certified IT services including remote support, smart home setup, wifi optimization, and custom computer solutions across Maryland.">
+    <meta property="og:url" content="https://cardinalcomputersystems.com">
+    <meta property="og:site_name" content="Cardinal Computer Systems">
+    <meta property="og:locale" content="en_US">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Cardinal Computer Systems - Professional IT Services">
+    <meta name="twitter:description" content="CompTIA certified IT services across Maryland. Remote support, smart home, wifi optimization, and more.">
+    
+    <!-- Local Business Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "Cardinal Computer Systems",
+        "description": "Professional IT services including remote support, smart home consultation, wifi optimization, antivirus protection, and custom computer solutions.",
+        "url": "https://cardinalcomputersystems.com",
+        "telephone": "+1-202-413-5403",
+        "email": "joseph@cardinalcomputersystems.com",
+        "address": {
+            "@type": "PostalAddress",
+            "addressRegion": "MD",
+            "addressCountry": "US"
+        },
+        "areaServed": {
+            "@type": "State",
+            "name": "Maryland"
+        },
+        "openingHours": "Mo-Fr 09:00-17:00",
+        "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            "opens": "09:00",
+            "closes": "17:00"
+        },
+        "serviceType": "IT Services",
+        "priceRange": "$",
+        "founder": {
+            "@type": "Person",
+            "name": "Joseph Ruiz"
+        },
+        "hasCredential": {
+            "@type": "EducationalOccupationalCredential",
+            "name": "CompTIA Tech+",
+            "credentialCategory": "Professional Certification"
+        },
+        "makesOffer": [
+            {
+                "@type": "Offer",
+                "itemOffered": {
+                    "@type": "Service",
+                    "name": "Remote System Support",
+                    "description": "Remote computer and device troubleshooting and maintenance services"
+                }
+            },
+            {
+                "@type": "Offer", 
+                "itemOffered": {
+                    "@type": "Service",
+                    "name": "Managed Antivirus Protection",
+                    "description": "Comprehensive cybersecurity solutions to protect against malware, ransomware, and cyber threats"
+                }
+            },
+            {
+                "@type": "Offer",
+                "itemOffered": {
+                    "@type": "Service", 
+                    "name": "Smart Home Consultation",
+                    "description": "Smart home device recommendation, installation, and configuration services"
+                }
+            },
+            {
+                "@type": "Offer",
+                "itemOffered": {
+                    "@type": "Service",
+                    "name": "Wi-Fi Health Checkup", 
+                    "description": "Wireless network optimization and access point installation services"
+                }
+            },
+            {
+                "@type": "Offer",
+                "itemOffered": {
+                    "@type": "Service",
+                    "name": "IT Consultation",
+                    "description": "Strategic technology planning and infrastructure assessment for businesses"
+                }
+            },
+            {
+                "@type": "Offer",
+                "itemOffered": {
+                    "@type": "Service",
+                    "name": "Software Installation & Training",
+                    "description": "Professional software deployment and user training services"
+                }
+            }
+        ]
+    }
+    </script>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -20,13 +128,32 @@
             background-color: #FAF7F0;
         }
 
-
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
         }
 
+        /* Cardinal Rules Header */
+        .cardinal-rules {
+            background: #000;
+            color: #C41E3A;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 0.9rem;
+            font-weight: bold;
+            border-bottom: 2px solid #C41E3A;
+        }
+
+        .rule-text {
+            animation: fadeInOut 30s infinite;
+        }
+
+        @keyframes fadeInOut {
+            0%, 20% { opacity: 1; }
+            25%, 75% { opacity: 1; }
+            80%, 100% { opacity: 0; }
+        }
 
         /* Header */
         header {
@@ -36,7 +163,6 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
-
         .header-content {
             display: flex;
             justify-content: space-between;
@@ -44,13 +170,11 @@
             flex-wrap: wrap;
         }
 
-
         .logo-section {
             display: flex;
             align-items: center;
             gap: 15px;
         }
-
 
         .logo {
             width: 60px;
@@ -60,23 +184,19 @@
             padding: 5px;
         }
 
-
         .company-info h1 {
             font-size: 1.8rem;
             margin-bottom: 5px;
         }
-
 
         .company-info .tagline {
             font-size: 0.9rem;
             opacity: 0.9;
         }
 
-
         .contact-header {
             text-align: right;
         }
-
 
         .contact-header .phone {
             font-size: 1.3rem;
@@ -85,12 +205,10 @@
             display: block;
         }
 
-
         .contact-header .email {
             font-size: 0.9rem;
             opacity: 0.9;
         }
-
 
         /* Hero Section */
         .hero {
@@ -100,13 +218,11 @@
             text-align: center;
         }
 
-
         .hero h2 {
             font-size: 3rem;
             margin-bottom: 20px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
-
 
         .hero p {
             font-size: 1.2rem;
@@ -115,7 +231,6 @@
             margin-left: auto;
             margin-right: auto;
         }
-
 
         .cta-button {
             display: inline-block;
@@ -128,12 +243,10 @@
             transition: transform 0.3s, box-shadow 0.3s;
         }
 
-
         .cta-button:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
-
 
         /* Certifications */
         .certifications {
@@ -143,18 +256,15 @@
             border-bottom: 3px solid #C41E3A;
         }
 
-
         .cert-badge {
             display: inline-block;
             margin: 0 20px;
         }
 
-
         .cert-badge img {
             width: 120px;
             height: auto;
         }
-
 
         .cert-text {
             margin-top: 20px;
@@ -162,13 +272,11 @@
             color: #666;
         }
 
-
         /* Services Section */
         .services {
             padding: 80px 0;
             background: #FAF7F0;
         }
-
 
         .services h2 {
             text-align: center;
@@ -177,14 +285,12 @@
             color: #C41E3A;
         }
 
-
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
             margin-top: 50px;
         }
-
 
         .service-card {
             background: white;
@@ -195,11 +301,9 @@
             border-top: 4px solid #C41E3A;
         }
 
-
         .service-card:hover {
             transform: translateY(-5px);
         }
-
 
         .service-card h3 {
             color: #C41E3A;
@@ -207,12 +311,10 @@
             font-size: 1.3rem;
         }
 
-
         .service-card p {
             color: #666;
             margin-bottom: 20px;
         }
-
 
         .service-button {
             background: #C41E3A;
@@ -224,18 +326,15 @@
             transition: background 0.3s;
         }
 
-
         .service-button:hover {
             background: #8B0000;
         }
-
 
         /* About Section */
         .about {
             padding: 80px 0;
             background: white;
         }
-
 
         .about-content {
             display: grid;
@@ -244,13 +343,11 @@
             align-items: center;
         }
 
-
         .about-text h2 {
             color: #C41E3A;
             font-size: 2.5rem;
             margin-bottom: 30px;
         }
-
 
         .about-text p {
             color: #666;
@@ -258,11 +355,9 @@
             font-size: 1.1rem;
         }
 
-
         .about-image {
             text-align: center;
         }
-
 
         .about-image img {
             width: 100%;
@@ -271,7 +366,6 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
 
-
         /* Contact Section */
         .contact {
             background: linear-gradient(135deg, #C41E3A 0%, #8B0000 100%);
@@ -279,13 +373,11 @@
             padding: 80px 0;
         }
 
-
         .contact h2 {
             text-align: center;
             font-size: 2.5rem;
             margin-bottom: 50px;
         }
-
 
         .contact-grid {
             display: grid;
@@ -293,23 +385,19 @@
             gap: 40px;
         }
 
-
         .contact-item {
             text-align: center;
         }
-
 
         .contact-item h3 {
             margin-bottom: 15px;
             font-size: 1.3rem;
         }
 
-
         .contact-item p {
             font-size: 1.1rem;
             opacity: 0.9;
         }
-
 
         /* Footer */
         footer {
@@ -319,7 +407,6 @@
             padding: 30px 0;
         }
 
-
         /* Responsive Design */
         @media (max-width: 768px) {
             .header-content {
@@ -328,21 +415,17 @@
                 gap: 20px;
             }
 
-
             .contact-header {
                 text-align: center;
             }
-
 
             .hero h2 {
                 font-size: 2rem;
             }
 
-
             .about-content {
                 grid-template-columns: 1fr;
             }
-
 
             .services h2, .about-text h2, .contact h2 {
                 font-size: 2rem;
@@ -351,6 +434,13 @@
     </style>
 </head>
 <body>
+    <!-- Cardinal Rules Header -->
+    <div class="cardinal-rules">
+        <div class="container">
+            <span class="rule-text" id="cardinalRule">Cardinal Rule #1: Always Back Up Your Data</span>
+        </div>
+    </div>
+
     <!-- Header -->
     <header>
         <div class="container">
@@ -370,16 +460,14 @@
         </div>
     </header>
 
-
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
             <h2>Professional Computer Services Across Maryland</h2>
-            <p>From custom system builds to comprehensive IT support, we deliver tailored solutions that meet your specific needs. CompTIA certified technician with years of experience.</p>
+            <p>From custom system builds to comprehensive IT support, we deliver tailored solutions that meet your specific needs. CompTIA certified technician serving Baltimore, Annapolis, Frederick, Rockville, Gaithersburg, and all of Maryland.</p>
             <a href="mailto:joseph@cardinalcomputersystems.com?subject=Professional Computer Services" class="cta-button">Get Started Today</a>
         </div>
     </section>
-
 
     <!-- Certifications -->
     <section class="certifications">
@@ -390,7 +478,6 @@
             <p class="cert-text"><strong>CompTIA Tech+ Certified Professional</strong> - Your assurance of expert technical knowledge and professional service standards.</p>
         </div>
     </section>
-
 
     <!-- Services Section -->
     <section class="services">
@@ -403,13 +490,11 @@
                     <a href="mailto:joseph@cardinalcomputersystems.com?subject=Remote System Support" class="service-button">Request Support</a>
                 </div>
 
-
                 <div class="service-card">
                     <h3>Managed Antivirus Protection</h3>
                     <p>Protect your personal data and business secrets with comprehensive security solutions. Keep your systems, intellectual property, and customer data safe from ransomware, phishing, malware, and cyberattacks.</p>
                     <a href="mailto:joseph@cardinalcomputersystems.com?subject=Managed Antivirus Protection" class="service-button">Get Protected</a>
                 </div>
-
 
                 <div class="service-card">
                     <h3>Smart Home Consultation</h3>
@@ -417,20 +502,17 @@
                     <a href="mailto:joseph@cardinalcomputersystems.com?subject=Smart Home Consultation" class="service-button">Schedule Consultation</a>
                 </div>
 
-
                 <div class="service-card">
                     <h3>Wi-Fi Health Checkup</h3>
                     <p>Experiencing slow internet despite paying for high-speed service? We'll optimize your router placement and install multiple access points throughout your home or business for seamless connectivity.</p>
                     <a href="mailto:joseph@cardinalcomputersystems.com?subject=Wi-Fi Health Checkup" class="service-button">Check My Wi-Fi</a>
                 </div>
 
-
                 <div class="service-card">
                     <h3>IT Consultation</h3>
                     <p>Strategic technology planning for your business. We assess your current infrastructure, identify improvements, and create cost-effective solutions to boost productivity and efficiency.</p>
                     <a href="mailto:joseph@cardinalcomputersystems.com?subject=IT Consultation" class="service-button">Book Consultation</a>
                 </div>
-
 
                 <div class="service-card">
                     <h3>Software Installation & Training</h3>
@@ -441,7 +523,6 @@
         </div>
     </section>
 
-
     <!-- About Section -->
     <section class="about">
         <div class="container">
@@ -450,7 +531,7 @@
                     <h2>Who We Are</h2>
                     <p>Cardinal Computer Systems takes a different approach to the IT industry. We believe everyone deserves technology solutions tailored to their specific needs.</p>
                     <p>Our team of certified engineers, designers, and technicians work closely with you to create the perfect system for your requirements. Whether you're a gamer, business owner, or casual user, we deliver custom solutions that exceed expectations.</p>
-                    <p>As a CompTIA Tech+ certified professional serving Maryland, we combine technical expertise with personalized service to ensure your technology works as hard as you do.</p>
+                    <p>As a CompTIA Tech+ certified professional serving Maryland including Baltimore, Annapolis, Frederick, Rockville, and surrounding areas, we combine technical expertise with personalized service to ensure your technology works as hard as you do.</p>
                 </div>
                 <div class="about-image">
                     <img src="https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=400&h=600&dpr=1" alt="Diverse IT Team Collaboration">
@@ -458,7 +539,6 @@
             </div>
         </div>
     </section>
-
 
     <!-- Contact Section -->
     <section class="contact">
@@ -486,12 +566,55 @@
         </div>
     </section>
 
-
-    <!-- Footer -->
-    <footer>
+        <footer>
         <div class="container">
-            <p>&copy; 2024 Cardinal Computer Systems. All rights reserved. | Professional IT Services across Maryland</p>
+            <p>&copy; 2024 Cardinal Computer Systems. All rights reserved. | Professional IT Services across Maryland | CompTIA Tech+ Certified</p>
         </div>
     </footer>
+    <script>
+        // Cardinal Rules rotation
+        const cardinalRules = [
+            "Cardinal Rule #1: Always Back Up Your Data",
+            "Cardinal Rule #2: Turn It Off and On Again", 
+            "Cardinal Rule #3: No, I Won't Fix Your Computer For Free",
+            "Cardinal Rule #4: Google It Before You Call Me",
+            "Cardinal Rule #5: Your Password Can't Be 'Password'",
+            "Cardinal Rule #6: Close Your Browser Tabs (All 47 of Them)",
+            "Cardinal Rule #7: Update Your Software or Face My Wrath",
+            "Cardinal Rule #8: Don't Click on Suspicious Links",
+            "Cardinal Rule #9: Clear Your Cache, Clear Your Mind",
+            "Cardinal Rule #10: I'm Not Magic, I'm Just Tech-Savvy",
+            "Cardinal Rule #11: Read the Error Message Before Panicking",
+            "Cardinal Rule #12: Your Computer Isn't Slow, You Have 200 Startup Programs",
+            "Cardinal Rule #13: WiFi Passwords Aren't 'wifi' or '12345'",
+            "Cardinal Rule #14: Restart Your Router Monthly, Not Your Career"
+        ];
+
+        let currentRuleIndex = Math.floor(Math.random() * 14); // Start with random rule
+        const ruleElement = document.getElementById('cardinalRule');
+
+        // Set initial random rule
+        document.addEventListener('DOMContentLoaded', function() {
+            ruleElement.textContent = cardinalRules[currentRuleIndex];
+        });
+
+        function rotateRule() {
+            ruleElement.style.opacity = '0';
+            setTimeout(() => {
+                // Randomize the rule selection
+                let newIndex;
+                do {
+                    newIndex = Math.floor(Math.random() * cardinalRules.length);
+                } while (newIndex === currentRuleIndex && cardinalRules.length > 1);
+                
+                currentRuleIndex = newIndex;
+                ruleElement.textContent = cardinalRules[currentRuleIndex];
+                ruleElement.style.opacity = '1';
+            }, 200);
+        }
+
+        // Rotate rules every 30 seconds
+        setInterval(rotateRule, 30000);
+    </script>
 </body>
 </html>
