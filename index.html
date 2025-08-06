@@ -205,9 +205,23 @@
             display: block;
         }
 
-        .contact-header .email {
+        .contact-button {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border: 2px solid white;
+            border-radius: 5px;
+            text-decoration: none;
             font-size: 0.9rem;
-            opacity: 0.9;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .contact-button:hover {
+            background: white;
+            color: #C41E3A;
+            transform: translateY(-1px);
         }
 
         /* Hero Section */
@@ -399,6 +413,27 @@
             opacity: 0.9;
         }
 
+        .contact-email-button {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 12px 24px;
+            border: 2px solid white;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .contact-email-button:hover {
+            background: white;
+            color: #C41E3A;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
         /* Footer */
         footer {
             background: #000;
@@ -454,7 +489,7 @@
                 </div>
                 <div class="contact-header">
                     <a href="tel:2024135403" class="phone" style="color: white; text-decoration: none;">(202) 413-5403</a>
-                    <a href="mailto:joseph@cardinalcomputersystems.com" class="email" style="color: white; text-decoration: none;">joseph@cardinalcomputersystems.com</a>
+                    <a href="mailto:joseph@cardinalcomputersystems.com" class="contact-button">Contact Us</a>
                 </div>
             </div>
         </div>
@@ -551,7 +586,7 @@
                 </div>
                 <div class="contact-item">
                     <h3>Email</h3>
-                    <p><a href="mailto:joseph@cardinalcomputersystems.com" style="color: white; text-decoration: none;">joseph@cardinalcomputersystems.com</a></p>
+                    <a href="mailto:joseph@cardinalcomputersystems.com" class="contact-email-button">Send Email</a>
                 </div>
                 <div class="contact-item">
                     <h3>Service Area</h3>
