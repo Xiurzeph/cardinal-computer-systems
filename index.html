@@ -31,8 +31,32 @@
     <link rel="apple-touch-icon" href="./apple-touch-icon.png">
     <link rel="manifest" href="./site.webmanifest">
 
+    <!-- SEO Files -->
+    <link rel="sitemap" type="application/xml" href="./sitemap.xml">
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="./cardinal-logo.png" as="image">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+
     <!-- Font Awesome for Social Media Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R9CFVRM1GT"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-R9CFVRM1GT');
+    </script>
+
+    <!-- Security Headers -->
+    <meta http-equiv="Strict-Transport-Security" content="max-age=31536000; includeSubDomains; preload">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
 
     <!-- Local Business Schema -->
     <script type="application/ld+json">
@@ -212,7 +236,6 @@
             border-radius: 50%;
             background: white;
             padding: 5px;
-            object-fit: contain;
         }
 
         .company-info h1 {
@@ -257,7 +280,7 @@
 
         /* Hero Section */
         .hero {
-            background: linear-gradient(rgba(196, 30, 58, 0.8), rgba(139, 0, 0, 0.8)), url('https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1') center/cover;
+            background: linear-gradient(rgba(196, 30, 58, 0.8), rgba(139, 0, 0, 0.8)), #333;
             color: white;
             padding: 80px 0;
             text-align: center;
@@ -308,8 +331,7 @@
 
         .cert-badge img {
             width: 120px;
-            height: 120px;
-            object-fit: contain;
+            height: auto;
         }
 
         .cert-text {
@@ -459,7 +481,7 @@
             font-size: 1.25rem;
             margin-bottom: 15px;
             position: relative;
-            padding-left: 25px; /* Space for the icon */
+            padding-left: 35px; /* Space for the icon */
         }
 
         .faq-item h3::before {
@@ -699,7 +721,10 @@
         <div class="container">
             <div class="header-content">
                 <div class="logo-section">
-                    <img src="./cardinal-logo.png" alt="Cardinal Computer Systems Logo" class="logo" width="60" height="60">
+                    <picture>
+                        <source srcset="./cardinal-logo.webp" type="image/webp">
+                        <img src="./cardinal-logo.png" alt="Cardinal Computer Systems Logo" class="logo" width="60" height="60" loading="eager">
+                    </picture>
                     <div class="company-info">
                         <h1>Cardinal Computer Systems</h1>
                         <p class="tagline">Professional IT Services & Custom Solutions</p>
@@ -805,7 +830,10 @@
                         <p><strong>Having served the Maryland community for years, we understand the unique technological needs of both its vibrant small businesses and its diverse residential areas. From the bustling streets of Baltimore to the quiet neighborhoods of Frederick, and the government contractors in Rockville and Gaithersburg, we are dedicated to building long-term relationships and becoming the trusted IT partner for our neighbors. We combine technical expertise with a deep understanding of local needs to ensure your technology works as hard as you do, right here in Maryland.</strong></p>
                     </div>
                     <div class="about-image">
-                        <img src="https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=400&h=600&dpr=1" alt="Diverse IT Team Collaboration" width="400" height="300">
+                        <picture>
+                            <source srcset="https://images.pexels.com/photos/3184292/pexels-photo-3184292.webp?auto=compress&cs=tinysrgb&w=400&h=600&dpr=1" type="image/webp">
+                            <img src="https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=400&h=600&dpr=1" alt="Diverse IT Team Collaboration" width="400" height="300" loading="lazy">
+                        </picture>
                     </div>
                 </div>
             </div>
