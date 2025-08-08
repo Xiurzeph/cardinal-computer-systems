@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cardinal Computer Systems - Professional IT Services in Maryland</title>
+    <title>Cardinal Computer Systems - MD IT Services</title>
     <meta name="description" content="Professional computer services, custom systems, and IT support across Maryland. CompTIA certified technician available M-F 9am-5pm with extended hours.">
     <meta name="keywords" content="IT services Maryland, computer repair, remote support, smart home, wifi setup, antivirus protection, custom PC builds, software installation, IT consultation, CompTIA certified">
     <meta name="author" content="Joseph Ruiz, Cardinal Computer Systems">
@@ -11,7 +11,7 @@
     <meta name="language" content="en-US">
     <meta name="geo.region" content="US-MD">
     <meta name="geo.placename" content="Maryland">
-    
+
     <!-- Open Graph / Social Media -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="Cardinal Computer Systems - Professional IT Services in Maryland">
@@ -19,12 +19,18 @@
     <meta property="og:url" content="https://cardinalcomputersystems.com">
     <meta property="og:site_name" content="Cardinal Computer Systems">
     <meta property="og:locale" content="en_US">
-    
+
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Cardinal Computer Systems - Professional IT Services">
     <meta name="twitter:description" content="CompTIA certified IT services across Maryland. Remote support, smart home, wifi optimization, and more.">
-    
+
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+
     <!-- Local Business Schema -->
     <script type="application/ld+json">
     {
@@ -44,15 +50,15 @@
             "@type": "State",
             "name": "Maryland"
         },
-        "openingHours": "Mo-Fr 09:00-17:00",
-        "openingHoursSpecification": {
-            "@type": "OpeningHoursSpecification",
-            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-            "opens": "09:00",
-            "closes": "17:00"
-        },
-        "serviceType": "IT Services",
-        "priceRange": "$",
+        "openingHoursSpecification": [
+            {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                "opens": "09:00",
+                "closes": "17:00"
+            }
+        ],
+        "priceRange": "$$",
         "founder": {
             "@type": "Person",
             "name": "Joseph Ruiz"
@@ -72,7 +78,7 @@
                 }
             },
             {
-                "@type": "Offer", 
+                "@type": "Offer",
                 "itemOffered": {
                     "@type": "Service",
                     "name": "Managed Antivirus Protection",
@@ -82,7 +88,7 @@
             {
                 "@type": "Offer",
                 "itemOffered": {
-                    "@type": "Service", 
+                    "@type": "Service",
                     "name": "Smart Home Consultation",
                     "description": "Smart home device recommendation, installation, and configuration services"
                 }
@@ -91,7 +97,7 @@
                 "@type": "Offer",
                 "itemOffered": {
                     "@type": "Service",
-                    "name": "Wi-Fi Health Checkup", 
+                    "name": "Wi-Fi Health Checkup",
                     "description": "Wireless network optimization and access point installation services"
                 }
             },
@@ -147,11 +153,12 @@
 
         .rule-text {
             animation: fadeInOut 30s infinite;
+            transition: opacity 0.5s ease-in-out;
         }
 
         @keyframes fadeInOut {
             0%, 20% { opacity: 1; }
-            25%, 75% { opacity: 1; }
+            22%, 78% { opacity: 1; }
             80%, 100% { opacity: 0; }
         }
 
@@ -168,6 +175,7 @@
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
+            gap: 20px;
         }
 
         .logo-section {
@@ -176,12 +184,32 @@
             gap: 15px;
         }
 
+        .main-nav {
+            display: flex;
+            gap: 30px;
+        }
+
+        .main-nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            padding: 5px 0;
+            border-bottom: 2px solid transparent;
+        }
+
+        .main-nav a:hover {
+            color: #FAF7F0;
+            border-bottom-color: #FAF7F0;
+        }
+
         .logo {
             width: 60px;
             height: 60px;
             border-radius: 50%;
             background: white;
             padding: 5px;
+            object-fit: contain;
         }
 
         .company-info h1 {
@@ -277,7 +305,8 @@
 
         .cert-badge img {
             width: 120px;
-            height: auto;
+            height: 120px;
+            object-fit: contain;
         }
 
         .cert-text {
@@ -290,6 +319,11 @@
         .services {
             padding: 80px 0;
             background: #FAF7F0;
+        }
+
+        /* Smooth scrolling for anchor links */
+        html {
+            scroll-behavior: smooth;
         }
 
         .services h2 {
@@ -376,8 +410,74 @@
         .about-image img {
             width: 100%;
             max-width: 400px;
+            height: 300px;
+            object-fit: cover;
             border-radius: 10px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        /* FAQ Section */
+        .faq {
+            padding: 80px 0;
+            background: #FAF7F0;
+            text-align: center;
+        }
+
+        .faq h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: #C41E3A;
+        }
+
+        .faq-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+            text-align: left; /* Align text within FAQ items to the left */
+        }
+
+        .faq-item {
+            background: white;
+            padding: 25px 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: transform 0.2s ease-in-out;
+            border-left: 5px solid #C41E3A;
+        }
+
+        .faq-item:hover {
+            transform: translateY(-3px);
+        }
+
+        .faq-item h3 {
+            color: #C41E3A;
+            font-size: 1.25rem;
+            margin-bottom: 15px;
+            position: relative;
+            padding-left: 25px; /* Space for the icon */
+        }
+
+        .faq-item h3::before {
+            content: "❓"; /* Question mark icon */
+            position: absolute;
+            left: 0;
+            font-size: 1.2em;
+            line-height: 1;
+        }
+
+        .faq-item p {
+            color: #555;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        /* Responsive adjustment for FAQ */
+        @media (max-width: 768px) {
+            .faq-items {
+                grid-template-columns: 1fr;
+            }
         }
 
         /* Contact Section */
@@ -448,10 +548,24 @@
                 justify-content: center;
                 text-align: center;
                 gap: 20px;
+                flex-direction: column;
+            }
+
+            .main-nav {
+                order: 3;
+                width: 100%;
+                justify-content: center;
+                gap: 20px;
+                margin-top: 10px;
             }
 
             .contact-header {
                 text-align: center;
+                order: 2;
+            }
+
+            .logo-section {
+                order: 1;
             }
 
             .hero h2 {
@@ -481,136 +595,198 @@
         <div class="container">
             <div class="header-content">
                 <div class="logo-section">
-                    <img src="./cardinal-logo.png" alt="Cardinal Computer Systems Logo" class="logo">
+                    <img src="./cardinal-logo.png" alt="Cardinal Computer Systems Logo" class="logo" width="60" height="60">
                     <div class="company-info">
                         <h1>Cardinal Computer Systems</h1>
                         <p class="tagline">Professional IT Services & Custom Solutions</p>
                     </div>
                 </div>
+                <nav class="main-nav">
+                    <a href="#services">Services</a>
+                    <a href="#about">About</a>
+                    <a href="#faq">FAQ</a>
+                    <a href="#contact">Contact</a>
+                </nav>
                 <div class="contact-header">
-                    <a href="tel:2024135403" class="phone" style="color: white; text-decoration: none;">(202) 413-5403</a>
-                    <a href="mailto:joseph@cardinalcomputersystems.com" class="contact-button">Contact Us</a>
+                    <a href="tel:2024135403" class="phone" style="color: white; text-decoration: none;" aria-label="Call Cardinal Computer Systems at 202-413-5403">(202) 413-5403</a>
+                    <a href="mailto:joseph@cardinalcomputersystems.com" class="contact-button" aria-label="Contact us by email">Contact Us</a>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <h2>Professional Computer Services Across Maryland</h2>
-            <p>From custom system builds to comprehensive IT support, we deliver tailored solutions that meet your specific needs. CompTIA certified technician serving Baltimore, Annapolis, Frederick, Rockville, Gaithersburg, and all of Maryland.</p>
-            <a href="mailto:joseph@cardinalcomputersystems.com?subject=Professional Computer Services" class="cta-button">Get Started Today</a>
-        </div>
-    </section>
-
-    <!-- Certifications -->
-    <section class="certifications">
-        <div class="container">
-            <div class="cert-badge">
-                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDEyMCAxMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxjaXJjbGUgY3g9IjYwIiBjeT0iNjAiIHI9IjU4IiBmaWxsPSIjRkZGIiBzdHJva2U9IiM2NjY2NjYiIHN0cm9rZS13aWR0aD0iNCIvPgo8Y2lyY2xlIGN4PSI2MCIgY3k9IjYwIiByPSI0NSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjNjY2NjY2IiBzdHJva2Utd2lkdGg9IjIiLz4KPHRleHQgeD0iNjAiIHk9IjQwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjQzQxRTNBIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTQiIGZvbnQtd2VpZ2h0PSJib2xkIj5Db21wVElBPC90ZXh0Pgo8cmVjdCB4PSIyMCIgeT0iNTAiIHdpZHRoPSI4MCIgaGVpZ2h0PSIyMCIgZmlsbD0iI0M0MUUzQSIgcng9IjMiLz4KPHRleHQgeD0iNjAiIHk9IjY0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjRkZGIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSJib2xkIj5UZWNoKzwvdGV4dD4KPHRleHQgeD0iNjAiIHk9IjgwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjQzQxRTNBIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTAiIGZvbnQtd2VpZ2h0PSJib2xkIj5DRVJUSUZJRUQ8L3RleHQ+Cjwvc3ZnPgo=" alt="CompTIA Tech+ Certified">
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <h2>Professional Computer Services Across Maryland</h2>
+                <p>From custom system builds to comprehensive IT support, we deliver tailored solutions that meet your specific needs. <strong>Are you struggling with persistent tech glitches, slow systems, or the worry of data loss?</strong> We understand the frustration and disruption these issues cause for both your personal life and business operations. Our CompTIA certified technician serves Baltimore, Annapolis, Frederick, Rockville, Gaithersburg, and all of Maryland, providing expert assistance to get you back on track efficiently and reliably.</p>
+                <a href="mailto:joseph@cardinalcomputersystems.com?subject=Professional Computer Services" class="cta-button">Get Started Today</a>
             </div>
-            <p class="cert-text"><strong>CompTIA Tech+ Certified Professional</strong> - Your assurance of expert technical knowledge and professional service standards.</p>
-        </div>
-    </section>
+        </section>
 
-    <!-- Services Section -->
-    <section class="services">
-        <div class="container">
-            <h2>Our Services</h2>
-            <div class="services-grid">
-                <div class="service-card">
-                    <h3>Remote System Support</h3>
-                    <p>It's never a good day when your computer or cellphone stops working. Get back online quickly with our remote support services. Subscribe to maintenance for priority assistance whenever you need it.</p>
-                    <a href="mailto:joseph@cardinalcomputersystems.com?subject=Remote System Support" class="service-button">Request Support</a>
+        <!-- Certifications -->
+        <section class="certifications">
+            <div class="container">
+                <div class="cert-badge">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDEyMCAxMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxjaXJjbGUgY3g9IjYwIiBjeT0iNjAiIHI9IjU4IiBmaWxsPSIjRkZGIiBzdHJva2U9IiM2NjY2NjYiIHN0cm9rZS13aWR0aD0iNCIvPgo8Y2lyY2xlIGN4PSI2MCIgY3k9IjYwIiByPSI0NSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjNjY2NjY2IiBzdHJva2Utd2lkdGg9IjIiLz4KPHRleHQgeD0iNjAiIHk9IjQwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjQzQxRTNBIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtd2VpZ2h0PSJib2xkIj5Db21wVElBPC90ZXh0Pgo8cmVjdCB4PSIyMCIgeT0iNTAiIHdpZHRoPSI4MCIgaGVpZ2h0PSIyMCIgZmlsbD0iI0M0MUUzQSIgcng9IjMiLz4KPHRleHQgeD0iNjAiIHk9IjY0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjRkZGIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtd2VpZ2h0PSJib2xkIj5UZWNoKzwvdGV4dD4KPHRleHQgeD0iNjAiIHk9IjgwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjQzQxRTNBIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtd2VpZ2h0PSJib2xkIj5DRVJUSUZJRUQ8L3RleHQ+Cjwvc3ZnPgo=" alt="CompTIA Tech+ Certified" width="120" height="120">
                 </div>
-
-                <div class="service-card">
-                    <h3>Managed Antivirus Protection</h3>
-                    <p>Protect your personal data and business secrets with comprehensive security solutions. Keep your systems, intellectual property, and customer data safe from ransomware, phishing, malware, and cyberattacks.</p>
-                    <a href="mailto:joseph@cardinalcomputersystems.com?subject=Managed Antivirus Protection" class="service-button">Get Protected</a>
-                </div>
-
-                <div class="service-card">
-                    <h3>Smart Home Consultation</h3>
-                    <p>Transform your home into a smart, secure, and comfortable living space. We recommend and install smart devices that automate your daily routines and enhance your home security.</p>
-                    <a href="mailto:joseph@cardinalcomputersystems.com?subject=Smart Home Consultation" class="service-button">Schedule Consultation</a>
-                </div>
-
-                <div class="service-card">
-                    <h3>Wi-Fi Health Checkup</h3>
-                    <p>Experiencing slow internet despite paying for high-speed service? We'll optimize your router placement and install multiple access points throughout your home or business for seamless connectivity.</p>
-                    <a href="mailto:joseph@cardinalcomputersystems.com?subject=Wi-Fi Health Checkup" class="service-button">Check My Wi-Fi</a>
-                </div>
-
-                <div class="service-card">
-                    <h3>IT Consultation</h3>
-                    <p>Strategic technology planning for your business. We assess your current infrastructure, identify improvements, and create cost-effective solutions to boost productivity and efficiency.</p>
-                    <a href="mailto:joseph@cardinalcomputersystems.com?subject=IT Consultation" class="service-button">Book Consultation</a>
-                </div>
-
-                <div class="service-card">
-                    <h3>Software Installation & Training</h3>
-                    <p>Get new software up and running properly with professional installation and personalized training. We ensure your team knows how to use new applications effectively and maximize your software investment.</p>
-                    <a href="mailto:joseph@cardinalcomputersystems.com?subject=Software Installation & Training" class="service-button">Schedule Training</a>
-                </div>
+                <p class="cert-text"><strong>CompTIA Tech+ Certified Professional</strong> - Your assurance of expert technical knowledge and professional service standards.</p>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- About Section -->
-    <section class="about">
-        <div class="container">
-            <div class="about-content">
-                <div class="about-text">
-                    <h2>Who We Are</h2>
-                    <p>Cardinal Computer Systems takes a different approach to the IT industry. We believe everyone deserves technology solutions tailored to their specific needs.</p>
-                    <p>Our team of certified engineers, designers, and technicians work closely with you to create the perfect system for your requirements. Whether you're a gamer, business owner, or casual user, we deliver custom solutions that exceed expectations.</p>
-                    <p>As a CompTIA Tech+ certified professional serving Maryland including Baltimore, Annapolis, Frederick, Rockville, and surrounding areas, we combine technical expertise with personalized service to ensure your technology works as hard as you do.</p>
+        <!-- Services Section -->
+        <section class="services" id="services">
+            <div class="container">
+                <h2>Our Services</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <h3>Remote System Support</h3>
+                        <p>It's never a good day when your computer or cellphone stops working, but it happens to everyone. <strong>Are you frustrated by slow computers, sudden crashes, or mysterious error messages that disrupt your workflow or leisure time?</strong> We understand how disruptive tech issues can be to your productivity and daily life. Get back online quickly and efficiently with our remote support services. We can troubleshoot a wide range of software and connectivity issues, perform diagnostics, and even guide you through complex fixes, all without the need for an on-site visit. For proactive care and priority assistance, consider subscribing to our maintenance plans, ensuring you have expert help whenever you need it.</p>
+                        <a href="mailto:joseph@cardinalcomputersystems.com?subject=Remote System Support" class="service-button">Request Support</a>
+                    </div>
+
+                    <div class="service-card">
+                        <h3>Managed Antivirus Protection</h3>
+                        <p>In today's digital landscape, protecting your personal data and business secrets is more critical than ever. <strong>Are you worried about ransomware locking up your files, phishing scams stealing your credentials, or silent malware compromising your systems?</strong> Our comprehensive managed antivirus protection offers a robust defense against these and other evolving cyber threats. We don't just install software; we provide continuous monitoring, deploy real-time updates, and offer rapid response to emerging threats. This ensures your valuable systems, intellectual property, and sensitive customer data remain secure, giving you peace of mind in an increasingly complex online world.</p>
+                        <a href="mailto:joseph@cardinalcomputersystems.com?subject=Managed Antivirus Protection" class="service-button">Get Protected</a>
+                    </div>
+
+                    <div class="service-card">
+                        <h3>Smart Home Consultation</h3>
+                        <p>Imagine a home that anticipates your needs, secures your family, and saves you energy. <strong>Are you curious about smart home technology but overwhelmed by the myriad of devices and complex setups?</strong> Let us help you transform your home into a truly intelligent, secure, and comfortable living space. We provide personalized consultations to understand your lifestyle and recommend the best smart devices for your needs, from automated lighting and thermostats to advanced security cameras and voice assistants. Our services include professional installation and seamless configuration, ensuring all your smart devices work together harmoniously to automate your daily routines and enhance your overall home security and convenience.</p>
+                        <a href="mailto:joseph@cardinalcomputersystems.com?subject=Smart Home Consultation" class="service-button">Schedule Consultation</a>
+                    </div>
+
+                    <div class="service-card">
+                        <h3>Wi-Fi Health Checkup</h3>
+                        <p><strong>Are you paying for high-speed internet but still experiencing frustratingly slow Wi-Fi, dropped connections, or annoying dead zones in your home or office?</strong> A strong, reliable wireless network is the backbone of modern connectivity. Our comprehensive Wi-Fi Health Checkup identifies the root causes of your network issues. We'll analyze your current router placement, identify sources of interference, and assess signal strength across your property. Based on our findings, we'll optimize your existing setup and recommend and install additional access points or mesh network solutions throughout your home or business. The result is seamless, high-speed connectivity everywhere you need it, maximizing your internet investment and eliminating digital frustration.</p>
+                        <a href="mailto:joseph@cardinalcomputersystems.com?subject=Wi-Fi Health Checkup" class="service-button">Check My Wi-Fi</a>
+                    </div>
+
+                    <div class="service-card">
+                        <h3>IT Consultation</h3>
+                        <p>For businesses of all sizes, strategic technology planning is no longer a luxury—it's a necessity. <strong>Is your current IT infrastructure holding back your team's productivity, or are you unsure how to leverage technology to achieve your business goals?</strong> Our expert IT Consultation services are designed to help you navigate the complexities of modern business technology. We conduct thorough assessments of your existing infrastructure, identifying bottlenecks, security vulnerabilities, and areas for improvement. We then collaborate with you to create tailored, cost-effective solutions that streamline operations, boost productivity, enhance data security, and position your business for sustainable growth. Let us be your trusted technology partner.</p>
+                        <a href="mailto:joseph@cardinalcomputersystems.com?subject=IT Consultation" class="service-button">Book Consultation</a>
+                    </div>
+
+                    <div class="service-card">
+                        <h3>Software Installation & Training</h3>
+                        <p>Getting new software to work seamlessly and ensuring your team can use it effectively can be a challenge. <strong>Have you ever downloaded a new program only to find the installation process confusing, or your staff struggling to adapt to new applications, leading to wasted time and lost productivity?</strong> We offer professional software deployment and personalized user training services. Whether it's a new operating system, critical business applications, or specialized design software, we ensure everything is installed correctly and configured for optimal performance. More importantly, we provide hands-on training tailored to your needs, empowering your team to confidently use new applications, maximize their features, and truly get the most out of your software investment.</p>
+                        <a href="mailto:joseph@cardinalcomputersystems.com?subject=Software Installation & Training" class="service-button">Schedule Training</a>
+                    </div>
                 </div>
-                <div class="about-image">
-                    <img src="https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=400&h=600&dpr=1" alt="Diverse IT Team Collaboration">
+                
+                <!-- Additional Internal Links Section -->
+                <div class="internal-links" style="margin-top: 50px; text-align: center;">
+                    <h3 style="color: #C41E3A; margin-bottom: 20px;">Quick Navigation</h3>
+                    <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+                        <a href="#about" style="color: #C41E3A; text-decoration: none; padding: 10px 20px; border: 2px solid #C41E3A; border-radius: 5px; transition: all 0.3s ease;">Learn About Us</a>
+                        <a href="#faq" style="color: #C41E3A; text-decoration: none; padding: 10px 20px; border: 2px solid #C41E3A; border-radius: 5px; transition: all 0.3s ease;">Common Questions</a>
+                        <a href="#contact" style="color: #C41E3A; text-decoration: none; padding: 10px 20px; border: 2px solid #C41E3A; border-radius: 5px; transition: all 0.3s ease;">Get In Touch</a>
+                        <a href="tel:2024135403" style="color: #C41E3A; text-decoration: none; padding: 10px 20px; border: 2px solid #C41E3A; border-radius: 5px; transition: all 0.3s ease;">Call Now</a>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Contact Section -->
-    <section class="contact">
-        <div class="container">
-            <h2>Contact Us</h2>
-            <div class="contact-grid">
-                <div class="contact-item">
-                    <h3>Phone</h3>
-                    <p><a href="tel:2024135403" style="color: white; text-decoration: none;">(202) 413-5403</a></p>
-                </div>
-                <div class="contact-item">
-                    <h3>Email</h3>
-                    <a href="mailto:joseph@cardinalcomputersystems.com" class="contact-email-button">Send Email</a>
-                </div>
-                <div class="contact-item">
-                    <h3>Service Area</h3>
-                    <p>Maryland State</p>
-                </div>
-                <div class="contact-item">
-                    <h3>Business Hours</h3>
-                    <p>Monday - Friday: 9am - 5pm<br>
-                    <small>Extended hours available upon request</small></p>
+        <!-- About Section -->
+        <section class="about" id="about">
+            <div class="container">
+                <div class="about-content">
+                    <div class="about-text">
+                        <h2>Who We Are</h2>
+                        <p>Cardinal Computer Systems takes a different approach to the IT industry. We believe everyone deserves technology solutions tailored to their specific needs, whether that's for home, small business, or enterprise-level requirements. Our team of certified engineers, designers, and technicians works closely with you to create the perfect system for your requirements. Whether you're a gamer, business owner, or casual user, we deliver custom solutions that exceed expectations.</p>
+                        <p><strong>Founded by Joseph, a CompTIA Tech+ certified professional with over 15 years of hands-on experience in IT infrastructure, cybersecurity, and user support, Cardinal Computer Systems was born out of a passion for problem-solving and a desire to provide truly personalized tech services. Joseph's journey in IT began with building custom computers for friends and family, evolving into a career dedicated to demystifying technology and making it work seamlessly for everyone.</strong></p>
+                        <p><strong>Having served the Maryland community for years, we understand the unique technological needs of both its vibrant small businesses and its diverse residential areas. From the bustling streets of Baltimore to the quiet neighborhoods of Frederick, and the government contractors in Rockville and Gaithersburg, we are dedicated to building long-term relationships and becoming the trusted IT partner for our neighbors. We combine technical expertise with a deep understanding of local needs to ensure your technology works as hard as you do, right here in Maryland.</strong></p>
+                    </div>
+                    <div class="about-image">
+                        <img src="https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=400&h=600&dpr=1" alt="Diverse IT Team Collaboration" width="400" height="300">
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-        <footer>
+        <!-- FAQ Section -->
+        <section class="faq" id="faq">
+            <div class="container">
+                <h2>Frequently Asked Questions</h2>
+                <div class="faq-items">
+                    <div class="faq-item">
+                        <h3>What areas in Maryland do you serve?</h3>
+                        <p>We proudly serve clients throughout the <strong>DMV (D.C., Maryland, Virginia) region, Baltimore, and Southern Maryland</strong>. While we don't typically cover the Appalachian Mountains area, we can make exceptions for special requests. Just reach out to discuss your specific location!</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>How does remote support work?</h3>
+                        <p>Our remote support services are powered by <strong>JumpCloud</strong>, a highly secure and reliable platform. Once you initiate a session, we'll guide you through a simple process to grant us temporary, secure access to your system. This allows us to diagnose and resolve issues efficiently without an in-person visit, all while ensuring your data remains private and secure.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What types of devices and operating systems do you support?</h3>
+                        <p>We offer comprehensive support for a wide range of devices and operating systems, including <strong>Windows, Linux, and Android</strong>. For smart home systems, we specialize in <strong>Vivint and Ring</strong> integration and troubleshooting. If you have another system, just ask—we may still be able to help!</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Do you offer on-site visits for services?</h3>
+                        <p>Yes, <strong>on-site visits are available</strong> when necessary, particularly for <strong>hardware diagnosis and repair</strong> or if your location is a <strong>secure site</strong> requiring physical presence. For any on-site service beyond a 15-mile radius from our base, a travel fee of <strong>50 cents per mile</strong> applies.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What is the typical response time for support requests?</h3>
+                        <p>We aim for prompt service. For new inquiries, we typically respond within <strong>24 hours</strong>. Clients on a maintenance plan receive priority assistance and faster response times, ensuring minimal downtime.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>How can I prepare for a remote support session or consultation?</h3>
+                        <p>To ensure a smooth remote session or consultation, please ensure you have a <strong>stable internet connection and reliable power</strong>. If you're experiencing an issue, having any <strong>error messages</strong> or a brief description of the problem ready can also significantly speed up the troubleshooting process. For screen sharing, a good internet connection is essential.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Contact Section -->
+        <section class="contact" id="contact">
+            <div class="container">
+                <h2>Contact Us</h2>
+                <div class="contact-grid">
+                    <div class="contact-item">
+                        <h3>Phone</h3>
+                        <p><a href="tel:2024135403" style="color: white; text-decoration: none;">(202) 413-5403</a></p>
+                    </div>
+                    <div class="contact-item">
+                        <h3>Email</h3>
+                        <a href="mailto:joseph@cardinalcomputersystems.com" class="contact-email-button">Send Email</a>
+                    </div>
+                    <div class="contact-item">
+                        <h3>Service Area</h3>
+                        <p>Maryland State</p>
+                    </div>
+                    <div class="contact-item">
+                        <h3>Business Hours</h3>
+                        <p>Monday - Friday: 9am - 5pm<br>
+                        <small>Extended hours available upon request</small></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
         <div class="container">
-            <p>&copy; 2024 Cardinal Computer Systems. All rights reserved. | Professional IT Services across Maryland | CompTIA Tech+ Certified</p>
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+                <p>&copy; 2024 Cardinal Computer Systems. All rights reserved. | Professional IT Services across Maryland | CompTIA Tech+ Certified</p>
+                <div style="display: flex; gap: 20px;">
+                    <a href="#services" style="color: white; text-decoration: none;">Services</a>
+                    <a href="#about" style="color: white; text-decoration: none;">About</a>
+                    <a href="#faq" style="color: white; text-decoration: none;">FAQ</a>
+                    <a href="#contact" style="color: white; text-decoration: none;">Contact</a>
+                    <a href="mailto:joseph@cardinalcomputersystems.com" style="color: white; text-decoration: none;">Email</a>
+                </div>
+            </div>
         </div>
     </footer>
     <script>
         // Cardinal Rules rotation
         const cardinalRules = [
             "Cardinal Rule #1: Always Back Up Your Data",
-            "Cardinal Rule #2: Turn It Off and On Again", 
+            "Cardinal Rule #2: Turn It Off and On Again",
             "Cardinal Rule #3: No, I Won't Fix Your Computer For Free",
             "Cardinal Rule #4: Google It Before You Call Me",
             "Cardinal Rule #5: Your Password Can't Be 'Password'",
@@ -625,7 +801,7 @@
             "Cardinal Rule #14: Restart Your Router Monthly, Not Your Career"
         ];
 
-        let currentRuleIndex = Math.floor(Math.random() * 14); // Start with random rule
+        let currentRuleIndex = Math.floor(Math.random() * cardinalRules.length); // Start with random rule
         const ruleElement = document.getElementById('cardinalRule');
 
         // Set initial random rule
@@ -641,11 +817,11 @@
                 do {
                     newIndex = Math.floor(Math.random() * cardinalRules.length);
                 } while (newIndex === currentRuleIndex && cardinalRules.length > 1);
-                
+
                 currentRuleIndex = newIndex;
                 ruleElement.textContent = cardinalRules[currentRuleIndex];
                 ruleElement.style.opacity = '1';
-            }, 200);
+            }, 500); // Match this timeout with the CSS transition duration
         }
 
         // Rotate rules every 30 seconds
