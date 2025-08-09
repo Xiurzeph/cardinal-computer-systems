@@ -505,7 +505,168 @@
             }
         }
 
-        /* Contact Section */
+        /* Contact Form Modal Styles */
+        .contact-form-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            backdrop-filter: blur(3px);
+        }
+
+        .contact-form-modal.show {
+            display: block;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            margin: 5% auto;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .contact-form h3 {
+            color: #C41E3A;
+            margin-bottom: 20px;
+            text-align: center;
+            margin-top: 0;
+        }
+
+        .form-close {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            font-size: 28px;
+            font-weight: bold;
+            color: #aaa;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .form-close:hover {
+            color: #C41E3A;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #C41E3A;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-submit {
+            background: #C41E3A;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s ease;
+        }
+
+        .form-submit:hover {
+            background: #8B0000;
+        }
+
+        .form-submit:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .form-note {
+            font-size: 0.9rem;
+            color: #666;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 15% auto;
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            position: relative;
+        }
+
+        .modal-close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            right: 15px;
+            top: 10px;
+            cursor: pointer;
+        }
+
+        .modal-close:hover {
+            color: #C41E3A;
+        }
         .contact {
             background: linear-gradient(135deg, #C41E3A 0%, #8B0000 100%);
             color: white;
@@ -738,7 +899,7 @@
                 </nav>
                 <div class="contact-header">
                     <a href="tel:2024135403" class="phone" style="color: white; text-decoration: none;" aria-label="Call Cardinal Computer Systems at 202-413-5403">(202) 413-5403</a>
-                    <a href="mailto:joseph@cardinalcomputersystems.com" class="contact-button" aria-label="Contact us by email">Contact Us</a>
+                    <a href="mailto:joseph@cardinalcomputersystems.com" class="contact-button" aria-label="Email us">Email Us</a>
                 </div>
             </div>
         </div>
@@ -750,7 +911,7 @@
             <div class="container">
                 <h2>Professional Computer Services Across Maryland</h2>
                 <p>From custom system builds to comprehensive IT support, we deliver tailored solutions that meet your specific needs. <strong>Are you struggling with persistent tech glitches, slow systems, or the worry of data loss?</strong> We understand the frustration and disruption these issues cause for both your personal life and business operations. Our CompTIA certified technician serves Baltimore, Annapolis, Frederick, Rockville, Gaithersburg, and all of Maryland, providing expert assistance to get you back on track efficiently and reliably.</p>
-                <a href="mailto:joseph@cardinalcomputersystems.com?subject=Professional Computer Services" class="cta-button">Get Started Today</a>
+                <a href="#contact" class="cta-button" onclick="event.preventDefault(); openContactForm(); prefillService('General Inquiry')">Get Started Today</a>
             </div>
         </section>
 
@@ -772,37 +933,37 @@
                     <div class="service-card">
                         <h3>Remote System Support</h3>
                         <p>It's never a good day when your computer or cellphone stops working, but it happens to everyone. <strong>Are you frustrated by slow computers, sudden crashes, or mysterious error messages that disrupt your workflow or leisure time?</strong> We understand how disruptive tech issues can be to your productivity and daily life. Get back online quickly and efficiently with our remote support services. We can troubleshoot a wide range of software and connectivity issues, perform diagnostics, and even guide you through complex fixes, all without the need for an on-site visit. For proactive care and priority assistance, consider subscribing to our maintenance plans, ensuring you have expert help whenever you need it.</p>
-                        <a href="mailto:joseph@cardinalcomputersystems.com?subject=Remote System Support" class="service-button">Request Support</a>
+                        <a href="#contact" class="service-button" onclick="event.preventDefault(); openContactForm(); prefillService('Remote System Support')">Request Support</a>
                     </div>
 
                     <div class="service-card">
                         <h3>Managed Antivirus Protection</h3>
                         <p>In today's digital landscape, protecting your personal data and business secrets is more critical than ever. <strong>Are you worried about ransomware locking up your files, phishing scams stealing your credentials, or silent malware compromising your systems?</strong> Our comprehensive managed antivirus protection offers a robust defense against these and other evolving cyber threats. We don't just install software; we provide continuous monitoring, deploy real-time updates, and offer rapid response to emerging threats. This ensures your valuable systems, intellectual property, and sensitive customer data remain secure, giving you peace of mind in an increasingly complex online world.</p>
-                        <a href="mailto:joseph@cardinalcomputersystems.com?subject=Managed Antivirus Protection" class="service-button">Get Protected</a>
+                        <a href="#contact" class="service-button" onclick="event.preventDefault(); openContactForm(); prefillService('Managed Antivirus Protection')">Get Protected</a>
                     </div>
 
                     <div class="service-card">
                         <h3>Smart Home Consultation</h3>
                         <p>Imagine a home that anticipates your needs, secures your family, and saves you energy. <strong>Are you curious about smart home technology but overwhelmed by the myriad of devices and complex setups?</strong> Let us help you transform your home into a truly intelligent, secure, and comfortable living space. We provide personalized consultations to understand your lifestyle and recommend the best smart devices for your needs, from automated lighting and thermostats to advanced security cameras and voice assistants. Our services include professional installation and seamless configuration, ensuring all your smart devices work together harmoniously to automate your daily routines and enhance your overall home security and convenience.</p>
-                        <a href="mailto:joseph@cardinalcomputersystems.com?subject=Smart Home Consultation" class="service-button">Schedule Consultation</a>
+                        <a href="#contact" class="service-button" onclick="event.preventDefault(); openContactForm(); prefillService('Smart Home Consultation')">Schedule Consultation</a>
                     </div>
 
                     <div class="service-card">
                         <h3>Wi-Fi Health Checkup</h3>
                         <p><strong>Are you paying for high-speed internet but still experiencing frustratingly slow Wi-Fi, dropped connections, or annoying dead zones in your home or office?</strong> A strong, reliable wireless network is the backbone of modern connectivity. Our comprehensive Wi-Fi Health Checkup identifies the root causes of your network issues. We'll analyze your current router placement, identify sources of interference, and assess signal strength across your property. Based on our findings, we'll optimize your existing setup and recommend and install additional access points or mesh network solutions throughout your home or business. The result is seamless, high-speed connectivity everywhere you need it, maximizing your internet investment and eliminating digital frustration.</p>
-                        <a href="mailto:joseph@cardinalcomputersystems.com?subject=Wi-Fi Health Checkup" class="service-button">Check My Wi-Fi</a>
+                        <a href="#contact" class="service-button" onclick="event.preventDefault(); openContactForm(); prefillService('Wi-Fi Health Checkup')">Check My Wi-Fi</a>
                     </div>
 
                     <div class="service-card">
                         <h3>IT Consultation</h3>
                         <p>For businesses of all sizes, strategic technology planning is no longer a luxury—it's a necessity. <strong>Is your current IT infrastructure holding back your team's productivity, or are you unsure how to leverage technology to achieve your business goals?</strong> Our expert IT Consultation services are designed to help you navigate the complexities of modern business technology. We conduct thorough assessments of your existing infrastructure, identifying bottlenecks, security vulnerabilities, and areas for improvement. We then collaborate with you to create tailored, cost-effective solutions that streamline operations, boost productivity, enhance data security, and position your business for sustainable growth. Let us be your trusted technology partner.</p>
-                        <a href="mailto:joseph@cardinalcomputersystems.com?subject=IT Consultation" class="service-button">Book Consultation</a>
+                        <a href="#contact" class="service-button" onclick="event.preventDefault(); openContactForm(); prefillService('IT Consultation')">Book Consultation</a>
                     </div>
 
                     <div class="service-card">
                         <h3>Software Installation & Training</h3>
                         <p>Getting new software to work seamlessly and ensuring your team can use it effectively can be a challenge. <strong>Have you ever downloaded a new program only to find the installation process confusing, or your staff struggling to adapt to new applications, leading to wasted time and lost productivity?</strong> We offer professional software deployment and personalized user training services. Whether it's a new operating system, critical business applications, or specialized design software, we ensure everything is installed correctly and configured for optimal performance. More importantly, we provide hands-on training tailored to your needs, empowering your team to confidently use new applications, maximize their features, and truly get the most out of your software investment.</p>
-                        <a href="mailto:joseph@cardinalcomputersystems.com?subject=Software Installation & Training" class="service-button">Schedule Training</a>
+                        <a href="#contact" class="service-button" onclick="event.preventDefault(); openContactForm(); prefillService('Software Installation & Training')">Schedule Training</a>
                     </div>
                 </div>
                 
@@ -812,7 +973,7 @@
                     <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
                         <a href="#about" style="color: #C41E3A; text-decoration: none; padding: 10px 20px; border: 2px solid #C41E3A; border-radius: 5px; transition: all 0.3s ease;">Learn About Us</a>
                         <a href="#faq" style="color: #C41E3A; text-decoration: none; padding: 10px 20px; border: 2px solid #C41E3A; border-radius: 5px; transition: all 0.3s ease;">Common Questions</a>
-                        <a href="#contact" style="color: #C41E3A; text-decoration: none; padding: 10px 20px; border: 2px solid #C41E3A; border-radius: 5px; transition: all 0.3s ease;">Get In Touch</a>
+                        <a href="#contact" onclick="event.preventDefault(); openContactForm();" style="color: #C41E3A; text-decoration: none; padding: 10px 20px; border: 2px solid #C41E3A; border-radius: 5px; transition: all 0.3s ease;">Get In Touch</a>
                         <a href="tel:2024135403" style="color: #C41E3A; text-decoration: none; padding: 10px 20px; border: 2px solid #C41E3A; border-radius: 5px; transition: all 0.3s ease;">Call Now</a>
                     </div>
                 </div>
@@ -830,10 +991,7 @@
                         <p><strong>Having served the Maryland community for years, we understand the unique technological needs of both its vibrant small businesses and its diverse residential areas. From the bustling streets of Baltimore to the quiet neighborhoods of Frederick, and the government contractors in Rockville and Gaithersburg, we are dedicated to building long-term relationships and becoming the trusted IT partner for our neighbors. We combine technical expertise with a deep understanding of local needs to ensure your technology works as hard as you do, right here in Maryland.</strong></p>
                     </div>
                     <div class="about-image">
-                        <picture>
-                            <source srcset="https://images.pexels.com/photos/3184292/pexels-photo-3184292.webp?auto=compress&cs=tinysrgb&w=400&h=600&dpr=1" type="image/webp">
-                            <img src="https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=400&h=600&dpr=1" alt="Diverse IT Team Collaboration" width="400" height="300" loading="lazy">
-                        </picture>
+                        <img src="https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=400&h=600&dpr=1" alt="Diverse IT Team Collaboration" width="400" height="300" loading="lazy">
                     </div>
                 </div>
             </div>
@@ -877,13 +1035,13 @@
         <section class="contact" id="contact">
             <div class="container">
                 <h2>Contact Us</h2>
+                
                 <div class="contact-grid">
                     <div class="contact-item">
                         <h3>Phone</h3>
                         <p><a href="tel:2024135403" style="color: white; text-decoration: none;">(202) 413-5403</a></p>
                     </div>
                     <div class="contact-item">
-                        <h3>Email</h3>
                         <a href="mailto:joseph@cardinalcomputersystems.com" class="contact-email-button">Send Email</a>
                     </div>
                     <div class="contact-item">
@@ -896,8 +1054,94 @@
                         <small>Extended hours available upon request</small></p>
                     </div>
                 </div>
+                
+                <!-- Request Service Button -->
+                <div style="text-align: center; margin-top: 40px;">
+                    <button onclick="openContactForm()" class="cta-button" style="border: none; cursor: pointer;">
+                        Request Service Online
+                    </button>
+                </div>
             </div>
         </section>
+
+        <!-- Contact Form Modal -->
+        <div id="contactFormModal" class="contact-form-modal">
+            <div class="contact-form">
+                <span class="form-close" onclick="closeContactForm()">&times;</span>
+                <h3>Request Service</h3>
+                <form id="contactForm" action="https://formspree.io/f/xblkpnkd" method="POST">
+                    <div class="form-group">
+                        <label for="service">Service Requested *</label>
+                        <select id="service" name="service" required>
+                            <option value="">Select a service...</option>
+                            <option value="Remote System Support">Remote System Support</option>
+                            <option value="Managed Antivirus Protection">Managed Antivirus Protection</option>
+                            <option value="Smart Home Consultation">Smart Home Consultation</option>
+                            <option value="Wi-Fi Health Checkup">Wi-Fi Health Checkup</option>
+                            <option value="IT Consultation">IT Consultation</option>
+                            <option value="Software Installation & Training">Software Installation & Training</option>
+                            <option value="Other">Other (please specify in message)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="name">Full Name *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number *</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="location">Location (City, MD)</label>
+                        <input type="text" id="location" name="location" placeholder="e.g., Baltimore, MD">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="urgency">Urgency Level</label>
+                        <select id="urgency" name="urgency">
+                            <option value="Low">Low - Within a week</option>
+                            <option value="Medium" selected>Medium - Within 2-3 days</option>
+                            <option value="High">High - Within 24 hours</option>
+                            <option value="Emergency">Emergency - ASAP</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Message / Problem Description</label>
+                        <textarea id="message" name="message" placeholder="Please describe your technical issue or service requirements..."></textarea>
+                    </div>
+                    
+                    <!-- Hidden fields for security -->
+                    <input type="hidden" name="_subject" value="New Service Request - Cardinal Computer Systems">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_next" value="https://cardinalcomputersystems.com/#thank-you">
+                    
+                    <button type="submit" class="form-submit">Send Service Request</button>
+                    
+                    <p class="form-note">
+                        🔒 Your information is transmitted securely and will only be used to respond to your service request.
+                    </p>
+                </form>
+            </div>
+        </div>
+
+        <!-- Success Modal -->
+        <div id="successModal" class="modal">
+            <div class="modal-content">
+                <span class="modal-close">&times;</span>
+                <h3 style="color: #C41E3A;">Thank You!</h3>
+                <p>Your service request has been submitted successfully. We'll get back to you within 24 hours.</p>
+                <p><strong>For urgent issues, please call: <a href="tel:2024135403">(202) 413-5403</a></strong></p>
+            </div>
+        </div>
     </main>
 
     <footer>
@@ -984,6 +1228,134 @@
 
         // Rotate rules every 30 seconds
         setInterval(rotateRule, 30000);
+
+        // Contact Form Handling
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('contactForm');
+            const modal = document.getElementById('successModal');
+            const closeModal = document.querySelector('.modal-close');
+
+            // Form submission
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Basic validation
+                    const requiredFields = form.querySelectorAll('[required]');
+                    let isValid = true;
+                    
+                    requiredFields.forEach(field => {
+                        if (!field.value.trim()) {
+                            field.style.borderColor = '#ff0000';
+                            isValid = false;
+                        } else {
+                            field.style.borderColor = '#ddd';
+                        }
+                    });
+                    
+                    if (!isValid) {
+                        alert('Please fill in all required fields.');
+                        return;
+                    }
+                    
+                    // Disable submit button
+                    const submitBtn = form.querySelector('.form-submit');
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = 'Sending...';
+                    
+                    // Submit form data
+                    const formData = new FormData(form);
+                    
+                    fetch(form.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            form.reset();
+                            modal.style.display = 'block';
+                        } else {
+                            throw new Error('Network response was not ok');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('There was an error sending your message. Please try again or call us directly.');
+                    })
+                    .finally(() => {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = 'Send Service Request';
+                    });
+                });
+            }
+
+            // Close modal
+            if (closeModal) {
+                closeModal.addEventListener('click', function() {
+                    modal.style.display = 'none';
+                });
+            }
+
+            // Close modal when clicking outside
+            window.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        });
+
+        // Function to prefill service selection
+        function prefillService(serviceName) {
+            setTimeout(() => {
+                const serviceSelect = document.getElementById('service');
+                if (serviceSelect) {
+                    if (serviceName === 'General Inquiry') {
+                        serviceSelect.value = '';
+                    } else {
+                        serviceSelect.value = serviceName;
+                    }
+                }
+            }, 100);
+        }
+
+        // Modal functions
+        function openContactForm() {
+            const modal = document.getElementById('contactFormModal');
+            const form = modal.querySelector('.contact-form');
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            
+            // Scroll modal content to top
+            setTimeout(() => {
+                if (form) {
+                    form.scrollTop = 0;
+                }
+            }, 50);
+        }
+
+        function closeContactForm() {
+            const modal = document.getElementById('contactFormModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto'; // Restore scrolling
+        }
+
+        // Close modal when clicking outside the form
+        document.addEventListener('click', function(e) {
+            const modal = document.getElementById('contactFormModal');
+            if (e.target === modal) {
+                closeContactForm();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeContactForm();
+            }
+        });
     </script>
 </body>
 </html>
