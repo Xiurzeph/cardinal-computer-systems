@@ -97,6 +97,79 @@
             color: #ffed4e;
         }
 
+        /* Hamburger Menu Styles */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            margin: 3px 0;
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: #b91c3c;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            z-index: 999;
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+            padding: 1rem 0;
+            margin: 0;
+        }
+
+        .mobile-menu li {
+            padding: 0.75rem 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .mobile-menu li:last-child {
+            border-bottom: none;
+        }
+
+        .mobile-menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            display: block;
+            transition: color 0.3s;
+        }
+
+        .mobile-menu a:hover {
+            color: #ffed4e;
+        }
+
         .hero {
             padding: 120px 0 80px;
             text-align: center;
@@ -184,11 +257,13 @@
             border-radius: 15px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
         }
 
         .service-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            background: #e3f2fd;
         }
 
         .service-card h3 {
@@ -434,8 +509,11 @@
             }
 
             .nav-links {
-                flex-direction: column;
-                gap: 1rem;
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
             }
 
             .services-grid {
@@ -450,6 +528,15 @@
             .quick-find-links {
                 flex-direction: column;
                 align-items: center;
+            }
+
+            .modal-content {
+                width: 95%;
+                margin: 2% auto;
+            }
+
+            .modal-header h2 {
+                font-size: 1.5rem;
             }
         }
     </style>
@@ -467,7 +554,20 @@
                 <li><a href="#" onclick="openModal(); return false;">Contact</a></li>
                 <li><a href="#quick-finds">Quick Finds</a></li>
             </ul>
+            <div class="hamburger" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </nav>
+        <div class="mobile-menu" id="mobileMenu">
+            <ul>
+                <li><a href="#services" onclick="closeMobileMenu()">Services</a></li>
+                <li><a href="#about" onclick="closeMobileMenu()">About Us</a></li>
+                <li><a href="#" onclick="openModal(); closeMobileMenu(); return false;">Contact</a></li>
+                <li><a href="#quick-finds" onclick="closeMobileMenu()">Quick Finds</a></li>
+            </ul>
+        </div>
     </header>
 
     <section class="hero">
@@ -598,9 +698,40 @@
     </footer>
 
     <script>
+        // Mobile Menu Functions
+        function toggleMobileMenu() {
+            const hamburger = document.querySelector('.hamburger');
+            const mobileMenu = document.getElementById('mobileMenu');
+            
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        }
+
+        function closeMobileMenu() {
+            const hamburger = document.querySelector('.hamburger');
+            const mobileMenu = document.getElementById('mobileMenu');
+            
+            hamburger.classList.remove('active');
+            mobileMenu.classList.remove('active');
+        }
+
         // Modal functionality
         function openModal() {
             document.getElementById('contactModal').style.display = 'block';
+        }
+
+        function openModalWithService(serviceValue) {
+            // Open the modal
+            document.getElementById('contactModal').style.display = 'block';
+            
+            // Set the service dropdown to the selected service
+            const serviceSelect = document.getElementById('service');
+            serviceSelect.value = serviceValue;
+            
+            // Optional: Scroll to the service field to highlight the selection
+            setTimeout(() => {
+                serviceSelect.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 300);
         }
 
         function closeModal() {
