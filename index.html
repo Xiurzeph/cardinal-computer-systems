@@ -96,6 +96,79 @@
             color: #ffed4e;
         }
 
+        /* Hamburger Menu Styles */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            margin: 3px 0;
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: #b91c3c;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            z-index: 999;
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+            padding: 1rem 0;
+            margin: 0;
+        }
+
+        .mobile-menu li {
+            padding: 0.75rem 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .mobile-menu li:last-child {
+            border-bottom: none;
+        }
+
+        .mobile-menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            display: block;
+            transition: color 0.3s;
+        }
+
+        .mobile-menu a:hover {
+            color: #ffed4e;
+        }
+
         .hero {
             padding: 120px 0 80px;
             text-align: center;
@@ -133,6 +206,43 @@
             background: #9a1932;
         }
 
+        .cta-button.primary {
+            background: linear-gradient(135deg, #dc3545 0%, #b91c3c 50%, #9a1932 100%);
+            padding: 20px 40px;
+            font-size: 1.2rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 25px rgba(185, 28, 60, 0.4);
+            border: 3px solid #fff;
+            transform: scale(1);
+            transition: all 0.3s ease;
+        }
+
+        .cta-button.primary:hover {
+            background: linear-gradient(135deg, #ff1744 0%, #dc3545 50%, #b91c3c 100%);
+            transform: scale(1.05);
+            box-shadow: 0 12px 35px rgba(185, 28, 60, 0.6);
+        }
+
+        .residential-link {
+            color: white !important;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .residential-link:hover {
+            color: #ffed4e !important;
+        }
+
+        .house-icon {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+
         .services {
             padding: 80px 0;
             background: white;
@@ -157,11 +267,13 @@
             border-radius: 15px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
         }
 
         .service-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            background: #e3f2fd;
         }
 
         .service-card h3 {
@@ -322,6 +434,76 @@
             transform: translateY(-2px);
         }
 
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: #b91c3c;
+            margin: 5% auto;
+            padding: 0;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 700px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            padding: 2rem 2rem 1rem;
+            text-align: center;
+            color: white;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        .close {
+            color: white;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            transition: color 0.3s;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #ffed4e;
+        }
+
+        .modal-form {
+            padding: 0 2rem 2rem;
+        }
+
         footer {
             background: #333;
             color: white;
@@ -343,12 +525,24 @@
             }
 
             .nav-links {
-                flex-direction: column;
-                gap: 1rem;
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
             }
 
             .services-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                width: 95%;
+                margin: 2% auto;
+            }
+
+            .modal-header h2 {
+                font-size: 1.5rem;
             }
         }
     </style>
@@ -364,16 +558,36 @@
                 <li><a href="#services">Services</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#faq">FAQ</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#" onclick="openModal(); return false;">Contact</a></li>
+                <li><a href="https://cardinalcomputersystems.com/residential.html" class="residential-link">
+                    <svg class="house-icon" viewBox="0 0 24 24">
+                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                    </svg>
+                    Residential
+                </a></li>
             </ul>
+            <div class="hamburger" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </nav>
+        <div class="mobile-menu" id="mobileMenu">
+            <ul>
+                <li><a href="#services" onclick="closeMobileMenu()">Services</a></li>
+                <li><a href="#about" onclick="closeMobileMenu()">About</a></li>
+                <li><a href="#faq" onclick="closeMobileMenu()">FAQ</a></li>
+                <li><a href="#" onclick="openModal(); closeMobileMenu(); return false;">Contact</a></li>
+                <li><a href="https://cardinalcomputersystems.com/residential.html" onclick="closeMobileMenu()">Residential Services</a></li>
+            </ul>
+        </div>
     </header>
 
     <section class="hero">
         <div class="container">
             <h2>Senior-Level Systems Engineering for Your Business, Without the Senior-Level Cost</h2>
             <p class="tagline">Fractional Engineering and Integration Consulting</p>
-            <a href="#contact" class="cta-button">Get Expert Consultation</a>
+            <button class="cta-button primary" onclick="openModal()">Get Expert Consultation</button>
         </div>
     </section>
 
@@ -381,15 +595,15 @@
         <div class="container">
             <h2>Enterprise Consulting Services</h2>
             <div class="services-grid">
-                <div class="service-card">
+                <div class="service-card" onclick="openModalWithService('fractional-engineering')">
                     <h3>Fractional Systems Engineer</h3>
                     <p>Get the benefit of a senior engineer with 14+ years of experience for a fraction of the cost. I provide ongoing strategic guidance, manage your cloud infrastructure, and solve your most complex technical challenges on a flexible monthly retainer.</p>
                 </div>
-                <div class="service-card">
+                <div class="service-card" onclick="openModalWithService('bmc-helix-servicenow')">
                     <h3>BMC Helix & ServiceNow Consulting</h3>
                     <p>I design, customize, and build automated workflows and API integrations for companies using ITSM platforms. I solve the complex problems your general IT staff can't, on a project-by-project basis.</p>
                 </div>
-                <div class="service-card">
+                <div class="service-card" onclick="openModalWithService('it-process-playbook')">
                     <h3>IT Process & Playbook Development</h3>
                     <p>I create custom, standardized playbooks for your team to follow for everything from incident response to cloud migration, reducing your long-term costs and improving efficiency. Based on proven ITIL frameworks.</p>
                 </div>
@@ -414,7 +628,7 @@
                     </div>
                 </div>
                 <div>
-                    <img src="professional-team.png" alt="Cardinal Computer Systems Professional Team" style="width: 100%; height: 300px; object-fit: cover; border-radius: 15px;">
+                    <img src="professional-team.png" alt="Cardinal Computer Systems Professional Team" style="width: 100%; height: 300px; object-fit: cover; object-position: center center; border-radius: 15px;">
                 </div>
             </div>
         </div>
@@ -443,10 +657,20 @@
             <h2>Ready to Elevate Your IT Infrastructure?</h2>
             <div class="contact-info">
                 <p><strong>Location:</strong> Clinton, Maryland</p>
-                <a href="mailto:consulting@cardinalcomputersystems.com" class="cta-button" style="margin: 1rem 0;">Send Email</a>
+                <p>Let us help you solve your enterprise technical challenges</p>
+                <button class="cta-button primary" onclick="openModal()">Get Expert Consultation</button>
             </div>
-            
-            <form class="contact-form" action="https://formspree.io/f/xblkpnkd" method="POST">
+        </div>
+    </section>
+
+    <!-- Contact Modal -->
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h2>Contact Us</h2>
+            </div>
+            <form class="modal-form" action="https://formspree.io/f/xblkpnkd" method="POST">
                 <div class="form-group">
                     <label for="name">Your Name:</label>
                     <input type="text" id="name" name="name" required>
@@ -476,7 +700,7 @@
                 <button type="submit" class="form-submit">Get Expert Consultation</button>
             </form>
         </div>
-    </section>
+    </div>
 
     <footer>
         <div class="container">
@@ -485,22 +709,60 @@
     </footer>
 
     <script>
+        // Mobile Menu Functions
+        function toggleMobileMenu() {
+            const hamburger = document.querySelector('.hamburger');
+            const mobileMenu = document.getElementById('mobileMenu');
+            
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        }
+
+        function closeMobileMenu() {
+            const hamburger = document.querySelector('.hamburger');
+            const mobileMenu = document.getElementById('mobileMenu');
+            
+            hamburger.classList.remove('active');
+            mobileMenu.classList.remove('active');
+        }
+
         // Modal functionality
         function openModal() {
-            document.getElementById('consultationModal').style.display = 'block';
+            document.getElementById('contactModal').style.display = 'block';
+        }
+
+        function openModalWithService(serviceValue) {
+            // Open the modal
+            document.getElementById('contactModal').style.display = 'block';
+            
+            // Set the service dropdown to the selected service
+            const serviceSelect = document.getElementById('service');
+            serviceSelect.value = serviceValue;
+            
+            // Optional: Scroll to the service field to highlight the selection
+            setTimeout(() => {
+                serviceSelect.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 300);
         }
 
         function closeModal() {
-            document.getElementById('consultationModal').style.display = 'none';
+            document.getElementById('contactModal').style.display = 'none';
         }
 
         // Close modal when clicking outside of it
         window.onclick = function(event) {
-            const modal = document.getElementById('consultationModal');
+            const modal = document.getElementById('contactModal');
             if (event.target === modal) {
                 modal.style.display = 'none';
             }
         }
+
+        // Close modal with Escape key
+        window.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
 
         // FAQ Accordion functionality
         document.querySelectorAll('.faq-question').forEach(question => {
@@ -532,4 +794,3 @@
     </script>
 </body>
 </html>
-
