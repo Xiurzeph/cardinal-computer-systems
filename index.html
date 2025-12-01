@@ -15,7 +15,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cardinal Computer Systems - Enterprise IT Consulting</title>
-    <meta name="description" content="Fractional Engineering and Integration Consulting. Senior-level systems engineering for your business, without the senior-level cost.">
+    <meta name="description" content="Affordable Engineering and Integration Consulting. Senior-level systems engineering for your business, without the senior-level cost.">
     
     <script type="application/ld+json">
     {
@@ -31,7 +31,7 @@
             "addressCountry": "US"
         },
         "serviceType": [
-            "Fractional Systems Engineering",
+            "Affordable Systems Engineering",
             "BMC Helix Consulting",
             "ServiceNow Integration",
             "IT Process Development"
@@ -73,7 +73,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem 0;
+            padding: 0.8rem 0; /* Slightly reduced padding to accommodate buttons */
         }
 
         .logo {
@@ -83,6 +83,7 @@
             font-size: 1.5rem;
             font-weight: bold;
             color: white;
+            text-decoration: none; /* Added to remove underline from link */
         }
 
         .logo img {
@@ -93,19 +94,74 @@
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 2rem;
+            gap: 1.5rem;
+            align-items: center;
         }
 
-        .nav-links a {
+        .nav-links a.nav-item {
             text-decoration: none;
             color: white;
             font-weight: 500;
             transition: color 0.3s;
         }
 
-        .nav-links a:hover {
+        .nav-links a.nav-item:hover {
             color: #ffed4e;
         }
+
+        /* --- New Segment Switcher Styles --- */
+        .nav-switcher {
+            display: flex;
+            background: #ffffff; /* Changed to solid white for high contrast */
+            padding: 5px;
+            border-radius: 50px;
+            gap: 4px;
+            /* Removed margin-left so it aligns correctly at the start */
+            /* Added stronger shadow and border to match CTA intensity */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            border: 2px solid rgba(255,255,255,0.4);
+        }
+
+        .switcher-btn {
+            text-decoration: none;
+            padding: 10px 22px; /* Increased padding */
+            border-radius: 40px;
+            font-size: 0.95rem;
+            font-weight: 800; /* Extra Bold */
+            text-transform: uppercase; /* Uppercase to match CTA */
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Active State (Enterprise) */
+        .switcher-btn.active {
+            background: #b91c3c; /* Brand red background */
+            color: white; /* White text */
+            box-shadow: 0 4px 10px rgba(185, 28, 60, 0.3);
+            cursor: default;
+        }
+
+        /* Inactive State (Residential) */
+        .switcher-btn.inactive {
+            color: #444; /* Dark grey text against white background */
+            background: transparent;
+        }
+
+        .switcher-btn.inactive:hover {
+            color: #b91c3c;
+            background: #f0f0f0;
+        }
+
+        .house-icon {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+            margin-bottom: 2px;
+        }
+        /* ----------------------------------- */
 
         /* Hamburger Menu Styles */
         .hamburger {
@@ -180,6 +236,14 @@
             color: #ffed4e;
         }
 
+        /* Mobile Switcher */
+        .mobile-switcher-container {
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: center;
+            background: rgba(0,0,0,0.1);
+        }
+
         .hero {
             padding: 120px 0 80px;
             text-align: center;
@@ -234,24 +298,6 @@
             background: linear-gradient(135deg, #ff1744 0%, #dc3545 50%, #b91c3c 100%);
             transform: scale(1.05);
             box-shadow: 0 12px 35px rgba(185, 28, 60, 0.6);
-        }
-
-        .residential-link {
-            color: white !important;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .residential-link:hover {
-            color: #ffed4e !important;
-        }
-
-        .house-icon {
-            width: 16px;
-            height: 16px;
-            fill: currentColor;
         }
 
         .services {
@@ -316,26 +362,56 @@
             color: #333;
         }
 
-        .certifications {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            margin-top: 2rem;
+        /* Updated Certification Styles */
+        .qualifications-section {
+            padding: 40px 0;
+            background: white;
+            border-bottom: 1px solid #eee;
         }
 
-        .cert-badge {
-            background: #b91c3c;
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-size: 0.9rem;
+        .qualifications-section h3 {
+            font-size: 1.5rem;
+            color: #b91c3c;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            text-align: center;
+        }
+
+        .cert-list {
+            list-style: none;
+            padding-left: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Centers bullets in the column */
+        }
+
+        .cert-list li {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 0.75rem;
+            font-weight: 500;
+            color: #333;
+            font-size: 1.1rem;
+            text-align: left;
+            width: fit-content; /* Keeps text left aligned relative to bullet */
+        }
+
+        .cert-list li::before {
+            content: "•";
+            color: #b91c3c;
             font-weight: bold;
-            color: white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            font-size: 2rem;
+            position: absolute;
+            left: 0;
+            top: -12px;
+            line-height: 1;
         }
 
         .faq {
             padding: 80px 0;
-            background: white;
+            background: #f8f9fa; /* Slightly changed to distinct from white about section */
         }
 
         .faq h2 {
@@ -346,10 +422,11 @@
         }
 
         .faq-item {
-            background: #f8f9fa;
+            background: white;
             margin-bottom: 1rem;
             border-radius: 10px;
             overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
 
         .faq-question {
@@ -561,82 +638,123 @@
 <body>
     <header>
         <nav class="container">
-            <div class="logo">
+            <a href="https://cardinalcomputersystems.com/" class="logo">
                 <img src="cardinal-logo.png" alt="Cardinal Computer Systems Logo">
                 Cardinal Computer Systems
-            </div>
+            </a>
+            
+            <!-- Desktop Nav with Switcher -->
             <ul class="nav-links">
-                <li><a href="#services">Services</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#faq">FAQ</a></li>
-                <li><a href="#" onclick="openModal(); return false;">Contact</a></li>
-                <li><a href="https://cardinalcomputersystems.com/residential" class="residential-link">
-                    <svg class="house-icon" viewBox="0 0 24 24">
-                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
-                    </svg>
-                    Residential
-                </a></li>
+                <!-- NEW: Segment Switcher (Moved to First Position) -->
+                <li>
+                    <div class="nav-switcher">
+                        <span class="switcher-btn active">Enterprise</span>
+                        <a href="https://cardinalcomputersystems.com/residential" class="switcher-btn inactive">
+                            <svg class="house-icon" viewBox="0 0 24 24">
+                                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                            </svg>
+                            Residential
+                        </a>
+                    </div>
+                </li>
+
+                <li><a href="https://cardinalcomputersystems.com/" class="nav-item">Home</a></li>
+                <li><a href="#services" class="nav-item">Services</a></li>
+                <li><a href="#about" class="nav-item">About</a></li>
+                <li><a href="#faq" class="nav-item">FAQ</a></li>
+                <li><a href="#" onclick="openModal(); return false;" class="nav-item">Contact</a></li>
             </ul>
+
             <div class="hamburger" onclick="toggleMobileMenu()">
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
         </nav>
+
         <div class="mobile-menu" id="mobileMenu">
+            <!-- Mobile Switcher at Top -->
+            <div class="mobile-switcher-container">
+                <div class="nav-switcher">
+                    <span class="switcher-btn active">Enterprise</span>
+                    <a href="https://cardinalcomputersystems.com/residential" class="switcher-btn inactive">
+                        <svg class="house-icon" viewBox="0 0 24 24">
+                            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                        </svg>
+                        Residential
+                    </a>
+                </div>
+            </div>
             <ul>
+                <!-- Swapped order here as well -->
+                <li><a href="https://cardinalcomputersystems.com/" onclick="closeMobileMenu()">Home</a></li>
                 <li><a href="#services" onclick="closeMobileMenu()">Services</a></li>
                 <li><a href="#about" onclick="closeMobileMenu()">About</a></li>
                 <li><a href="#faq" onclick="closeMobileMenu()">FAQ</a></li>
                 <li><a href="#" onclick="openModal(); closeMobileMenu(); return false;">Contact</a></li>
-                <li><a href="https://cardinalcomputersystems.com/residential/" onclick="closeMobileMenu()">Residential Services</a></li>
             </ul>
         </div>
     </header>
 
     <section class="hero">
         <div class="container">
-            <h2>Senior-Level Systems Engineering for Your Business, Without the Senior-Level Cost</h2>
-            <p class="tagline">Fractional Engineering and Integration Consulting</p>
+            <h2>Senior-Level Systems Engineering for your Small Business. Get expert quality IT services without in-house IT.</h2>
+            <p class="tagline">Affordable Engineering and Integration Consulting</p>
             <button class="cta-button primary" onclick="openModal()">Get Expert Consultation</button>
         </div>
     </section>
 
+    <!-- NEW SECTION: Certifications (Extracted from About, kept at top) -->
+    <section class="qualifications-section">
+        <div class="container">
+            <h3>Certification and Qualifications</h3>
+            <ul class="cert-list">
+                <li>CompTIA Certified</li>
+                <li>ITIL Framework</li>
+                <li>Microsoft Azure</li>
+                <li>Enterprise Architecture</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- MOVED UP: Services Section -->
     <section class="services" id="services">
         <div class="container">
             <h2>Enterprise Consulting Services</h2>
             <div class="services-grid">
                 <div class="service-card" onclick="openModalWithService('fractional-engineering')">
-                    <h3>Fractional Systems Engineer</h3>
-                    <p>Get the benefit of a senior engineer with 14+ years of experience for a fraction of the cost. I provide ongoing strategic guidance, manage your cloud infrastructure, and solve your most complex technical challenges on a flexible monthly retainer.</p>
+                    <h3>Affordable Systems Engineer</h3>
+                    <p>Get the benefit of a senior engineer with 14+ years of experience for a fraction of the cost. We provide ongoing strategic guidance, manage your cloud infrastructure, and solve your most complex technical challenges on a flexible monthly retainer.</p>
                 </div>
-                <div class="service-card" onclick="openModalWithService('bmc-helix-servicenow')">
-                    <h3>BMC Helix & ServiceNow Consulting</h3>
-                    <p>I design, customize, and build automated workflows and API integrations for companies using ITSM platforms. I solve the complex problems your general IT staff can't, on a project-by-project basis.</p>
+                <div class="service-card" onclick="openModalWithService('it-service-management')">
+                    <h3>IT Service Management</h3>
+                    <p>We design, customize, and build automated workflows and API integrations for companies using ITSM platforms like BMC Helix and ServiceNow. We solve the complex problems your general IT staff can't, on a project-by-project basis.</p>
+                </div>
+                <div class="service-card" onclick="openModalWithService('hipaa-documentation')">
+                    <h3>HIPAA Documentation Preparation</h3>
+                    <p>We prepare essential HIPAA compliance documentation for small healthcare practices and business associates. From security risk assessments to privacy policy manuals, we help you navigate regulatory requirements with confidence.</p>
+                </div>
+                <div class="service-card" onclick="openModalWithService('quick-assessment')">
+                    <h3>Quick Systems Checkup and Assessment</h3>
+                    <p>We conduct a rapid yet thorough evaluation of your IT environment to identify security risks, performance issues, and cost-saving opportunities. You'll get a clear, actionable health report and a roadmap for immediate improvements without a long-term commitment.</p>
                 </div>
                 <div class="service-card" onclick="openModalWithService('it-process-playbook')">
                     <h3>IT Process & Playbook Development</h3>
-                    <p>I create custom, standardized playbooks for your team to follow for everything from incident response to cloud migration, reducing your long-term costs and improving efficiency. Based on proven ITIL frameworks.</p>
+                    <p>We create custom, standardized playbooks for your team to follow for everything from incident response to cloud migration, reducing your long-term costs and improving efficiency. Based on proven ITIL frameworks.</p>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- MOVED DOWN: About Section (Minus Certifications) -->
     <section class="about" id="about">
         <div class="container">
             <div class="about-content">
                 <div>
                     <h2>About Cardinal Computer Systems</h2>
-                    <p>With over 14 years of enterprise systems engineering experience, I help businesses solve complex technical challenges without the overhead of hiring full-time senior staff. As the current CTO for iTech and a seasoned consultant, I bring enterprise-level expertise to mid-market companies.</p>
+                    <p>With over 14 years of enterprise systems engineering experience, we help small businesses and growing organizations solve complex technical challenges without the overhead of hiring full-time senior staff. We bring enterprise-level expertise directly to your small business.</p>
                     
-                    <p>My background includes designing and implementing large-scale infrastructure solutions, leading technical teams, and optimizing business processes through automation and strategic technology adoption.</p>
-                    
-                    <div class="certifications">
-                        <div class="cert-badge">CompTIA Certified</div>
-                        <div class="cert-badge">ITIL Framework</div>
-                        <div class="cert-badge">Microsoft Azure</div>
-                        <div class="cert-badge">Enterprise Architecture</div>
-                    </div>
+                    <p>Our background is in building solid tech foundations that grow with you. We help simplify your daily operations and automate repetitive tasks, giving your small team the power to operate like a major enterprise—without the complexity or cost.</p>
                 </div>
                 <div>
                     <img src="professional-team.png" alt="Cardinal Computer Systems Professional Team" style="width: 100%; height: 300px; object-fit: cover; object-position: center center; border-radius: 15px;">
@@ -649,16 +767,16 @@
         <div class="container">
             <h2>Frequently Asked Questions</h2>
             <div class="faq-item">
-                <div class="faq-question">What is a 'Fractional' Engineer?</div>
-                <div class="faq-answer">A fractional engineer provides senior-level expertise on a part-time, retainer, or project basis. You get access to enterprise-level skills and experience without the cost and commitment of a full-time senior hire. It's perfect for companies that need occasional high-level technical guidance.</div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question">What size company do you typically work with?</div>
-                <div class="faq-answer">I primarily work with mid-market companies (50-500 employees) who have outgrown basic IT support but don't need a full-time senior engineer. These organizations typically have complex technical needs but want to maintain cost efficiency.</div>
+                <div class="faq-question">How does Affordable Engineering work?</div>
+                <div class="faq-answer">Affordable engineering provides senior-level expertise on a part-time, retainer, or project basis. You get access to enterprise-level skills and experience without the cost and commitment of a full-time senior hire. It's perfect for companies that need occasional high-level technical guidance.</div>
             </div>
             <div class="faq-item">
                 <div class="faq-question">How do you price your projects?</div>
-                <div class="faq-answer">Pricing depends on the scope and complexity of your needs. I offer flexible arrangements including monthly retainers for ongoing support, fixed-price projects for specific implementations, and hourly consulting for ad-hoc technical guidance. All engagements begin with a discovery consultation to ensure the right fit.</div>
+                <div class="faq-answer">Pricing depends on the scope and complexity of your needs. We offer flexible arrangements including monthly retainers for ongoing support, fixed-price projects for specific implementations, and hourly consulting for ad-hoc technical guidance. All engagements begin with a discovery consultation to ensure the right fit.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">What size company do you typically work with?</div>
+                <div class="faq-answer">We primarily work with mid-market companies (50-500 employees) who have outgrown basic IT support but don't need a full-time senior engineer. These organizations typically have complex technical needs but want to maintain cost efficiency.</div>
             </div>
         </div>
     </section>
@@ -667,7 +785,7 @@
         <div class="container">
             <h2>Ready to Elevate Your IT Infrastructure?</h2>
             <div class="contact-info">
-                <p><strong>Location:</strong> Clinton, Maryland</p>
+                <p><strong>Location:</strong> Washington DC Metro Area</p>
                 <p>Let us help you solve your enterprise technical challenges</p>
                 <button class="cta-button primary" onclick="openModal()">Get Expert Consultation</button>
             </div>
@@ -695,11 +813,17 @@
                     <input type="email" id="email" name="email" required>
                 </div>
                 <div class="form-group">
+                    <label for="phone">Phone Number:</label>
+                    <input type="tel" id="phone" name="phone">
+                </div>
+                <div class="form-group">
                     <label for="service">Service Interest:</label>
                     <select id="service" name="service">
                         <option value="">Select a service...</option>
-                        <option value="fractional-engineering">Fractional Systems Engineer</option>
-                        <option value="bmc-helix-servicenow">BMC Helix & ServiceNow Consulting</option>
+                        <option value="fractional-engineering">Affordable Systems Engineer</option>
+                        <option value="it-service-management">IT Service Management</option>
+                        <option value="hipaa-documentation">HIPAA Documentation Preparation</option>
+                        <option value="quick-assessment">Quick Systems Checkup and Assessment</option>
                         <option value="it-process-playbook">IT Process & Playbook Development</option>
                         <option value="consultation">General Consultation</option>
                     </select>
@@ -715,7 +839,7 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2025 Cardinal Computer Systems. Professional IT Consulting and Fractional Engineering Services.</p>
+            <p>&copy; 2025 Cardinal Computer Systems. Professional IT Consulting and Affordable Engineering Services.</p>
         </div>
     </footer>
 
@@ -805,6 +929,3 @@
     </script>
 </body>
 </html>
-
-
-
