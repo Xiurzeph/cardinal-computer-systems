@@ -21,10 +21,12 @@
         },
         "telephone": "(202)-413-5403",
         "serviceType": [
+            "ADT & Security Camera Installation",
+            "Managed Antivirus Protection",
             "Remote System Support",
             "Smart Home Consultation",
             "Wi-Fi Health Checkup",
-            "Managed Antivirus Protection"
+            "Windows OS Upgrade"
         ]
     }
     </script>
@@ -63,7 +65,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem 0;
+            padding: 0.8rem 0; /* Slightly reduced padding to accommodate buttons */
         }
 
         .logo {
@@ -73,6 +75,7 @@
             font-size: 1.5rem;
             font-weight: bold;
             color: white;
+            text-decoration: none;
         }
 
         .logo img {
@@ -83,19 +86,72 @@
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 2rem;
+            gap: 1.5rem;
+            align-items: center;
         }
 
-        .nav-links a {
+        .nav-links a.nav-item {
             text-decoration: none;
             color: white;
             font-weight: 500;
             transition: color 0.3s;
         }
 
-        .nav-links a:hover {
+        .nav-links a.nav-item:hover {
             color: #ffed4e;
         }
+
+        /* --- Segment Switcher Styles --- */
+        .nav-switcher {
+            display: flex;
+            background: #ffffff;
+            padding: 5px;
+            border-radius: 50px;
+            gap: 4px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            border: 2px solid rgba(255,255,255,0.4);
+        }
+
+        .switcher-btn {
+            text-decoration: none;
+            padding: 10px 22px;
+            border-radius: 40px;
+            font-size: 0.95rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Active State (Residential) */
+        .switcher-btn.active {
+            background: #b91c3c;
+            color: white;
+            box-shadow: 0 4px 10px rgba(185, 28, 60, 0.3);
+            cursor: default;
+        }
+
+        /* Inactive State (Enterprise) */
+        .switcher-btn.inactive {
+            color: #444;
+            background: transparent;
+        }
+
+        .switcher-btn.inactive:hover {
+            color: #b91c3c;
+            background: #f0f0f0;
+        }
+
+        .building-icon {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+            margin-bottom: 2px;
+        }
+        /* ----------------------------------- */
 
         /* Hamburger Menu Styles */
         .hamburger {
@@ -170,22 +226,12 @@
             color: #ffed4e;
         }
 
-        .pro-link {
-            color: white !important;
-            font-weight: 500;
+        /* Mobile Switcher */
+        .mobile-switcher-container {
+            padding: 1rem 2rem;
             display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .pro-link:hover {
-            color: #ffed4e !important;
-        }
-
-        .building-icon {
-            width: 16px;
-            height: 16px;
-            fill: currentColor;
+            justify-content: center;
+            background: rgba(0,0,0,0.1);
         }
 
         .hero {
@@ -538,11 +584,6 @@
                 grid-template-columns: 1fr;
             }
 
-            .contact-methods {
-                flex-direction: column;
-                align-items: center;
-            }
-
             .quick-find-links {
                 flex-direction: column;
                 align-items: center;
@@ -562,35 +603,58 @@
 <body>
     <header>
         <nav class="container">
-            <div class="logo">
+            <a href="https://cardinalcomputersystems.com/" class="logo">
                 <img src="../cardinal-logo.png" alt="Cardinal Computer Systems Logo">
                 Cardinal Computer Systems
-            </div>
+            </a>
+            
             <ul class="nav-links">
-                <li><a href="#services">Services</a></li>
-                <li><a href="#about">About Us</a></li>
-                <li><a href="#" onclick="openModal(); return false;">Contact</a></li>
-                <li><a href="#quick-finds">Quick Finds</a></li>
-                <li><a href="https://cardinalcomputersystems.com/" class="pro-link">
-                    <svg class="building-icon" viewBox="0 0 24 24">
-                        <path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/>
-                    </svg>
-                    Pro
-                </a></li>
+                <!-- NEW: Segment Switcher (Residential Active) -->
+                <li>
+                    <div class="nav-switcher">
+                        <a href="https://cardinalcomputersystems.com/" class="switcher-btn inactive">
+                            <svg class="building-icon" viewBox="0 0 24 24">
+                                <path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/>
+                            </svg>
+                            Enterprise
+                        </a>
+                        <span class="switcher-btn active">Residential</span>
+                    </div>
+                </li>
+
+                <li><a href="https://cardinalcomputersystems.com/" class="nav-item">Home</a></li>
+                <li><a href="#services" class="nav-item">Services</a></li>
+                <li><a href="#about" class="nav-item">About Us</a></li>
+                <li><a href="#quick-finds" class="nav-item">Quick Finds</a></li>
+                <li><a href="#" onclick="openModal(); return false;" class="nav-item">Contact</a></li>
             </ul>
+
             <div class="hamburger" onclick="toggleMobileMenu()">
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
         </nav>
+
         <div class="mobile-menu" id="mobileMenu">
+            <!-- Mobile Switcher at Top -->
+            <div class="mobile-switcher-container">
+                <div class="nav-switcher">
+                    <a href="https://cardinalcomputersystems.com/" class="switcher-btn inactive">
+                        <svg class="building-icon" viewBox="0 0 24 24">
+                            <path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/>
+                        </svg>
+                        Enterprise
+                    </a>
+                    <span class="switcher-btn active">Residential</span>
+                </div>
+            </div>
             <ul>
+                <li><a href="https://cardinalcomputersystems.com/" onclick="closeMobileMenu()">Home</a></li>
                 <li><a href="#services" onclick="closeMobileMenu()">Services</a></li>
                 <li><a href="#about" onclick="closeMobileMenu()">About Us</a></li>
-                <li><a href="#" onclick="openModal(); closeMobileMenu(); return false;">Contact</a></li>
                 <li><a href="#quick-finds" onclick="closeMobileMenu()">Quick Finds</a></li>
-                <li><a href="https://cardinalcomputersystems.com/" onclick="closeMobileMenu()">Professional Services</a></li>
+                <li><a href="#" onclick="openModal(); closeMobileMenu(); return false;">Contact</a></li>
             </ul>
         </div>
     </header>
@@ -608,13 +672,17 @@
         <div class="container">
             <h2>Services</h2>
             <div class="services-grid">
-                <div class="service-card" onclick="openModalWithService('remote-system-support')">
-                    <h3>Remote System Support</h3>
-                    <p>It's never a good day when your computer or cellphone have stopped working. Please use our <strong>Remote System Support</strong> whenever you need help getting back online. You can even subscribe to maintenance, making someone always available to answer your call.</p>
+                <div class="service-card" onclick="openModalWithService('adt-security-installation')">
+                    <h3>ADT & Security Camera Installation</h3>
+                    <p>Protect your home and loved ones with our professional security installation services. We specialize in setting up ADT systems and installing wired or wireless security cameras to ensure comprehensive coverage. Let us handle the wiring, mounting, and configuration so you can have peace of mind knowing your security system is operating correctly.</p>
                 </div>
                 <div class="service-card" onclick="openModalWithService('managed-antivirus-protection')">
                     <h3>Managed Antivirus Protection</h3>
                     <p>Today more than ever, protecting your personal data and company secrets is very important. <strong>Managed Antivirus Protection</strong> helps businesses keep critical systems, intellectual property, customer data, business associates, and guests safe from ransomware, phishing, malware, and other cyberattacks.</p>
+                </div>
+                <div class="service-card" onclick="openModalWithService('remote-system-support')">
+                    <h3>Remote System Support</h3>
+                    <p>It's never a good day when your computer or cellphone have stopped working. Please use our <strong>Remote System Support</strong> whenever you need help getting back online. You can even subscribe to maintenance, making someone always available to answer your call.</p>
                 </div>
                 <div class="service-card" onclick="openModalWithService('smart-home-consultation')">
                     <h3>Smart Home Consultation</h3>
@@ -687,8 +755,9 @@
                     <label for="service">Service Interest:</label>
                     <select id="service" name="service">
                         <option value="">Select a service...</option>
-                        <option value="remote-system-support">Remote System Support</option>
+                        <option value="adt-security-installation">ADT & Security Camera Installation</option>
                         <option value="managed-antivirus-protection">Managed Antivirus Protection</option>
+                        <option value="remote-system-support">Remote System Support</option>
                         <option value="smart-home-consultation">Smart Home Consultation</option>
                         <option value="wifi-health-checkup">Wi-Fi Health Checkup</option>
                         <option value="windows-os-upgrade">Windows OS Upgrade</option>
