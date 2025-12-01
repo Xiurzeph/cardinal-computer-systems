@@ -5,7 +5,7 @@ Enterprise-class IT solutions, tailored for small business success — without t
 ---
 
 ## 🚀 About Us
-Cardinal Computer Systems provides **fractional senior-level systems engineering and IT consulting** for nonprofits, small businesses, and mid-market organizations.  
+Cardinal Computer Systems provides **affordable senior-level systems engineering and IT consulting** for nonprofits, small businesses, and mid-market organizations.  
 
 With over 14 years of experience in **platform deployment, cloud migration, API integration, workflow automation, and advanced server administration**, we help smaller teams achieve **enterprise-class results** without the overhead.
 
@@ -15,7 +15,7 @@ Our mission is simple:
 ---
 
 ## 💡 What We Do
-- **Strategic IT Consulting** – Fractional CTO services, technology roadmaps, and leadership guidance.  
+- **Strategic IT Consulting** – Affordable CTO services, technology roadmaps, and leadership guidance.  
 - **Systems Engineering** – Cloud migrations, server administration, and enterprise platform integration.  
 - **Workflow Automation** – PowerShell scripting, REST API integrations, and process optimization.  
 - **Training & Enablement** – Interactive PowerShell courses, onboarding modules, and hands-on labs.  
