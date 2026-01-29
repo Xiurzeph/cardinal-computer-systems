@@ -1,13 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./index.html",
-    "./**/*.html",
-    "./**/*.js"
-  ],
+  // IMPORTANT: This tells Tailwind to look at your HTML file for classes
+  content: ["./*.{html,js}"], 
   theme: {
     extend: {
-      // Your custom branding colors moved from the HTML script to here
       colors: {
         cardinal: {
           red: '#D92323',
