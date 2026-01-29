@@ -214,19 +214,27 @@
             const isFileProtocol = window.location.protocol === 'file:';
 
             useEffect(() => {
+                // Restore previous login mode preference
+                const savedMode = localStorage.getItem('cardinal_portal_mode');
+                if (savedMode) setMode(savedMode);
+
                 // Check if user just returned from Google Redirect
                 if (auth) {
                     auth.getRedirectResult()
                         .then((result) => {
-                            if (result.user) {
+                            if (result && result.user) {
+                                console.log("Google Redirect Successful", result.user);
                                 // User signed in successfully via redirect
-                                // App component listener will handle state
+                                // Explicitly call onLogin to ensure state update passes up to App
+                                onLogin(result.user);
                             }
                         })
                         .catch((error) => {
                             console.error("Redirect Error:", error);
                             if (error.code === 'auth/unauthorized-domain' || error.message.includes('unauthorized domain')) {
                                 setError("Domain not authorized. Please add this domain to Firebase Console.");
+                            } else if (error.code === 'auth/popup-closed-by-user') {
+                                setError("Login cancelled.");
                             } else {
                                 setError("Login failed: " + error.message);
                             }
@@ -253,6 +261,13 @@
                     return () => clearInterval(timer);
                 }
             }, [lockoutTime]);
+
+            const switchMode = (newMode) => {
+                setMode(newMode);
+                localStorage.setItem('cardinal_portal_mode', newMode);
+                setError(null);
+                setPassword("");
+            };
 
             const handleGoogleLogin = async () => {
                 setLoading(true);
@@ -347,6 +362,7 @@
                                 </button>
                                 {error && <div className="bg-red-50 border border-red-200 text-cardinal-red text-xs mt-4 p-3 rounded text-center">{error}</div>}
                                 <p className="text-xs text-gray-400 text-center mt-4">Restricted to authorized administrators.</p>
+                                <p className="text-[10px] text-gray-300 text-center mt-2">Note: Disable AdBlockers if login fails.</p>
                             </div>
                         ) : (
                             <form onSubmit={handleSubmit} className="space-y-6">
@@ -368,7 +384,7 @@
                         )}
 
                         <div className="mt-6 text-center border-t pt-4">
-                            <button onClick={() => { setMode(mode === 'client' ? 'admin' : 'client'); setError(null); setPassword(""); }} className="text-xs text-gray-400 hover:text-cardinal-red underline">
+                            <button onClick={() => switchMode(mode === 'client' ? 'admin' : 'client')} className="text-xs text-gray-400 hover:text-cardinal-red underline">
                                 {mode === 'client' ? "Admin Login" : "Back to Client Access"}
                             </button>
                         </div>
