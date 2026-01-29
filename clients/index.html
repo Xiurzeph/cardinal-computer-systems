@@ -71,14 +71,11 @@
         };
         
         // --- MULTI-CLIENT CONFIGURATION ---
-        // Map client emails to specific Project IDs in your database
         const CLIENT_PROJECTS = {
             "director@lsfdc.org": "BLDS-WEB-001-REV5",
-            // Add future clients here, e.g.:
-            // "client2@gmail.com": "marketing_project_01"
         };
 
-        const ADMIN_EMAIL = "joseph@cardinalcomputersystems.com"; // Enter your exact email here
+        const ADMIN_EMAIL = "xiurzeph112112@gmail.com"; 
 
         // Check for Demo Mode
         const IS_DEMO_MODE = firebaseConfig.apiKey.includes("REPLACE");
@@ -217,6 +214,26 @@
             const isFileProtocol = window.location.protocol === 'file:';
 
             useEffect(() => {
+                // Check if user just returned from Google Redirect
+                if (auth) {
+                    auth.getRedirectResult()
+                        .then((result) => {
+                            if (result.user) {
+                                // User signed in successfully via redirect
+                                // App component listener will handle state
+                            }
+                        })
+                        .catch((error) => {
+                            console.error("Redirect Error:", error);
+                            if (error.code === 'auth/unauthorized-domain' || error.message.includes('unauthorized domain')) {
+                                setError("Domain not authorized. Please add this domain to Firebase Console.");
+                            } else {
+                                setError("Login failed: " + error.message);
+                            }
+                        });
+                }
+
+                // Lockout check
                 const storedLockout = parseInt(localStorage.getItem('auth_lockout_until') || '0');
                 if (storedLockout > Date.now()) {
                     setLockoutTime(storedLockout);
@@ -248,8 +265,8 @@
 
                 try {
                     const provider = new firebase.auth.GoogleAuthProvider();
-                    await auth.signInWithPopup(provider);
-                    // Auth listener in App will handle the rest
+                    // Use Redirect instead of Popup to avoid COOP errors
+                    await auth.signInWithRedirect(provider);
                 } catch (err) {
                     console.error("Google Login Error:", err);
                     setError("Google Sign-In failed. Please try again.");
@@ -270,7 +287,6 @@
                 setLoading(true);
                 setError(null);
                 
-                // Client uses the specific read-only user
                 const loginEmail = "director@lsfdc.org";
 
                 if (IS_DEMO_MODE) {
@@ -280,14 +296,12 @@
 
                 try {
                     await auth.signInWithEmailAndPassword(loginEmail, password);
-                    // Clear lockout if successful 
                     localStorage.removeItem('auth_attempts');
                     localStorage.removeItem('auth_lockout_until');
                 } catch (err) {
                     console.error("Login Error:", err);
                     setLoading(false);
                     
-                    // Enforce rate limiting logic for Client mode
                     const currentAttempts = parseInt(localStorage.getItem('auth_attempts') || '0') + 1;
                     localStorage.setItem('auth_attempts', currentAttempts);
 
@@ -320,7 +334,6 @@
                             </div>
                         )}
 
-                        {/* Google Auth for Admin (Only Option) */}
                         {mode === 'admin' ? (
                             <div className="mb-6">
                                 <button 
@@ -332,11 +345,10 @@
                                     <svg className="w-6 h-6" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
                                     Sign in with Google
                                 </button>
-                                {error && <p className="text-cardinal-red text-sm mt-4 font-bold text-center">{error}</p>}
+                                {error && <div className="bg-red-50 border border-red-200 text-cardinal-red text-xs mt-4 p-3 rounded text-center">{error}</div>}
                                 <p className="text-xs text-gray-400 text-center mt-4">Restricted to authorized administrators.</p>
                             </div>
                         ) : (
-                            /* Client Login Form */
                             <form onSubmit={handleSubmit} className="space-y-6">
                                 <div>
                                     <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -396,7 +408,7 @@
             const [expandedNotes, setExpandedNotes] = useState({}); 
             const [balanceText, setBalanceText] = useState("");
             const [syncStatus, setSyncStatus] = useState("loading"); 
-            const [activeProjectId, setActiveProjectId] = useState("BLDS-WEB-001-REV5"); // Default ID
+            const [activeProjectId, setActiveProjectId] = useState("BLDS-WEB-001-REV5"); 
 
             // Robust Admin Check
             const isAdmin = user.email?.toLowerCase() === ADMIN_EMAIL.toLowerCase();
@@ -407,20 +419,14 @@
                     return;
                 }
 
-                // Determine Project ID logic
-                let targetId = "BLDS-WEB-001-REV5"; // fallback
+                let targetId = "BLDS-WEB-001-REV5";
                 if (isAdmin) {
-                    // Admin keeps whatever they selected in UI, or defaults to builds
                     targetId = activeProjectId; 
                 } else {
-                    // Client: lookup their project based on email
-                    // If email not found in mapping, they get "builds_setup" or you could show an error
                     const clientEmail = user.email?.toLowerCase();
                     if (CLIENT_PROJECTS[clientEmail]) {
                         targetId = CLIENT_PROJECTS[clientEmail];
                     }
-                    // If we want to allow the admin to switch, we need to respect activeProjectId state changes
-                    // If we want to force client, we set activeProjectId here
                     if (activeProjectId !== targetId) setActiveProjectId(targetId);
                 }
 
@@ -433,14 +439,11 @@
                         setBalanceText(data.balanceText || "");
                         setSyncStatus("synced");
                     } else {
-                        // Document doesn't exist yet
                         if (isAdmin) {
-                            // Admin creates it automatically when viewing a new ID
                             docRef.set({ projectPlan: initialProjectData, taskStates: {}, balanceText: "", createdAt: new Date() });
                             setPlan(initialProjectData);
                             setSyncStatus("synced");
                         } else {
-                            // Client just views default data but can't save
                             setSyncStatus("synced"); 
                         }
                     }
@@ -449,7 +452,7 @@
                     setSyncStatus("error");
                 });
                 return () => unsubscribe();
-            }, [activeProjectId]); // Re-run when project ID changes
+            }, [activeProjectId]);
 
             const saveData = async (newPlan, newStates, newBalance) => {
                 if (!isAdmin && !IS_DEMO_MODE) return;
@@ -476,7 +479,6 @@
                 }
             };
 
-            // ... (Handlers remain same, just ensure they call saveData) ...
             const handleStatusChange = (taskId) => {
                 if (!isAdmin) return;
                 const curr = taskStates[taskId] || STATUS.TODO;
@@ -535,7 +537,6 @@
                                 </div>
                             </div>
                             
-                            {/* Project Selector for Admin */}
                             {isAdmin && (
                                 <div className="flex flex-col">
                                     <label className="text-[9px] uppercase text-gray-400 font-bold">Project ID</label>
@@ -646,7 +647,7 @@
                                                                         value={task.note}
                                                                         readOnly={!isAdmin}
                                                                         onChange={(e) => handleNoteChange(sI, wI, tI, e.target.value)}
-                                                                        onBlur={handleNoteBlur}
+                                                                        onBlur={() => saveData(plan, null)}
                                                                     />
                                                                 )}
                                                             </div>
