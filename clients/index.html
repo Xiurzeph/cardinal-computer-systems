@@ -214,34 +214,6 @@
             const isFileProtocol = window.location.protocol === 'file:';
 
             useEffect(() => {
-                // Restore previous login mode preference
-                const savedMode = localStorage.getItem('cardinal_portal_mode');
-                if (savedMode) setMode(savedMode);
-
-                // Check if user just returned from Google Redirect
-                if (auth) {
-                    auth.getRedirectResult()
-                        .then((result) => {
-                            if (result && result.user) {
-                                console.log("Google Redirect Successful", result.user);
-                                // User signed in successfully via redirect
-                                // Explicitly call onLogin to ensure state update passes up to App
-                                onLogin(result.user);
-                            }
-                        })
-                        .catch((error) => {
-                            console.error("Redirect Error:", error);
-                            if (error.code === 'auth/unauthorized-domain' || error.message.includes('unauthorized domain')) {
-                                setError("Domain not authorized. Please add this domain to Firebase Console.");
-                            } else if (error.code === 'auth/popup-closed-by-user') {
-                                setError("Login cancelled.");
-                            } else {
-                                setError("Login failed: " + error.message);
-                            }
-                        });
-                }
-
-                // Lockout check
                 const storedLockout = parseInt(localStorage.getItem('auth_lockout_until') || '0');
                 if (storedLockout > Date.now()) {
                     setLockoutTime(storedLockout);
@@ -264,7 +236,6 @@
 
             const switchMode = (newMode) => {
                 setMode(newMode);
-                localStorage.setItem('cardinal_portal_mode', newMode);
                 setError(null);
                 setPassword("");
             };
@@ -280,11 +251,18 @@
 
                 try {
                     const provider = new firebase.auth.GoogleAuthProvider();
-                    // Use Redirect instead of Popup to avoid COOP errors
-                    await auth.signInWithRedirect(provider);
+                    // Using Popup method as requested
+                    await auth.signInWithPopup(provider);
+                    // onAuthStateChanged in App component handles state update
                 } catch (err) {
                     console.error("Google Login Error:", err);
-                    setError("Google Sign-In failed. Please try again.");
+                    if (err.code === 'auth/popup-closed-by-user') {
+                        setError("Login cancelled.");
+                    } else if (err.code === 'auth/unauthorized-domain' || err.message.includes('unauthorized domain')) {
+                        setError("Domain not authorized. Please add this domain to Firebase Console > Auth > Settings > Authorized Domains.");
+                    } else {
+                        setError("Google Sign-In failed: " + err.message);
+                    }
                     setLoading(false);
                 }
             };
