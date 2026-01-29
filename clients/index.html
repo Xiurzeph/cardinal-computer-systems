@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Builds Project Tracker | Cardinal Computer Systems</title>
+    <title>Cardinal Project Portal</title>
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     
@@ -70,7 +70,15 @@
             appId: "1:316613726051:web:014419d2860bb815448d56"
         };
         
-        const READ_ONLY_EMAIL = "director@lsfdc.org";
+        // --- MULTI-CLIENT CONFIGURATION ---
+        // Map client emails to specific Project IDs in your database
+        const CLIENT_PROJECTS = {
+            "director@lsfdc.org": "BLDS-WEB-001-REV5",
+            // Add future clients here, e.g.:
+            // "client2@gmail.com": "marketing_project_01"
+        };
+
+        const ADMIN_EMAIL = "joseph@cardinalcomputersystems.com"; // Enter your exact email here
 
         // Check for Demo Mode
         const IS_DEMO_MODE = firebaseConfig.apiKey.includes("REPLACE");
@@ -209,7 +217,6 @@
             const [lockoutTime, setLockoutTime] = useState(0);
             const isFileProtocol = window.location.protocol === 'file:';
 
-            // Security: Rate Limiting & Lockout
             useEffect(() => {
                 const storedLockout = parseInt(localStorage.getItem('auth_lockout_until') || '0');
                 if (storedLockout > Date.now()) {
@@ -217,7 +224,6 @@
                 }
             }, []);
 
-            // Countdown timer for lockout
             useEffect(() => {
                 if (lockoutTime > 0) {
                     const timer = setInterval(() => {
@@ -235,7 +241,6 @@
             const handleSubmit = async (e) => {
                 e.preventDefault();
                 
-                // Check if currently locked out
                 if (lockoutTime > Date.now()) {
                     const remaining = Math.ceil((lockoutTime - Date.now()) / 1000);
                     setError(`Too many attempts. Please wait ${remaining}s.`);
@@ -244,7 +249,18 @@
 
                 setLoading(true);
                 setError(null);
-                const loginEmail = mode === 'client' ? READ_ONLY_EMAIL : email;
+                
+                // If client mode, assume it's the specific read-only user for now
+                // Ideally, clients enter their own emails in future, but for now we use the mapping
+                let loginEmail = email;
+                
+                // Special handling for the hardcoded "Client Mode" for legacy/simplicity support
+                // If they are using "Client Mode" tab, we default to the Builds Client for now
+                // UNLESS you want them to type their email. 
+                // For now, let's keep the simple "Code" access for the existing client.
+                if (mode === 'client') {
+                    loginEmail = "director@lsfdc.org"; // Hardcoded for existing functionality
+                }
 
                 if (IS_DEMO_MODE) {
                     setTimeout(() => onLogin({ email: loginEmail || "demo@user.com" }), 800);
@@ -253,19 +269,17 @@
 
                 try {
                     await auth.signInWithEmailAndPassword(loginEmail, password);
-                    // Success! Clear attempts
                     localStorage.removeItem('auth_attempts');
                     localStorage.removeItem('auth_lockout_until');
                 } catch (err) {
                     console.error("Login Error:", err);
                     setLoading(false);
                     
-                    // Increment failed attempts
                     const currentAttempts = parseInt(localStorage.getItem('auth_attempts') || '0') + 1;
                     localStorage.setItem('auth_attempts', currentAttempts);
 
                     if (currentAttempts >= 5) {
-                        const newLockout = Date.now() + 300000; // 5 minute lockout
+                        const newLockout = Date.now() + 300000;
                         setLockoutTime(newLockout);
                         localStorage.setItem('auth_lockout_until', newLockout);
                         setError("Too many failed attempts. Locked for 5 minutes.");
@@ -301,7 +315,9 @@
                                 </div>
                             )}
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    {mode === 'client' ? "Project Access Code" : "Password"}
+                                </label>
                                 <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full px-4 py-3 rounded border border-gray-300 focus:ring-2 focus:ring-cardinal-red focus:outline-none" required disabled={isLocked} />
                                 {error && <p className="text-cardinal-red text-sm mt-2 font-bold">{error}</p>}
                             </div>
@@ -348,20 +364,40 @@
         };
 
         const Dashboard = ({ user, onLogout }) => {
-            // FIX: Initialize with default data so Client sees content immediately
             const [plan, setPlan] = useState(initialProjectData); 
             const [taskStates, setTaskStates] = useState({}); 
             const [expandedNotes, setExpandedNotes] = useState({}); 
             const [balanceText, setBalanceText] = useState("");
             const [syncStatus, setSyncStatus] = useState("loading"); 
-            const isAdmin = user.email?.toLowerCase() !== READ_ONLY_EMAIL.toLowerCase();
+            const [activeProjectId, setActiveProjectId] = useState("BLDS-WEB-001-REV5"); // Default ID
+
+            // Robust Admin Check
+            const isAdmin = user.email?.toLowerCase() === ADMIN_EMAIL.toLowerCase();
 
             useEffect(() => {
                 if (IS_DEMO_MODE) {
                     setSyncStatus("demo");
                     return;
                 }
-                const docRef = db.collection('projects').doc('builds_setup');
+
+                // Determine Project ID logic
+                let targetId = "BLDS-WEB-001-REV5"; // fallback
+                if (isAdmin) {
+                    // Admin keeps whatever they selected in UI, or defaults to builds
+                    targetId = activeProjectId; 
+                } else {
+                    // Client: lookup their project based on email
+                    // If email not found in mapping, they get "builds_setup" or you could show an error
+                    const clientEmail = user.email?.toLowerCase();
+                    if (CLIENT_PROJECTS[clientEmail]) {
+                        targetId = CLIENT_PROJECTS[clientEmail];
+                    }
+                    // If we want to allow the admin to switch, we need to respect activeProjectId state changes
+                    // If we want to force client, we set activeProjectId here
+                    if (activeProjectId !== targetId) setActiveProjectId(targetId);
+                }
+
+                const docRef = db.collection('projects').doc(targetId);
                 const unsubscribe = docRef.onSnapshot(doc => {
                     if (doc.exists) {
                         const data = doc.data();
@@ -372,13 +408,13 @@
                     } else {
                         // Document doesn't exist yet
                         if (isAdmin) {
-                            // Admin creates it
+                            // Admin creates it automatically when viewing a new ID
                             docRef.set({ projectPlan: initialProjectData, taskStates: {}, balanceText: "", createdAt: new Date() });
                             setPlan(initialProjectData);
                             setSyncStatus("synced");
                         } else {
-                            // Client just views default data (already set in useState)
-                            setSyncStatus("synced"); // or "waiting"
+                            // Client just views default data but can't save
+                            setSyncStatus("synced"); 
                         }
                     }
                 }, err => {
@@ -386,7 +422,7 @@
                     setSyncStatus("error");
                 });
                 return () => unsubscribe();
-            }, []);
+            }, [activeProjectId]); // Re-run when project ID changes
 
             const saveData = async (newPlan, newStates, newBalance) => {
                 if (!isAdmin && !IS_DEMO_MODE) return;
@@ -401,7 +437,7 @@
                 if (IS_DEMO_MODE) return;
                 setSyncStatus("saving");
                 try {
-                    await db.collection('projects').doc('builds_setup').update({ 
+                    await db.collection('projects').doc(activeProjectId).update({ 
                         projectPlan: p, 
                         taskStates: s, 
                         balanceText: b 
@@ -413,6 +449,7 @@
                 }
             };
 
+            // ... (Handlers remain same, just ensure they call saveData) ...
             const handleStatusChange = (taskId) => {
                 if (!isAdmin) return;
                 const curr = taskStates[taskId] || STATUS.TODO;
@@ -433,6 +470,9 @@
                 np[sI].weeks[wI].tasks[tI].note = val;
                 setPlan(np);
             };
+
+            const handleTitleBlur = () => saveData(plan, null);
+            const handleNoteBlur = () => saveData(plan, null);
 
             const addTask = (sI, wI) => {
                 if (!isAdmin) return;
@@ -468,6 +508,19 @@
                                 </div>
                             </div>
                             
+                            {/* Project Selector for Admin */}
+                            {isAdmin && (
+                                <div className="flex flex-col">
+                                    <label className="text-[9px] uppercase text-gray-400 font-bold">Project ID</label>
+                                    <input 
+                                        type="text" 
+                                        value={activeProjectId} 
+                                        onChange={(e) => setActiveProjectId(e.target.value)} 
+                                        className="text-xs border p-1 rounded bg-zinc-50 font-mono w-32 focus:border-cardinal-red outline-none"
+                                    />
+                                </div>
+                            )}
+
                             <div className="flex items-center gap-4 ml-auto">
                                 <div className="flex flex-col items-end">
                                     <label className="text-[10px] uppercase text-gray-400 font-bold">Account Balance</label>
@@ -536,7 +589,7 @@
                                                                             type="text" value={task.title} 
                                                                             readOnly={!isAdmin}
                                                                             onChange={(e) => handleTitleChange(sI, wI, tI, e.target.value)}
-                                                                            onBlur={() => saveData(plan, null)}
+                                                                            onBlur={handleTitleBlur}
                                                                             className={`w-full text-sm bg-transparent border-none focus:ring-0 p-0 transition-all ${isDone ? 'text-gray-400 line-through' : 'text-gray-700 font-semibold'}`}
                                                                         />
                                                                     </div>
@@ -566,7 +619,7 @@
                                                                         value={task.note}
                                                                         readOnly={!isAdmin}
                                                                         onChange={(e) => handleNoteChange(sI, wI, tI, e.target.value)}
-                                                                        onBlur={() => saveData(plan, null)}
+                                                                        onBlur={handleNoteBlur}
                                                                     />
                                                                 )}
                                                             </div>
