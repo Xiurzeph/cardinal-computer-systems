@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="overflow-y-scroll">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,52 +7,20 @@
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     
-    <!-- React & ReactDOM -->
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     
-    <!-- Babel -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="dist/output.css">
 
-    <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
 
-    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        cardinal: {
-                            red: '#D92323',
-                            black: '#1A1A1A',
-                            gray: '#555555'
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    
-    <style>
-        body { background-color: #f4f4f4; }
-        .animate-pulse-slow {
-            animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        }
-        .status-transition {
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        html { overflow-y: scroll; }
-    </style>
 </head>
-<body>
+<body class="bg-[#f4f4f4]">
     <div id="root"></div>
 
     <script type="text/babel">
@@ -251,9 +219,7 @@
 
                 try {
                     const provider = new firebase.auth.GoogleAuthProvider();
-                    // Using Popup method as requested
                     await auth.signInWithPopup(provider);
-                    // onAuthStateChanged in App component handles state update
                 } catch (err) {
                     console.error("Google Login Error:", err);
                     if (err.code === 'auth/popup-closed-by-user') {
@@ -270,7 +236,6 @@
             const handleSubmit = async (e) => {
                 e.preventDefault();
                 
-                // Rate Limiting Logic: ONLY for Client Mode
                 if (mode === 'client' && lockoutTime > Date.now()) {
                     const remaining = Math.ceil((lockoutTime - Date.now()) / 1000);
                     setError(`Too many attempts. Please wait ${remaining}s.`);
@@ -312,7 +277,7 @@
             const isLocked = mode === 'client' && lockoutTime > Date.now();
 
             return (
-                <div className="min-h-screen flex items-center justify-center bg-zinc-100 px-4">
+                <div className="min-h-screen flex items-center justify-center px-4">
                     <div className="max-w-md w-full bg-white shadow-xl rounded-lg p-8 border-t-8 border-cardinal-red">
                         <div className="text-center mb-8">
                             <img src="https://cardinalcomputersystems.com/cardinal-logo.png" alt="Logo" className="w-20 h-20 mx-auto mb-4 object-contain" />
@@ -378,7 +343,8 @@
         );
 
         const StatusCheckbox = ({ status, onClick, disabled }) => {
-            const base = `w-6 h-6 min-w-[24px] rounded border-2 flex items-center justify-center transition-all mt-0.5 select-none status-transition flex-shrink-0 ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`;
+            // UPDATED: Replaced "status-transition" with "transition-all duration-200 ease-out"
+            const base = `w-6 h-6 min-w-[24px] rounded border-2 flex items-center justify-center mt-0.5 select-none transition-all duration-200 ease-out flex-shrink-0 ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`;
             const clickHandler = disabled ? undefined : onClick;
 
             switch (status) {
