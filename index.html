@@ -1,17 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-FXCYYBWVZR"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-FXCYYBWVZR');
-</script>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6583482917706359"
-     crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FXCYYBWVZR"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-FXCYYBWVZR');
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6583482917706359" crossorigin="anonymous"></script>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cardinal Computer Systems - Enterprise IT Consulting</title>
@@ -39,787 +37,183 @@
     }
     </script>
     
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: #f8f9fa;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        header {
-            background: #b91c3c;
-            color: white;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.8rem 0; /* Slightly reduced padding to accommodate buttons */
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: white;
-            text-decoration: none; /* Added to remove underline from link */
-        }
-
-        .logo img {
-            height: 40px;
-            width: auto;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 1.5rem;
-            align-items: center;
-        }
-
-        .nav-links a.nav-item {
-            text-decoration: none;
-            color: white;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        .nav-links a.nav-item:hover {
-            color: #ffed4e;
-        }
-
-        /* --- New Segment Switcher Styles --- */
-        .nav-switcher {
-            display: flex;
-            background: #ffffff; /* Changed to solid white for high contrast */
-            padding: 5px;
-            border-radius: 50px;
-            gap: 4px;
-            /* Removed margin-left so it aligns correctly at the start */
-            /* Added stronger shadow and border to match CTA intensity */
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            border: 2px solid rgba(255,255,255,0.4);
-        }
-
-        .switcher-btn {
-            text-decoration: none;
-            padding: 10px 22px; /* Increased padding */
-            border-radius: 40px;
-            font-size: 0.95rem;
-            font-weight: 800; /* Extra Bold */
-            text-transform: uppercase; /* Uppercase to match CTA */
-            letter-spacing: 0.5px;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        /* Active State (Enterprise) */
-        .switcher-btn.active {
-            background: #b91c3c; /* Brand red background */
-            color: white; /* White text */
-            box-shadow: 0 4px 10px rgba(185, 28, 60, 0.3);
-            cursor: default;
-        }
-
-        /* Inactive State (Residential) */
-        .switcher-btn.inactive {
-            color: #444; /* Dark grey text against white background */
-            background: transparent;
-        }
-
-        .switcher-btn.inactive:hover {
-            color: #b91c3c;
-            background: #f0f0f0;
-        }
-
-        .house-icon {
-            width: 16px;
-            height: 16px;
-            fill: currentColor;
-            margin-bottom: 2px;
-        }
-        /* ----------------------------------- */
-
-        /* Hamburger Menu Styles */
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            padding: 5px;
-        }
-
-        .hamburger span {
-            width: 25px;
-            height: 3px;
-            background: white;
-            margin: 3px 0;
-            transition: 0.3s;
-            border-radius: 2px;
-        }
-
-        .hamburger.active span:nth-child(1) {
-            transform: rotate(-45deg) translate(-5px, 6px);
-        }
-
-        .hamburger.active span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .hamburger.active span:nth-child(3) {
-            transform: rotate(45deg) translate(-5px, -6px);
-        }
-
-        /* Mobile Menu */
-        .mobile-menu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            width: 100%;
-            background: #b91c3c;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
-            z-index: 999;
-        }
-
-        .mobile-menu.active {
-            display: block;
-        }
-
-        .mobile-menu ul {
-            list-style: none;
-            padding: 1rem 0;
-            margin: 0;
-        }
-
-        .mobile-menu li {
-            padding: 0.75rem 2rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .mobile-menu li:last-child {
-            border-bottom: none;
-        }
-
-        .mobile-menu a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1.1rem;
-            display: block;
-            transition: color 0.3s;
-        }
-
-        .mobile-menu a:hover {
-            color: #ffed4e;
-        }
-
-        /* Mobile Switcher */
-        .mobile-switcher-container {
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: center;
-            background: rgba(0,0,0,0.1);
-        }
-
-        .hero {
-            padding: 120px 0 80px;
-            text-align: center;
-            color: #333;
-            background: #f8f9fa;
-        }
-
-        .hero h2 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            color: #333;
-        }
-
-        .tagline {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-        }
-
-        .cta-button {
-            display: inline-block;
-            background: #b91c3c;
-            color: white;
-            padding: 15px 30px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            transition: background-color 0.3s;
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
-        }
-
-        .cta-button:hover {
-            background: #9a1932;
-        }
-
-        .cta-button.primary {
-            background: linear-gradient(135deg, #dc3545 0%, #b91c3c 50%, #9a1932 100%);
-            padding: 20px 40px;
-            font-size: 1.2rem;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 8px 25px rgba(185, 28, 60, 0.4);
-            border: 3px solid #fff;
-            transform: scale(1);
-            transition: all 0.3s ease;
-        }
-
-        .cta-button.primary:hover {
-            background: linear-gradient(135deg, #ff1744 0%, #dc3545 50%, #b91c3c 100%);
-            transform: scale(1.05);
-            box-shadow: 0 12px 35px rgba(185, 28, 60, 0.6);
-        }
-
-        .services {
-            padding: 80px 0;
-            background: white;
-        }
-
-        .services h2 {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #333;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-        }
-
-        .service-card {
-            background: #f8f9fa;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
-            cursor: pointer;
-        }
-
-        .service-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-            background: #e3f2fd;
-        }
-
-        .service-card h3 {
-            color: #b91c3c;
-            margin-bottom: 1rem;
-            font-size: 1.3rem;
-        }
-
-        .service-card p {
-            color: #666;
-            line-height: 1.7;
-        }
-
-        .about {
-            padding: 80px 0;
-            background: white;
-        }
-
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 3rem;
-            align-items: center;
-        }
-
-        .about h2 {
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-            color: #333;
-        }
-
-        /* Updated Certification Styles */
-        .qualifications-section {
-            padding: 40px 0;
-            background: white;
-            border-bottom: 1px solid #eee;
-        }
-
-        .qualifications-section h3 {
-            font-size: 1.5rem;
-            color: #b91c3c;
-            margin-bottom: 1.5rem;
-            text-transform: uppercase;
-            font-weight: 800;
-            letter-spacing: 0.5px;
-            text-align: center;
-        }
-
-        .cert-list {
-            list-style: none;
-            padding-left: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center; /* Centers bullets in the column */
-        }
-
-        .cert-list li {
-            position: relative;
-            padding-left: 2rem;
-            margin-bottom: 0.75rem;
-            font-weight: 500;
-            color: #333;
-            font-size: 1.1rem;
-            text-align: left;
-            width: fit-content; /* Keeps text left aligned relative to bullet */
-        }
-
-        .cert-list li::before {
-            content: "•";
-            color: #b91c3c;
-            font-weight: bold;
-            font-size: 2rem;
-            position: absolute;
-            left: 0;
-            top: -12px;
-            line-height: 1;
-        }
-
-        .faq {
-            padding: 80px 0;
-            background: #f8f9fa; /* Slightly changed to distinct from white about section */
-        }
-
-        .faq h2 {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #333;
-        }
-
-        .faq-item {
-            background: white;
-            margin-bottom: 1rem;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-
-        .faq-question {
-            background: #b91c3c;
-            color: white;
-            padding: 1.5rem;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background 0.3s;
-        }
-
-        .faq-question:hover {
-            background: #9a1932;
-        }
-
-        .faq-answer {
-            padding: 1.5rem;
-            color: #666;
-            line-height: 1.7;
-            display: none;
-        }
-
-        .contact {
-            padding: 80px 0;
-            background: #b91c3c;
-            color: white;
-            text-align: center;
-        }
-
-        .contact h2 {
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .contact-info {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-        }
-
-        .contact-form {
-            max-width: 600px;
-            margin: 2rem auto;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 2rem;
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-            text-align: left;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: bold;
-            color: white;
-        }
-
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            padding: 12px 15px;
-            border: none;
-            border-radius: 5px;
-            font-size: 1rem;
-            background: white;
-            color: #333;
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
-
-        .form-submit {
-            background: white;
-            color: #b91c3c;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 5px;
-            font-weight: bold;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s;
-            width: 100%;
-        }
-
-        .form-submit:hover {
-            background: #f8f9fa;
-            transform: translateY(-2px);
-        }
-
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 2000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(5px);
-        }
-
-        .modal-content {
-            background-color: #b91c3c;
-            margin: 5% auto;
-            padding: 0;
-            border-radius: 15px;
-            width: 90%;
-            max-width: 700px;
-            max-height: 90vh;
-            overflow-y: auto;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            animation: modalSlideIn 0.3s ease-out;
-        }
-
-        @keyframes modalSlideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .modal-header {
-            padding: 2rem 2rem 1rem;
-            text-align: center;
-            color: white;
-        }
-
-        .modal-header h2 {
-            margin: 0;
-            font-size: 2rem;
-        }
-
-        .close {
-            color: white;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-            position: absolute;
-            right: 20px;
-            top: 15px;
-            transition: color 0.3s;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: #ffed4e;
-        }
-
-        .modal-form {
-            padding: 0 2rem 2rem;
-        }
-
-        footer {
-            background: #333;
-            color: white;
-            text-align: center;
-            padding: 2rem 0;
-        }
-
-        @media (max-width: 768px) {
-            .hero h2 {
-                font-size: 2rem;
-            }
-
-            .tagline {
-                font-size: 1.1rem;
-            }
-
-            .about-content {
-                grid-template-columns: 1fr;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .hamburger {
-                display: flex;
-            }
-
-            .services-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .modal-content {
-                width: 95%;
-                margin: 2% auto;
-            }
-
-            .modal-header h2 {
-                font-size: 1.5rem;
-            }
-        }
-    </style>
-  <script src="//code.tidio.co/dhiuowrsi8illb7ws2xgsfeomrndfti4.js" async></script>
+    <link rel="stylesheet" href="./src/index.css">
 </head>
-<body>
-    <header>
-        <nav class="container">
-            <a href="https://cardinalcomputersystems.com/" class="logo">
-                <img src="cardinal-logo.png" alt="Cardinal Computer Systems Logo">
+<body class="font-sans leading-relaxed text-[#333] bg-brand-bg antialiased">
+
+    <header class="bg-brand-red text-white shadow-lg fixed w-full top-0 z-50">
+        <nav class="container mx-auto px-5 py-3 flex justify-between items-center max-w-[1200px]">
+            <a href="https://cardinalcomputersystems.com/" class="flex items-center gap-2 text-2xl font-bold text-white no-underline">
+                <img src="cardinal-logo.png" alt="Cardinal Computer Systems Logo" class="h-10 w-auto">
                 Cardinal Computer Systems
             </a>
             
-            <!-- Desktop Nav with Switcher -->
-            <ul class="nav-links">
-                <!-- NEW: Segment Switcher (Moved to First Position) -->
+            <ul class="hidden md:flex list-none gap-6 items-center">
                 <li>
-                    <div class="nav-switcher">
-                        <span class="switcher-btn active">Enterprise</span>
-                        <a href="https://cardinalcomputersystems.com/residential" class="switcher-btn inactive">
-                            <svg class="house-icon" viewBox="0 0 24 24">
-                                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
-                            </svg>
+                    <div class="flex bg-white p-[5px] rounded-full gap-1 shadow-md border-2 border-white/40">
+                        <span class="flex items-center gap-2 px-6 py-2.5 rounded-full text-[0.95rem] font-extrabold uppercase tracking-wide bg-brand-red text-white shadow-sm cursor-default transition-all">
+                            Enterprise
+                        </span>
+                        <a href="https://cardinalcomputersystems.com/residential" class="flex items-center gap-2 px-6 py-2.5 rounded-full text-[0.95rem] font-extrabold uppercase tracking-wide text-[#444] bg-transparent hover:text-brand-red hover:bg-[#f0f0f0] transition-all no-underline">
+                            <svg class="w-4 h-4 fill-current mb-0.5" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
                             Residential
                         </a>
                     </div>
                 </li>
-
-                <li><a href="https://cardinalcomputersystems.com/" class="nav-item">Home</a></li>
-                <li><a href="#services" class="nav-item">Services</a></li>
-                <li><a href="#about" class="nav-item">About</a></li>
-                <li><a href="#faq" class="nav-item">FAQ</a></li>
-                <li><a href="#" onclick="openModal(); return false;" class="nav-item">Contact</a></li>
+                <li><a href="https://cardinalcomputersystems.com/" class="text-white font-medium hover:text-brand-yellow transition-colors no-underline">Home</a></li>
+                <li><a href="#services" class="text-white font-medium hover:text-brand-yellow transition-colors no-underline">Services</a></li>
+                <li><a href="#about" class="text-white font-medium hover:text-brand-yellow transition-colors no-underline">About</a></li>
+                <li><a href="#faq" class="text-white font-medium hover:text-brand-yellow transition-colors no-underline">FAQ</a></li>
+                <li><a href="#" onclick="openModal(); return false;" class="text-white font-medium hover:text-brand-yellow transition-colors no-underline">Contact</a></li>
             </ul>
 
-            <div class="hamburger" onclick="toggleMobileMenu()">
-                <span></span>
-                <span></span>
-                <span></span>
+            <div class="hamburger md:hidden flex flex-col cursor-pointer p-1.5 gap-[5px] group" onclick="toggleMobileMenu()">
+                <span class="w-[25px] h-[3px] bg-white rounded-sm transition-all duration-300 group-[.active]:-rotate-45 group-[.active]:-translate-x-[5px] group-[.active]:translate-y-[6px]"></span>
+                <span class="w-[25px] h-[3px] bg-white rounded-sm transition-all duration-300 group-[.active]:opacity-0"></span>
+                <span class="w-[25px] h-[3px] bg-white rounded-sm transition-all duration-300 group-[.active]:rotate-45 group-[.active]:-translate-x-[5px] group-[.active]:-translate-y-[6px]"></span>
             </div>
         </nav>
 
-        <div class="mobile-menu" id="mobileMenu">
-            <!-- Mobile Switcher at Top -->
-            <div class="mobile-switcher-container">
-                <div class="nav-switcher">
-                    <span class="switcher-btn active">Enterprise</span>
-                    <a href="https://cardinalcomputersystems.com/residential" class="switcher-btn inactive">
-                        <svg class="house-icon" viewBox="0 0 24 24">
-                            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
-                        </svg>
+        <div class="mobile-menu hidden absolute top-full left-0 w-full bg-brand-red shadow-lg z-40 [&.active]:block" id="mobileMenu">
+            <div class="p-4 flex justify-center bg-black/10">
+                <div class="flex bg-white p-[5px] rounded-full gap-1 shadow-md border-2 border-white/40">
+                    <span class="flex items-center gap-2 px-6 py-2.5 rounded-full text-[0.95rem] font-extrabold uppercase tracking-wide bg-brand-red text-white shadow-sm cursor-default">
+                        Enterprise
+                    </span>
+                    <a href="https://cardinalcomputersystems.com/residential" class="flex items-center gap-2 px-6 py-2.5 rounded-full text-[0.95rem] font-extrabold uppercase tracking-wide text-[#444] bg-transparent hover:text-brand-red hover:bg-[#f0f0f0] transition-all no-underline">
+                        <svg class="w-4 h-4 fill-current mb-0.5" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
                         Residential
                     </a>
                 </div>
             </div>
-            <ul>
-                <!-- Swapped order here as well -->
-                <li><a href="https://cardinalcomputersystems.com/" onclick="closeMobileMenu()">Home</a></li>
-                <li><a href="#services" onclick="closeMobileMenu()">Services</a></li>
-                <li><a href="#about" onclick="closeMobileMenu()">About</a></li>
-                <li><a href="#faq" onclick="closeMobileMenu()">FAQ</a></li>
-                <li><a href="#" onclick="openModal(); closeMobileMenu(); return false;">Contact</a></li>
+            <ul class="list-none py-4 m-0">
+                <li class="border-b border-white/10 px-8 py-3"><a href="https://cardinalcomputersystems.com/" onclick="closeMobileMenu()" class="text-white font-medium text-lg block hover:text-brand-yellow transition-colors">Home</a></li>
+                <li class="border-b border-white/10 px-8 py-3"><a href="#services" onclick="closeMobileMenu()" class="text-white font-medium text-lg block hover:text-brand-yellow transition-colors">Services</a></li>
+                <li class="border-b border-white/10 px-8 py-3"><a href="#about" onclick="closeMobileMenu()" class="text-white font-medium text-lg block hover:text-brand-yellow transition-colors">About</a></li>
+                <li class="border-b border-white/10 px-8 py-3"><a href="#faq" onclick="closeMobileMenu()" class="text-white font-medium text-lg block hover:text-brand-yellow transition-colors">FAQ</a></li>
+                <li class="px-8 py-3"><a href="#" onclick="openModal(); closeMobileMenu(); return false;" class="text-white font-medium text-lg block hover:text-brand-yellow transition-colors">Contact</a></li>
             </ul>
         </div>
     </header>
 
-    <section class="hero">
-        <div class="container">
-            <h2>Senior-Level Systems Engineering for your Small Business. Get expert quality IT services without in-house IT.</h2>
-            <p class="tagline">Affordable Engineering and Integration Consulting</p>
-            <button class="cta-button primary" onclick="openModal()">Get Expert Consultation</button>
+    <section class="pt-[120px] pb-20 text-center text-[#333] bg-brand-bg">
+        <div class="container mx-auto px-5 max-w-[1200px]">
+            <h2 class="text-[2rem] md:text-[3rem] mb-4 text-[#333] leading-tight font-bold">Senior-Level Systems Engineering for your Small Business. Get expert quality IT services without in-house IT.</h2>
+            <p class="text-[1.1rem] md:text-[1.3rem] mb-8 opacity-90">Affordable Engineering and Integration Consulting</p>
+            <button class="inline-block bg-gradient-to-br from-[#dc3545] via-brand-red to-brand-dark text-white py-5 px-10 rounded-md font-black text-xl uppercase tracking-widest shadow-[0_8px_25px_rgba(185,28,60,0.4)] border-[3px] border-white transition-all duration-300 hover:scale-105 hover:shadow-[0_12px_35px_rgba(185,28,60,0.6)] hover:bg-gradient-to-br hover:from-[#ff1744] hover:via-[#dc3545] hover:to-brand-red cursor-pointer" onclick="openModal()">Get Expert Consultation</button>
         </div>
     </section>
 
-    <!-- NEW SECTION: Certifications (Extracted from About, kept at top) -->
-    <section class="qualifications-section">
-        <div class="container">
-            <h3>Certification and Qualifications</h3>
-            <ul class="cert-list">
-                <li>CompTIA Certified</li>
-                <li>ITIL Framework</li>
-                <li>Microsoft Azure</li>
-                <li>Enterprise Architecture</li>
+    <section class="py-10 bg-white border-b border-[#eee]">
+        <div class="container mx-auto px-5 max-w-[1200px]">
+            <h3 class="text-2xl text-brand-red mb-6 uppercase font-extrabold tracking-wide text-center">Certification and Qualifications</h3>
+            <ul class="list-none pl-0 flex flex-col items-center">
+                <li class="relative pl-8 mb-3 font-medium text-[#333] text-lg w-fit text-left before:content-['•'] before:text-brand-red before:font-bold before:text-[2rem] before:absolute before:left-0 before:-top-3 before:leading-none">CompTIA Certified</li>
+                <li class="relative pl-8 mb-3 font-medium text-[#333] text-lg w-fit text-left before:content-['•'] before:text-brand-red before:font-bold before:text-[2rem] before:absolute before:left-0 before:-top-3 before:leading-none">ITIL Framework</li>
+                <li class="relative pl-8 mb-3 font-medium text-[#333] text-lg w-fit text-left before:content-['•'] before:text-brand-red before:font-bold before:text-[2rem] before:absolute before:left-0 before:-top-3 before:leading-none">Microsoft Azure</li>
+                <li class="relative pl-8 mb-3 font-medium text-[#333] text-lg w-fit text-left before:content-['•'] before:text-brand-red before:font-bold before:text-[2rem] before:absolute before:left-0 before:-top-3 before:leading-none">Enterprise Architecture</li>
             </ul>
         </div>
     </section>
 
-    <!-- MOVED UP: Services Section -->
-    <section class="services" id="services">
-        <div class="container">
-            <h2>Enterprise Consulting Services</h2>
-            <div class="services-grid">
-                <div class="service-card" onclick="openModalWithService('fractional-engineering')">
-                    <h3>Affordable Systems Engineer</h3>
-                    <p>Get the benefit of a senior engineer with 14+ years of experience for a fraction of the cost. We provide ongoing strategic guidance, manage your cloud infrastructure, and solve your most complex technical challenges on a flexible monthly retainer.</p>
+    <section class="py-20 bg-white" id="services">
+        <div class="container mx-auto px-5 max-w-[1200px]">
+            <h2 class="text-center text-[2.5rem] mb-12 text-[#333] font-bold">Enterprise Consulting Services</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-brand-bg p-8 rounded-2xl shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:bg-brand-blue cursor-pointer" onclick="openModalWithService('fractional-engineering')">
+                    <h3 class="text-brand-red mb-4 text-[1.3rem] font-bold">Affordable Systems Engineer</h3>
+                    <p class="text-[#666] leading-relaxed">Get the benefit of a senior engineer with 14+ years of experience for a fraction of the cost. We provide ongoing strategic guidance, manage your cloud infrastructure, and solve your most complex technical challenges on a flexible monthly retainer.</p>
                 </div>
-                <div class="service-card" onclick="openModalWithService('it-service-management')">
-                    <h3>IT Service Management</h3>
-                    <p>We design, customize, and build automated workflows and API integrations for companies using ITSM platforms like BMC Helix and ServiceNow. We solve the complex problems your general IT staff can't, on a project-by-project basis.</p>
+                <div class="bg-brand-bg p-8 rounded-2xl shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:bg-brand-blue cursor-pointer" onclick="openModalWithService('it-service-management')">
+                    <h3 class="text-brand-red mb-4 text-[1.3rem] font-bold">IT Service Management</h3>
+                    <p class="text-[#666] leading-relaxed">We design, customize, and build automated workflows and API integrations for companies using ITSM platforms like BMC Helix and ServiceNow. We solve the complex problems your general IT staff can't, on a project-by-project basis.</p>
                 </div>
-                <div class="service-card" onclick="openModalWithService('hipaa-documentation')">
-                    <h3>HIPAA Documentation Preparation</h3>
-                    <p>We prepare essential HIPAA compliance documentation for small healthcare practices and business associates. From security risk assessments to privacy policy manuals, we help you navigate regulatory requirements with confidence.</p>
+                <div class="bg-brand-bg p-8 rounded-2xl shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:bg-brand-blue cursor-pointer" onclick="openModalWithService('hipaa-documentation')">
+                    <h3 class="text-brand-red mb-4 text-[1.3rem] font-bold">HIPAA Documentation Preparation</h3>
+                    <p class="text-[#666] leading-relaxed">We prepare essential HIPAA compliance documentation for small healthcare practices and business associates. From security risk assessments to privacy policy manuals, we help you navigate regulatory requirements with confidence.</p>
                 </div>
-                <div class="service-card" onclick="openModalWithService('quick-assessment')">
-                    <h3>Quick Systems Checkup and Assessment</h3>
-                    <p>We conduct a rapid yet thorough evaluation of your IT environment to identify security risks, performance issues, and cost-saving opportunities. You'll get a clear, actionable health report and a roadmap for immediate improvements without a long-term commitment.</p>
+                <div class="bg-brand-bg p-8 rounded-2xl shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:bg-brand-blue cursor-pointer" onclick="openModalWithService('quick-assessment')">
+                    <h3 class="text-brand-red mb-4 text-[1.3rem] font-bold">Quick Systems Checkup and Assessment</h3>
+                    <p class="text-[#666] leading-relaxed">We conduct a rapid yet thorough evaluation of your IT environment to identify security risks, performance issues, and cost-saving opportunities. You'll get a clear, actionable health report and a roadmap for immediate improvements without a long-term commitment.</p>
                 </div>
-                <div class="service-card" onclick="openModalWithService('it-process-playbook')">
-                    <h3>IT Process & Playbook Development</h3>
-                    <p>We create custom, standardized playbooks for your team to follow for everything from incident response to cloud migration, reducing your long-term costs and improving efficiency. Based on proven ITIL frameworks.</p>
+                <div class="bg-brand-bg p-8 rounded-2xl shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:bg-brand-blue cursor-pointer" onclick="openModalWithService('it-process-playbook')">
+                    <h3 class="text-brand-red mb-4 text-[1.3rem] font-bold">IT Process & Playbook Development</h3>
+                    <p class="text-[#666] leading-relaxed">We create custom, standardized playbooks for your team to follow for everything from incident response to cloud migration, reducing your long-term costs and improving efficiency. Based on proven ITIL frameworks.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- MOVED DOWN: About Section (Minus Certifications) -->
-    <section class="about" id="about">
-        <div class="container">
-            <div class="about-content">
+    <section class="py-20 bg-white" id="about">
+        <div class="container mx-auto px-5 max-w-[1200px]">
+            <div class="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-12 items-center">
                 <div>
-                    <h2>About Cardinal Computer Systems</h2>
-                    <p>With over 14 years of enterprise systems engineering experience, we help small businesses and growing organizations solve complex technical challenges without the overhead of hiring full-time senior staff. We bring enterprise-level expertise directly to your small business.</p>
-                    
-                    <p>Our background is in building solid tech foundations that grow with you. We help simplify your daily operations and automate repetitive tasks, giving your small team the power to operate like a major enterprise—without the complexity or cost.</p>
+                    <h2 class="text-[2.5rem] mb-8 text-[#333] font-bold">About Cardinal Computer Systems</h2>
+                    <p class="mb-6 text-[#666] leading-relaxed">With over 14 years of enterprise systems engineering experience, we help small businesses and growing organizations solve complex technical challenges without the overhead of hiring full-time senior staff. We bring enterprise-level expertise directly to your small business.</p>
+                    <p class="mb-6 text-[#666] leading-relaxed">Our background is in building solid tech foundations that grow with you. We help simplify your daily operations and automate repetitive tasks, giving your small team the power to operate like a major enterprise—without the complexity or cost.</p>
                 </div>
                 <div>
-                    <img src="professional-team.png" alt="Cardinal Computer Systems Professional Team" style="width: 100%; height: 300px; object-fit: cover; object-position: center center; border-radius: 15px;">
+                    <img src="professional-team.png" alt="Cardinal Computer Systems Professional Team" class="w-full h-[300px] object-cover object-center rounded-2xl">
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="faq" id="faq">
-        <div class="container">
-            <h2>Frequently Asked Questions</h2>
-            <div class="faq-item">
-                <div class="faq-question">How does Affordable Engineering work?</div>
-                <div class="faq-answer">Affordable engineering provides senior-level expertise on a part-time, retainer, or project basis. You get access to enterprise-level skills and experience without the cost and commitment of a full-time senior hire. It's perfect for companies that need occasional high-level technical guidance.</div>
+    <section class="py-20 bg-brand-bg" id="faq">
+        <div class="container mx-auto px-5 max-w-[1200px]">
+            <h2 class="text-center text-[2.5rem] mb-12 text-[#333] font-bold">Frequently Asked Questions</h2>
+            <div class="mb-4 bg-white rounded-xl overflow-hidden shadow-sm">
+                <div class="faq-question bg-brand-red text-white p-6 cursor-pointer font-bold transition-colors duration-300 hover:bg-brand-dark">How does Affordable Engineering work?</div>
+                <div class="faq-answer hidden p-6 text-[#666] leading-relaxed">Affordable engineering provides senior-level expertise on a part-time, retainer, or project basis. You get access to enterprise-level skills and experience without the cost and commitment of a full-time senior hire. It's perfect for companies that need occasional high-level technical guidance.</div>
             </div>
-            <div class="faq-item">
-                <div class="faq-question">How do you price your projects?</div>
-                <div class="faq-answer">Pricing depends on the scope and complexity of your needs. We offer flexible arrangements including monthly retainers for ongoing support, fixed-price projects for specific implementations, and hourly consulting for ad-hoc technical guidance. All engagements begin with a discovery consultation to ensure the right fit.</div>
+            <div class="mb-4 bg-white rounded-xl overflow-hidden shadow-sm">
+                <div class="faq-question bg-brand-red text-white p-6 cursor-pointer font-bold transition-colors duration-300 hover:bg-brand-dark">How do you price your projects?</div>
+                <div class="faq-answer hidden p-6 text-[#666] leading-relaxed">Pricing depends on the scope and complexity of your needs. We offer flexible arrangements including monthly retainers for ongoing support, fixed-price projects for specific implementations, and hourly consulting for ad-hoc technical guidance. All engagements begin with a discovery consultation to ensure the right fit.</div>
             </div>
-            <div class="faq-item">
-                <div class="faq-question">What size company do you typically work with?</div>
-                <div class="faq-answer">We primarily work with mid-market companies (50-500 employees) who have outgrown basic IT support but don't need a full-time senior engineer. These organizations typically have complex technical needs but want to maintain cost efficiency.</div>
+            <div class="mb-4 bg-white rounded-xl overflow-hidden shadow-sm">
+                <div class="faq-question bg-brand-red text-white p-6 cursor-pointer font-bold transition-colors duration-300 hover:bg-brand-dark">What size company do you typically work with?</div>
+                <div class="faq-answer hidden p-6 text-[#666] leading-relaxed">We primarily work with mid-market companies (50-500 employees) who have outgrown basic IT support but don't need a full-time senior engineer. These organizations typically have complex technical needs but want to maintain cost efficiency.</div>
             </div>
         </div>
     </section>
 
-    <section class="contact" id="contact">
-        <div class="container">
-            <h2>Ready to Elevate Your IT Infrastructure?</h2>
-            <div class="contact-info">
+    <section class="py-20 bg-brand-red text-white text-center" id="contact">
+        <div class="container mx-auto px-5 max-w-[1200px]">
+            <h2 class="text-[2.5rem] mb-8 font-bold">Ready to Elevate Your IT Infrastructure?</h2>
+            <div class="text-[1.2rem] mb-8">
                 <p><strong>Location:</strong> Washington DC Metro Area</p>
                 <p>Let us help you solve your enterprise technical challenges</p>
-                <button class="cta-button primary" onclick="openModal()">Get Expert Consultation</button>
+                <button class="inline-block mt-6 bg-gradient-to-br from-[#dc3545] via-brand-red to-brand-dark text-white py-5 px-10 rounded-md font-black text-xl uppercase tracking-widest shadow-[0_8px_25px_rgba(185,28,60,0.4)] border-[3px] border-white transition-all duration-300 hover:scale-105 hover:shadow-[0_12px_35px_rgba(185,28,60,0.6)] hover:bg-gradient-to-br hover:from-[#ff1744] hover:via-[#dc3545] hover:to-brand-red cursor-pointer" onclick="openModal()">Get Expert Consultation</button>
             </div>
         </div>
     </section>
 
-    <!-- Contact Modal -->
-    <div id="contactModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <span class="close" onclick="closeModal()">&times;</span>
-                <h2>Contact Us</h2>
+    <div id="contactModal" class="hidden fixed z-[2000] left-0 top-0 w-full h-full overflow-auto bg-black/50 backdrop-blur-[5px]">
+        <div class="bg-brand-red my-[5%] mx-auto p-0 rounded-2xl w-[95%] md:w-[90%] max-w-[700px] max-h-[90vh] overflow-y-auto shadow-[0_20px_60px_rgba(0,0,0,0.3)] animate-modalSlideIn">
+            <div class="p-8 pb-4 text-center text-white relative">
+                <span class="text-white text-[28px] font-bold float-right cursor-pointer absolute right-5 top-4 transition-colors hover:text-brand-yellow" onclick="closeModal()">&times;</span>
+                <h2 class="m-0 text-[1.5rem] md:text-[2rem] font-bold">Contact Us</h2>
             </div>
-            <form class="modal-form" action="https://formspree.io/f/xblkpnkd" method="POST">
-                <div class="form-group">
-                    <label for="name">Your Name:</label>
-                    <input type="text" id="name" name="name" required>
+            <form class="p-8 pt-0" action="https://formspree.io/f/xblkpnkd" method="POST">
+                <div class="mb-6 text-left">
+                    <label for="name" class="block mb-2 font-bold text-white">Your Name:</label>
+                    <input type="text" id="name" name="name" required class="w-full p-3 border-none rounded-md text-base bg-white text-[#333]">
                 </div>
-                <div class="form-group">
-                    <label for="company">Company:</label>
-                    <input type="text" id="company" name="company">
+                <div class="mb-6 text-left">
+                    <label for="company" class="block mb-2 font-bold text-white">Company:</label>
+                    <input type="text" id="company" name="company" class="w-full p-3 border-none rounded-md text-base bg-white text-[#333]">
                 </div>
-                <div class="form-group">
-                    <label for="email">Your Email:</label>
-                    <input type="email" id="email" name="email" required>
+                <div class="mb-6 text-left">
+                    <label for="email" class="block mb-2 font-bold text-white">Your Email:</label>
+                    <input type="email" id="email" name="email" required class="w-full p-3 border-none rounded-md text-base bg-white text-[#333]">
                 </div>
-                <div class="form-group">
-                    <label for="phone">Phone Number:</label>
-                    <input type="tel" id="phone" name="phone">
+                <div class="mb-6 text-left">
+                    <label for="phone" class="block mb-2 font-bold text-white">Phone Number:</label>
+                    <input type="tel" id="phone" name="phone" class="w-full p-3 border-none rounded-md text-base bg-white text-[#333]">
                 </div>
-                <div class="form-group">
-                    <label for="service">Service Interest:</label>
-                    <select id="service" name="service">
+                <div class="mb-6 text-left">
+                    <label for="service" class="block mb-2 font-bold text-white">Service Interest:</label>
+                    <select id="service" name="service" class="w-full p-3 border-none rounded-md text-base bg-white text-[#333]">
                         <option value="">Select a service...</option>
                         <option value="fractional-engineering">Affordable Systems Engineer</option>
                         <option value="it-service-management">IT Service Management</option>
@@ -829,17 +223,17 @@
                         <option value="consultation">General Consultation</option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label for="message">Project Details:</label>
-                    <textarea id="message" name="message" placeholder="Tell us about your technical challenges and how we can help..." required></textarea>
+                <div class="mb-6 text-left">
+                    <label for="message" class="block mb-2 font-bold text-white">Project Details:</label>
+                    <textarea id="message" name="message" placeholder="Tell us about your technical challenges and how we can help..." required class="w-full p-3 border-none rounded-md text-base bg-white text-[#333] resize-y min-h-[120px]"></textarea>
                 </div>
-                <button type="submit" class="form-submit">Get Expert Consultation</button>
+                <button type="submit" class="w-full bg-white text-brand-red p-4 border-none rounded-md font-bold text-base cursor-pointer transition-all duration-300 hover:bg-brand-bg hover:-translate-y-0.5">Get Expert Consultation</button>
             </form>
         </div>
     </div>
 
-    <footer>
-        <div class="container">
+    <footer class="bg-[#333] text-white text-center py-8">
+        <div class="container mx-auto px-5 max-w-[1200px]">
             <p>&copy; 2025 Cardinal Computer Systems. Professional IT Consulting and Affordable Engineering Services.</p>
         </div>
     </footer>
@@ -850,6 +244,8 @@
             const hamburger = document.querySelector('.hamburger');
             const mobileMenu = document.getElementById('mobileMenu');
             
+            // Replaced classList.toggle with logic compatible with Tailwind's "group" strategy
+            // But since we used the 'active' class in Tailwind variants, we keep this JS exactly as is.
             hamburger.classList.toggle('active');
             mobileMenu.classList.toggle('active');
         }
@@ -862,20 +258,14 @@
             mobileMenu.classList.remove('active');
         }
 
-        // Modal functionality
         function openModal() {
             document.getElementById('contactModal').style.display = 'block';
         }
 
         function openModalWithService(serviceValue) {
-            // Open the modal
             document.getElementById('contactModal').style.display = 'block';
-            
-            // Set the service dropdown to the selected service
             const serviceSelect = document.getElementById('service');
             serviceSelect.value = serviceValue;
-            
-            // Optional: Scroll to the service field to highlight the selection
             setTimeout(() => {
                 serviceSelect.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }, 300);
@@ -885,7 +275,6 @@
             document.getElementById('contactModal').style.display = 'none';
         }
 
-        // Close modal when clicking outside of it
         window.onclick = function(event) {
             const modal = document.getElementById('contactModal');
             if (event.target === modal) {
@@ -893,28 +282,26 @@
             }
         }
 
-        // Close modal with Escape key
         window.addEventListener('keydown', function(event) {
             if (event.key === 'Escape') {
                 closeModal();
             }
         });
 
-        // FAQ Accordion functionality
         document.querySelectorAll('.faq-question').forEach(question => {
             question.addEventListener('click', () => {
                 const answer = question.nextElementSibling;
-                const isOpen = answer.style.display === 'block';
-                
-                // Close all FAQ answers
-                document.querySelectorAll('.faq-answer').forEach(a => a.style.display = 'none');
-                
-                // Toggle current answer
-                answer.style.display = isOpen ? 'none' : 'block';
+                // Since we use 'hidden' class now, we toggle that
+                if (answer.classList.contains('hidden')) {
+                     // Close others
+                     document.querySelectorAll('.faq-answer').forEach(a => a.classList.add('hidden'));
+                     answer.classList.remove('hidden');
+                } else {
+                     answer.classList.add('hidden');
+                }
             });
         });
 
-        // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -930,4 +317,3 @@
     </script>
 </body>
 </html>
-
