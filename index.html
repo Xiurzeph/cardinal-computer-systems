@@ -13,15 +13,15 @@
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cardinal Computer Systems - Enterprise IT Consulting</title>
-    <meta name="description" content="Affordable Engineering and Integration Consulting. Senior-level systems engineering for your business, without the senior-level cost.">
+    <title>Cardinal Computer Systems - Healthcare IT Support Southern Maryland</title>
+    <meta name="description" content="HIPAA-Ready IT Support for Healthcare Practices in Southern Maryland. EMR support, compliance, and security.">
     
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "ProfessionalService",
         "name": "Cardinal Computer Systems",
-        "description": "Enterprise IT consulting and fractional engineering services",
+        "description": "HIPAA-Ready IT Support for Healthcare Practices in Southern Maryland",
         "url": "https://cardinalcomputersystems.com",
         "address": {
             "@type": "PostalAddress",
@@ -30,212 +30,332 @@
             "addressCountry": "US"
         },
         "serviceType": [
-            "Affordable Systems Engineering",
-            "BMC Helix Consulting",
-            "ServiceNow Integration",
-            "IT Process Development"
+            "Healthcare IT Support",
+            "HIPAA Compliance Services",
+            "EMR/EHR Support",
+            "Medical Office IT"
         ]
     }
     </script>
     
     <link rel="stylesheet" href="./dist/output.css">
 </head>
-<body class="font-sans leading-relaxed text-[#333] bg-brand-bg antialiased">
+<body class="font-sans leading-relaxed text-gray-800 bg-brand-bg antialiased selection:bg-brand-red selection:text-white">
 
-    <header class="bg-brand-red text-white shadow-lg fixed w-full top-0 z-50">
-        <nav class="container mx-auto px-5 py-3 flex justify-between items-center max-w-[1200px]">
-            <a href="https://cardinalcomputersystems.com/" class="flex items-center gap-2 text-2xl font-bold text-white no-underline">
-                <img src="cardinal-logo.png" alt="Cardinal Computer Systems Logo" class="h-10 w-auto">
-                Cardinal Computer Systems
+    <header class="bg-brand-red text-white shadow-lg fixed w-full top-0 z-50 transition-all duration-300">
+        <nav class="container mx-auto px-4 py-3 flex justify-between items-center max-w-7xl">
+            <a href="https://cardinalcomputersystems.com/" class="flex items-center gap-3 group">
+                <img src="cardinal-logo.png" alt="Cardinal Computer Systems Logo" class="h-10 w-auto transition-transform group-hover:scale-105">
+                <span class="text-xl md:text-2xl font-bold text-white tracking-tight">Cardinal Computer Systems</span>
             </a>
             
-            <ul class="hidden md:flex list-none gap-6 items-center">
-                <li>
-                    <div class="flex bg-white p-[5px] rounded-full gap-1 shadow-md border-2 border-white/40">
-                        <span class="flex items-center gap-2 px-6 py-2.5 rounded-full text-[0.95rem] font-extrabold uppercase tracking-wide bg-brand-red text-white shadow-sm cursor-default transition-all">
-                            Enterprise
-                        </span>
-                        <a href="https://cardinalcomputersystems.com/residential" class="flex items-center gap-2 px-6 py-2.5 rounded-full text-[0.95rem] font-extrabold uppercase tracking-wide text-[#444] bg-transparent hover:text-brand-red hover:bg-[#f0f0f0] transition-all no-underline">
-                            <svg class="w-4 h-4 fill-current mb-0.5" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-                            Residential
-                        </a>
-                    </div>
-                </li>
-                <li><a href="https://cardinalcomputersystems.com/" class="text-white font-medium hover:text-brand-yellow transition-colors no-underline">Home</a></li>
-                <li><a href="#services" class="text-white font-medium hover:text-brand-yellow transition-colors no-underline">Services</a></li>
-                <li><a href="#about" class="text-white font-medium hover:text-brand-yellow transition-colors no-underline">About</a></li>
-                <li><a href="#faq" class="text-white font-medium hover:text-brand-yellow transition-colors no-underline">FAQ</a></li>
-                <li><a href="#" onclick="openModal(); return false;" class="text-white font-medium hover:text-brand-yellow transition-colors no-underline">Contact</a></li>
+            <ul class="hidden md:flex list-none gap-8 items-center">
+                <li><a href="https://cardinalcomputersystems.com/" class="text-white font-medium hover:text-brand-yellow transition-colors relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-brand-yellow after:left-0 after:-bottom-1 after:transition-all hover:after:w-full">Home</a></li>
+                <li><a href="#services" class="text-white font-medium hover:text-brand-yellow transition-colors relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-brand-yellow after:left-0 after:-bottom-1 after:transition-all hover:after:w-full">Services</a></li>
+                <li><a href="#case-studies" class="text-white font-medium hover:text-brand-yellow transition-colors relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-brand-yellow after:left-0 after:-bottom-1 after:transition-all hover:after:w-full">Success Stories</a></li>
+                <li><a href="#faq" class="text-white font-medium hover:text-brand-yellow transition-colors relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-brand-yellow after:left-0 after:-bottom-1 after:transition-all hover:after:w-full">FAQ</a></li>
+                <li><a href="#" onclick="openModalWithService('consultation'); return false;" class="text-white font-medium hover:text-brand-yellow transition-colors relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-brand-yellow after:left-0 after:-bottom-1 after:transition-all hover:after:w-full">Contact</a></li>
             </ul>
 
-            <div class="hamburger md:hidden flex flex-col cursor-pointer p-1.5 gap-[5px] group" onclick="toggleMobileMenu()">
-                <span class="w-[25px] h-[3px] bg-white rounded-sm transition-all duration-300 group-[.active]:-rotate-45 group-[.active]:-translate-x-[5px] group-[.active]:translate-y-[6px]"></span>
-                <span class="w-[25px] h-[3px] bg-white rounded-sm transition-all duration-300 group-[.active]:opacity-0"></span>
-                <span class="w-[25px] h-[3px] bg-white rounded-sm transition-all duration-300 group-[.active]:rotate-45 group-[.active]:-translate-x-[5px] group-[.active]:-translate-y-[6px]"></span>
+            <div class="hamburger md:hidden flex flex-col cursor-pointer p-2 gap-1.5 group" onclick="toggleMobileMenu()">
+                <span class="w-7 h-0.5 bg-white rounded-sm transition-all duration-300 group-[.active]:-rotate-45 group-[.active]:translate-y-2"></span>
+                <span class="w-7 h-0.5 bg-white rounded-sm transition-all duration-300 group-[.active]:opacity-0"></span>
+                <span class="w-7 h-0.5 bg-white rounded-sm transition-all duration-300 group-[.active]:rotate-45 group-[.active]:-translate-y-2"></span>
             </div>
         </nav>
 
-        <div class="mobile-menu hidden absolute top-full left-0 w-full bg-brand-red shadow-lg z-40 [&.active]:block" id="mobileMenu">
-            <div class="p-4 flex justify-center bg-black/10">
-                <div class="flex bg-white p-[5px] rounded-full gap-1 shadow-md border-2 border-white/40">
-                    <span class="flex items-center gap-2 px-6 py-2.5 rounded-full text-[0.95rem] font-extrabold uppercase tracking-wide bg-brand-red text-white shadow-sm cursor-default">
-                        Enterprise
-                    </span>
-                    <a href="https://cardinalcomputersystems.com/residential" class="flex items-center gap-2 px-6 py-2.5 rounded-full text-[0.95rem] font-extrabold uppercase tracking-wide text-[#444] bg-transparent hover:text-brand-red hover:bg-[#f0f0f0] transition-all no-underline">
-                        <svg class="w-4 h-4 fill-current mb-0.5" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-                        Residential
-                    </a>
-                </div>
-            </div>
-            <ul class="list-none py-4 m-0">
-                <li class="border-b border-white/10 px-8 py-3"><a href="https://cardinalcomputersystems.com/" onclick="closeMobileMenu()" class="text-white font-medium text-lg block hover:text-brand-yellow transition-colors">Home</a></li>
-                <li class="border-b border-white/10 px-8 py-3"><a href="#services" onclick="closeMobileMenu()" class="text-white font-medium text-lg block hover:text-brand-yellow transition-colors">Services</a></li>
-                <li class="border-b border-white/10 px-8 py-3"><a href="#about" onclick="closeMobileMenu()" class="text-white font-medium text-lg block hover:text-brand-yellow transition-colors">About</a></li>
-                <li class="border-b border-white/10 px-8 py-3"><a href="#faq" onclick="closeMobileMenu()" class="text-white font-medium text-lg block hover:text-brand-yellow transition-colors">FAQ</a></li>
-                <li class="px-8 py-3"><a href="#" onclick="openModal(); closeMobileMenu(); return false;" class="text-white font-medium text-lg block hover:text-brand-yellow transition-colors">Contact</a></li>
+        <div class="mobile-menu hidden absolute top-full left-0 w-full bg-brand-red shadow-xl z-40 border-t border-white/10 [&.active]:block" id="mobileMenu">
+            <ul class="flex flex-col m-0 p-0 pt-4">
+                <li class="border-b border-white/10"><a href="https://cardinalcomputersystems.com/" onclick="closeMobileMenu()" class="text-white font-medium text-lg block px-8 py-4 hover:bg-black/10 hover:text-brand-yellow transition-all">Home</a></li>
+                <li class="border-b border-white/10"><a href="#services" onclick="closeMobileMenu()" class="text-white font-medium text-lg block px-8 py-4 hover:bg-black/10 hover:text-brand-yellow transition-all">Healthcare Services</a></li>
+                <li class="border-b border-white/10"><a href="#case-studies" onclick="closeMobileMenu()" class="text-white font-medium text-lg block px-8 py-4 hover:bg-black/10 hover:text-brand-yellow transition-all">Success Stories</a></li>
+                <li class="border-b border-white/10"><a href="#faq" onclick="closeMobileMenu()" class="text-white font-medium text-lg block px-8 py-4 hover:bg-black/10 hover:text-brand-yellow transition-all">FAQ</a></li>
+                <li><a href="#" onclick="openModalWithService('consultation'); closeMobileMenu(); return false;" class="text-white font-medium text-lg block px-8 py-4 hover:bg-black/10 hover:text-brand-yellow transition-all">Contact</a></li>
             </ul>
         </div>
     </header>
 
-    <section class="pt-[120px] pb-20 text-center text-[#333] bg-brand-bg">
-        <div class="container mx-auto px-5 max-w-[1200px]">
-            <h2 class="text-[2rem] md:text-[3rem] mb-4 text-[#333] leading-tight font-bold">Senior-Level Systems Engineering for your Small Business. Get expert quality IT services without in-house IT.</h2>
-            <p class="text-[1.1rem] md:text-[1.3rem] mb-8 opacity-90">Affordable Engineering and Integration Consulting</p>
-            <button class="inline-block bg-gradient-to-br from-[#dc3545] via-brand-red to-brand-dark text-white py-5 px-10 rounded-md font-black text-xl uppercase tracking-widest shadow-[0_8px_25px_rgba(185,28,60,0.4)] border-[3px] border-white transition-all duration-300 hover:scale-105 hover:shadow-[0_12px_35px_rgba(185,28,60,0.6)] hover:bg-gradient-to-br hover:from-[#ff1744] hover:via-[#dc3545] hover:to-brand-red cursor-pointer" onclick="openModal()">Get Expert Consultation</button>
+    <section class="pt-40 pb-16 text-center bg-brand-bg relative overflow-hidden">
+        <div class="container mx-auto px-4 max-w-5xl relative z-10">
+            <span class="inline-block py-1 px-3 rounded-full bg-brand-red/10 text-brand-red font-bold text-sm mb-4 border border-brand-red/20 uppercase tracking-wider">Serving Southern Maryland</span>
+            <h2 class="text-4xl md:text-5xl lg:text-6xl mb-6 text-gray-900 leading-tight font-extrabold tracking-tight">
+                Healthcare IT & Compliance Support for Southern Maryland Medical Offices
+                <span class="block text-2xl md:text-3xl mt-4 font-bold text-gray-600">Secure patient data. Maintain compliance. Eliminate downtime.</span>
+            </h2>
+            <p class="text-xl md:text-2xl mb-10 text-gray-500 font-medium max-w-3xl mx-auto">We provide specialized, senior-level systems engineering for medical offices, ensuring your EMRs and networks are secure and compliant.</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <button class="inline-block bg-gradient-to-br from-[#dc3545] via-brand-red to-[#8b0000] text-white py-4 px-8 rounded-lg font-black text-lg uppercase tracking-widest shadow-[0_8px_25px_rgba(185,28,60,0.4)] border-2 border-white transition-all duration-300 hover:scale-105 hover:shadow-[0_12px_35px_rgba(185,28,60,0.6)] hover:brightness-110 active:scale-95" onclick="openModalWithService('hipaa-essentials')">
+                    Get Your HIPAA Assessment
+                </button>
+                
+                <a href="javascript:void(0);" 
+                   onclick="window.tidioChatApi.display(true); window.tidioChatApi.open(); window.tidioChatApi.messageFromVisitor('#downloadchecklist');" 
+                   class="inline-flex items-center justify-center bg-white text-gray-700 py-4 px-8 rounded-lg font-bold text-lg border-2 border-gray-200 transition-all hover:border-brand-red hover:text-brand-red">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                    Download IT Checklist
+                </a>
+            </div>
         </div>
     </section>
 
-    <section class="py-10 bg-white border-b border-[#eee]">
-        <div class="container mx-auto px-5 max-w-[1200px]">
-            <h3 class="text-2xl text-brand-red mb-6 uppercase font-extrabold tracking-wide text-center">Certification and Qualifications</h3>
-            <ul class="list-none pl-0 flex flex-col items-center">
-                <li class="relative pl-8 mb-3 font-medium text-[#333] text-lg w-fit text-left before:content-['•'] before:text-brand-red before:font-bold before:text-[2rem] before:absolute before:left-0 before:-top-3 before:leading-none">CompTIA Certified</li>
-                <li class="relative pl-8 mb-3 font-medium text-[#333] text-lg w-fit text-left before:content-['•'] before:text-brand-red before:font-bold before:text-[2rem] before:absolute before:left-0 before:-top-3 before:leading-none">ITIL Framework</li>
-                <li class="relative pl-8 mb-3 font-medium text-[#333] text-lg w-fit text-left before:content-['•'] before:text-brand-red before:font-bold before:text-[2rem] before:absolute before:left-0 before:-top-3 before:leading-none">Microsoft Azure</li>
-                <li class="relative pl-8 mb-3 font-medium text-[#333] text-lg w-fit text-left before:content-['•'] before:text-brand-red before:font-bold before:text-[2rem] before:absolute before:left-0 before:-top-3 before:leading-none">Enterprise Architecture</li>
-            </ul>
+    <section class="py-8 bg-white border-y border-gray-100">
+        <div class="container mx-auto px-4 max-w-7xl">
+            <div class="flex flex-wrap justify-center gap-x-8 gap-y-4 md:gap-x-16 text-gray-600 font-bold uppercase tracking-wide text-sm md:text-base">
+                <div class="flex items-center gap-2">
+                    <svg class="w-6 h-6 text-brand-red" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    Support for Major EMR/EHR Platforms
+                </div>
+                <div class="flex items-center gap-2">
+                    <svg class="w-6 h-6 text-brand-red" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                    HIPAA-Ready IT Solutions
+                </div>
+                <div class="flex items-center gap-2">
+                    <svg class="w-6 h-6 text-brand-red" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                    Local Support for Southern Maryland
+                </div>
+            </div>
         </div>
     </section>
 
-    <section class="py-20 bg-white" id="services">
-        <div class="container mx-auto px-5 max-w-[1200px]">
-            <h2 class="text-center text-[2.5rem] mb-12 text-[#333] font-bold">Enterprise Consulting Services</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="bg-brand-bg p-8 rounded-2xl shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:bg-brand-blue cursor-pointer" onclick="openModalWithService('fractional-engineering')">
-                    <h3 class="text-brand-red mb-4 text-[1.3rem] font-bold">Affordable Systems Engineer</h3>
-                    <p class="text-[#666] leading-relaxed">Get the benefit of a senior engineer with 14+ years of experience for a fraction of the cost. We provide ongoing strategic guidance, manage your cloud infrastructure, and solve your most complex technical challenges on a flexible monthly retainer.</p>
+    <section class="py-20 bg-brand-bg" id="services">
+        <div class="container mx-auto px-4 max-w-7xl">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Healthcare IT Services & Bundles</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">We offer tiered support designed specifically for the needs of small medical practices, from basic compliance to full-service management.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                <div class="bg-white p-8 rounded-2xl shadow-sm border-t-4 border-gray-300 transition-all hover:-translate-y-2 hover:shadow-xl cursor-pointer" onclick="openModalWithService('hipaa-essentials')">
+                    <h3 class="text-gray-800 mb-2 text-xl font-bold uppercase tracking-wide">HIPAA Essentials</h3>
+                    <p class="text-sm text-gray-500 mb-6">For practices needing compliance guidance.</p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-start gap-2 text-gray-600"><span class="text-brand-red font-bold">✓</span> Security Risk Assessments</li>
+                        <li class="flex items-start gap-2 text-gray-600"><span class="text-brand-red font-bold">✓</span> Policy Documentation Prep</li>
+                        <li class="flex items-start gap-2 text-gray-600"><span class="text-brand-red font-bold">✓</span> Staff Security Training</li>
+                    </ul>
+                    <button class="w-full py-2 border-2 border-gray-200 rounded-lg font-bold text-gray-600 hover:border-brand-red hover:text-brand-red transition-colors">Learn More</button>
                 </div>
-                <div class="bg-brand-bg p-8 rounded-2xl shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:bg-brand-blue cursor-pointer" onclick="openModalWithService('it-service-management')">
-                    <h3 class="text-brand-red mb-4 text-[1.3rem] font-bold">IT Service Management</h3>
-                    <p class="text-[#666] leading-relaxed">We design, customize, and build automated workflows and API integrations for companies using ITSM platforms like BMC Helix and ServiceNow. We solve the complex problems your general IT staff can't, on a project-by-project basis.</p>
+
+                <div class="bg-white p-8 rounded-2xl shadow-lg border-t-4 border-brand-red relative transform md:-translate-y-4 cursor-pointer" onclick="openModalWithService('healthcare-it-support')">
+                    <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-brand-red text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider">Most Popular</div>
+                    <h3 class="text-brand-red mb-2 text-2xl font-bold uppercase tracking-wide">Healthcare IT Support</h3>
+                    <p class="text-sm text-gray-500 mb-6">Complete day-to-day technical support.</p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-start gap-2 text-gray-600"><span class="text-brand-red font-bold">✓</span> EMR/EHR Troubleshooting</li>
+                        <li class="flex items-start gap-2 text-gray-600"><span class="text-brand-red font-bold">✓</span> Workstation & Printer Fixes</li>
+                        <li class="flex items-start gap-2 text-gray-600"><span class="text-brand-red font-bold">✓</span> Secure Vendor Management</li>
+                        <li class="flex items-start gap-2 text-gray-600"><span class="text-brand-red font-bold">✓</span> Unlimited Remote Helpdesk</li>
+                    </ul>
+                    <button class="w-full py-3 bg-brand-red text-white rounded-lg font-bold hover:bg-brand-dark transition-colors">Get Started</button>
                 </div>
-                <div class="bg-brand-bg p-8 rounded-2xl shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:bg-brand-blue cursor-pointer" onclick="openModalWithService('hipaa-documentation')">
-                    <h3 class="text-brand-red mb-4 text-[1.3rem] font-bold">HIPAA Documentation Preparation</h3>
-                    <p class="text-[#666] leading-relaxed">We prepare essential HIPAA compliance documentation for small healthcare practices and business associates. From security risk assessments to privacy policy manuals, we help you navigate regulatory requirements with confidence.</p>
+
+                <div class="bg-white p-8 rounded-2xl shadow-sm border-t-4 border-gray-800 transition-all hover:-translate-y-2 hover:shadow-xl cursor-pointer" onclick="openModalWithService('full-compliance')">
+                    <h3 class="text-gray-900 mb-2 text-xl font-bold uppercase tracking-wide">Full Compliance + Security</h3>
+                    <p class="text-sm text-gray-500 mb-6">Maximum protection and peace of mind.</p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-start gap-2 text-gray-600"><span class="text-brand-red font-bold">✓</span> Managed Firewall & Antivirus</li>
+                        <li class="flex items-start gap-2 text-gray-600"><span class="text-brand-red font-bold">✓</span> Encrypted Offsite Backups</li>
+                        <li class="flex items-start gap-2 text-gray-600"><span class="text-brand-red font-bold">✓</span> 24/7 Threat Monitoring</li>
+                    </ul>
+                    <button class="w-full py-2 border-2 border-gray-200 rounded-lg font-bold text-gray-600 hover:border-gray-800 hover:text-gray-900 transition-colors">Learn More</button>
                 </div>
-                <div class="bg-brand-bg p-8 rounded-2xl shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:bg-brand-blue cursor-pointer" onclick="openModalWithService('quick-assessment')">
-                    <h3 class="text-brand-red mb-4 text-[1.3rem] font-bold">Quick Systems Checkup and Assessment</h3>
-                    <p class="text-[#666] leading-relaxed">We conduct a rapid yet thorough evaluation of your IT environment to identify security risks, performance issues, and cost-saving opportunities. You'll get a clear, actionable health report and a roadmap for immediate improvements without a long-term commitment.</p>
+            </div>
+
+            <div class="mt-16">
+                <h3 class="text-2xl font-bold text-center mb-8 text-gray-800">Advanced Engineering Projects</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all cursor-pointer flex gap-4 items-start" onclick="openModalWithService('fractional-engineering')">
+                        <div class="bg-brand-red/10 p-3 rounded-lg">
+                             <svg class="w-6 h-6 text-brand-red" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-lg mb-1">Systems Engineering</h4>
+                            <p class="text-sm text-gray-600">Senior-level expertise for complex migrations and infrastructure design without the full-time cost.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all cursor-pointer flex gap-4 items-start" onclick="openModalWithService('it-service-management')">
+                        <div class="bg-brand-red/10 p-3 rounded-lg">
+                            <svg class="w-6 h-6 text-brand-red" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path></svg>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-lg mb-1">IT Service Management Automation</h4>
+                            <p class="text-sm text-gray-600">Workflows and API integrations for BMC Helix and ServiceNow.</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="bg-brand-bg p-8 rounded-2xl shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:bg-brand-blue cursor-pointer" onclick="openModalWithService('it-process-playbook')">
-                    <h3 class="text-brand-red mb-4 text-[1.3rem] font-bold">IT Process & Playbook Development</h3>
-                    <p class="text-[#666] leading-relaxed">We create custom, standardized playbooks for your team to follow for everything from incident response to cloud migration, reducing your long-term costs and improving efficiency. Based on proven ITIL frameworks.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="lead-magnet" class="py-16 bg-white border-y border-gray-200">
+        <div class="container mx-auto px-4 max-w-4xl flex flex-col md:flex-row items-center gap-8">
+            <div class="flex-1">
+                <h3 class="text-2xl font-bold mb-4 text-brand-red">Are You Audit Ready?</h3>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">The Small Medical Office HIPAA IT Checklist</h2>
+                <p class="text-gray-600 text-lg mb-6">Don't let a simple oversight put your practice at risk. Download our free 2026 checklist to see if your IT infrastructure meets current HIPAA standards.</p>
+                <ul class="mb-6 space-y-2">
+                    <li class="flex items-center gap-2 text-gray-700">✅ 5 IT Mistakes That Put Practices at Risk</li>
+                    <li class="flex items-center gap-2 text-gray-700">✅ Backup Verification Guide</li>
+                    <li class="flex items-center gap-2 text-gray-700">✅ Access Control Best Practices</li>
+                </ul>
+            </div>
+            <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 shadow-inner w-full md:w-auto min-w-[300px]">
+                <div class="text-center font-bold mb-4">Free Download</div>
+                <button 
+                    onclick="window.tidioChatApi.display(true); window.tidioChatApi.open(); window.tidioChatApi.messageFromVisitor('#downloadchecklist');"
+                    class="w-full bg-brand-red text-white py-3 rounded-md font-bold hover:bg-brand-dark transition-colors mb-2">
+                    Send Me The Checklist
+                </button>
+                <p class="text-xs text-center text-gray-400">No obligation. 100% Secure.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-brand-bg" id="case-studies">
+        <div class="container mx-auto px-4 max-w-7xl">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-900">Recent Success Stories</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white p-8 rounded-xl shadow-sm">
+                    <h3 class="text-xl font-bold mb-3 text-brand-red">Plebotomist Concierge</h3>
+            <p class="font-bold text-gray-800 mb-2">Challenge: Contract-Critical HIPAA Compliance</p>
+            <p class="text-gray-600 leading-relaxed">A phlebotomy client needed to verify their software's compliance to win a contract with a major medical facility. We acted as the technical liaison, auditing the vendor's security paperwork to ensure strict HIPAA standards were met, ultimately securing the bid.</p>                    <div class="mt-4 pt-4 border-t border-gray-100 font-bold text-green-600 text-sm">✓ Contract Awarded</div>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-sm">
+                    <h3 class="text-xl font-bold mb-3 text-brand-red">Small Medical Clinic</h3>
+                    <p class="font-bold text-gray-800 mb-2">Problem: Email Security & Compliance Risks</p>
+                    <p class="text-gray-600 leading-relaxed">Secured patient communications by implementing HIPAA-compliant email encryption and multi-factor authentication, reducing downtime and securing sensitive PHI.</p>
+                    <div class="mt-4 pt-4 border-t border-gray-100 font-bold text-green-600 text-sm">✓ Zero Security Breaches</div>
                 </div>
             </div>
         </div>
     </section>
 
     <section class="py-20 bg-white" id="about">
-        <div class="container mx-auto px-5 max-w-[1200px]">
+        <div class="container mx-auto px-4 max-w-7xl">
             <div class="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-12 items-center">
                 <div>
-                    <h2 class="text-[2.5rem] mb-8 text-[#333] font-bold">About Cardinal Computer Systems</h2>
-                    <p class="mb-6 text-[#666] leading-relaxed">With over 14 years of enterprise systems engineering experience, we help small businesses and growing organizations solve complex technical challenges without the overhead of hiring full-time senior staff. We bring enterprise-level expertise directly to your small business.</p>
-                    <p class="mb-6 text-[#666] leading-relaxed">Our background is in building solid tech foundations that grow with you. We help simplify your daily operations and automate repetitive tasks, giving your small team the power to operate like a major enterprise—without the complexity or cost.</p>
+                    <h2 class="text-3xl mb-6 text-gray-900 font-bold">About Cardinal Computer Systems</h2>
+                    <p class="mb-4 text-gray-600 leading-relaxed">We help small medical offices in Southern Maryland stay secure, compliant, and running smoothly. With over 14 years of enterprise systems engineering experience, we bring high-level expertise to small practices that typically can't afford a full-time CIO.</p>
+                    <div class="flex flex-wrap gap-4 mt-6">
+                         <span class="px-3 py-1 bg-gray-100 rounded text-sm font-bold text-gray-600">CompTIA Certified</span>
+                         <span class="px-3 py-1 bg-gray-100 rounded text-sm font-bold text-gray-600">Microsoft Azure</span>
+                         <span class="px-3 py-1 bg-gray-100 rounded text-sm font-bold text-gray-600">ITIL Framework</span>
+                    </div>
                 </div>
                 <div>
-                    <img src="professional-team.png" alt="Cardinal Computer Systems Professional Team" class="w-full h-[300px] object-cover object-center rounded-2xl">
+                    <img src="professional-team.png" alt="Cardinal Computer Systems Team" class="w-full h-[300px] object-cover object-center rounded-2xl shadow-lg">
                 </div>
             </div>
         </div>
     </section>
 
     <section class="py-20 bg-brand-bg" id="faq">
-        <div class="container mx-auto px-5 max-w-[1200px]">
-            <h2 class="text-center text-[2.5rem] mb-12 text-[#333] font-bold">Frequently Asked Questions</h2>
-            <div class="mb-4 bg-white rounded-xl overflow-hidden shadow-sm">
-                <div class="faq-question bg-brand-red text-white p-6 cursor-pointer font-bold transition-colors duration-300 hover:bg-brand-dark">How does Affordable Engineering work?</div>
-                <div class="faq-answer hidden p-6 text-[#666] leading-relaxed">Affordable engineering provides senior-level expertise on a part-time, retainer, or project basis. You get access to enterprise-level skills and experience without the cost and commitment of a full-time senior hire. It's perfect for companies that need occasional high-level technical guidance.</div>
-            </div>
-            <div class="mb-4 bg-white rounded-xl overflow-hidden shadow-sm">
-                <div class="faq-question bg-brand-red text-white p-6 cursor-pointer font-bold transition-colors duration-300 hover:bg-brand-dark">How do you price your projects?</div>
-                <div class="faq-answer hidden p-6 text-[#666] leading-relaxed">Pricing depends on the scope and complexity of your needs. We offer flexible arrangements including monthly retainers for ongoing support, fixed-price projects for specific implementations, and hourly consulting for ad-hoc technical guidance. All engagements begin with a discovery consultation to ensure the right fit.</div>
-            </div>
-            <div class="mb-4 bg-white rounded-xl overflow-hidden shadow-sm">
-                <div class="faq-question bg-brand-red text-white p-6 cursor-pointer font-bold transition-colors duration-300 hover:bg-brand-dark">What size company do you typically work with?</div>
-                <div class="faq-answer hidden p-6 text-[#666] leading-relaxed">We primarily work with mid-market companies (50-500 employees) who have outgrown basic IT support but don't need a full-time senior engineer. These organizations typically have complex technical needs but want to maintain cost efficiency.</div>
+        <div class="container mx-auto px-4 max-w-4xl">
+            <h2 class="text-center text-3xl mb-12 text-gray-900 font-bold">Frequently Asked Questions</h2>
+            <div class="space-y-4">
+                <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                    <div class="faq-question bg-brand-red text-white p-5 cursor-pointer font-bold flex justify-between items-center transition-colors hover:bg-brand-dark">
+                        Are you familiar with medical software?
+                        <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="faq-answer hidden p-6 text-gray-600 leading-relaxed border-t border-gray-100">
+                        Yes. We act as the liaison between your practice and your EMR/EHR vendors (like eClinicalWorks, Epic, Athena, etc.), ensuring updates are handled correctly and technical issues are resolved quickly.
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                    <div class="faq-question bg-brand-red text-white p-5 cursor-pointer font-bold flex justify-between items-center transition-colors hover:bg-brand-dark">
+                        Is your support HIPAA compliant?
+                        <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="faq-answer hidden p-6 text-gray-600 leading-relaxed border-t border-gray-100">
+                        Absolutely. We sign Business Associate Agreements (BAAs) with our healthcare clients and utilize HIPAA-compliant tools for remote access, documentation, and communication.
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                    <div class="faq-question bg-brand-red text-white p-5 cursor-pointer font-bold flex justify-between items-center transition-colors hover:bg-brand-dark">
+                        How does your pricing work for small practices?
+                        <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="faq-answer hidden p-6 text-gray-600 leading-relaxed border-t border-gray-100">
+                        We offer flat-rate monthly bundles so you have predictable costs. No surprise bills for calling the helpdesk. We also offer project-based pricing for specific compliance audits or office moves.
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="py-20 bg-brand-red text-white text-center" id="contact">
-        <div class="container mx-auto px-5 max-w-[1200px]">
-            <h2 class="text-[2.5rem] mb-8 font-bold">Ready to Elevate Your IT Infrastructure?</h2>
-            <div class="text-[1.2rem] mb-8">
-                <p><strong>Location:</strong> Washington DC Metro Area</p>
-                <p>Let us help you solve your enterprise technical challenges</p>
-                <button class="inline-block mt-6 bg-gradient-to-br from-[#dc3545] via-brand-red to-brand-dark text-white py-5 px-10 rounded-md font-black text-xl uppercase tracking-widest shadow-[0_8px_25px_rgba(185,28,60,0.4)] border-[3px] border-white transition-all duration-300 hover:scale-105 hover:shadow-[0_12px_35px_rgba(185,28,60,0.6)] hover:bg-gradient-to-br hover:from-[#ff1744] hover:via-[#dc3545] hover:to-brand-red cursor-pointer" onclick="openModal()">Get Expert Consultation</button>
-            </div>
+    <section class="py-24 bg-brand-red text-white text-center relative overflow-hidden" id="contact">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        <div class="container mx-auto px-4 max-w-4xl relative z-10">
+            <h2 class="text-3xl md:text-5xl mb-6 font-bold leading-tight">Secure Your Practice Today.</h2>
+            <p class="text-xl mb-8 opacity-90">Cardinal Computer Systems provides HIPAA-ready IT support for small healthcare practices in Southern Maryland.</p>
+            <button class="inline-block bg-white text-brand-red py-5 px-12 rounded-lg font-black text-xl uppercase tracking-widest shadow-2xl transition-all duration-300 hover:scale-105 hover:bg-gray-100 hover:shadow-white/20 cursor-pointer" onclick="openModalWithService('consultation')">
+                Get Expert Consultation
+            </button>
         </div>
     </section>
 
-    <div id="contactModal" class="hidden fixed z-[2000] left-0 top-0 w-full h-full overflow-auto bg-black/50 backdrop-blur-[5px]">
-        <div class="bg-brand-red my-[5%] mx-auto p-0 rounded-2xl w-[95%] md:w-[90%] max-w-[700px] max-h-[90vh] overflow-y-auto shadow-[0_20px_60px_rgba(0,0,0,0.3)] animate-modalSlideIn">
-            <div class="p-8 pb-4 text-center text-white relative">
-                <span class="text-white text-[28px] font-bold float-right cursor-pointer absolute right-5 top-4 transition-colors hover:text-brand-yellow" onclick="closeModal()">&times;</span>
-                <h2 class="m-0 text-[1.5rem] md:text-[2rem] font-bold">Contact Us</h2>
+    <div id="contactModal" class="hidden fixed z-[100] left-0 top-0 w-full h-full overflow-y-auto overflow-x-hidden bg-gray-900/70 backdrop-blur-sm transition-opacity">
+        <div class="relative bg-brand-red my-12 mx-auto rounded-2xl w-[95%] md:w-full max-w-2xl shadow-2xl animate-modalSlideIn ring-1 ring-white/20">
+            
+            <div class="p-8 pb-0 text-center text-white relative">
+                <button type="button" class="absolute right-6 top-6 text-white/70 hover:text-brand-yellow hover:rotate-90 transition-all text-4xl leading-none" onclick="closeModal()">&times;</button>
+                <h2 class="m-0 text-3xl font-bold">Contact Us</h2>
+                <p class="mt-2 text-white/80">Get help for your medical practice today.</p>
             </div>
-            <form class="p-8 pt-0" action="https://formspree.io/f/xblkpnkd" method="POST">
-                <div class="mb-6 text-left">
-                    <label for="name" class="block mb-2 font-bold text-white">Your Name:</label>
-                    <input type="text" id="name" name="name" required class="w-full p-3 border-none rounded-md text-base bg-white text-[#333]">
+
+            <form class="p-8 space-y-5" action="https://formspree.io/f/xblkpnkd" method="POST">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div class="text-left">
+                        <label for="name" class="block mb-2 font-bold text-white text-sm uppercase tracking-wide">Your Name</label>
+                        <input type="text" id="name" name="name" required class="w-full p-3 rounded-lg bg-white border-2 border-transparent focus:border-brand-yellow focus:ring-0 text-gray-800 outline-none transition-all">
+                    </div>
+                    <div class="text-left">
+                        <label for="company" class="block mb-2 font-bold text-white text-sm uppercase tracking-wide">Practice Name</label>
+                        <input type="text" id="company" name="company" class="w-full p-3 rounded-lg bg-white border-2 border-transparent focus:border-brand-yellow focus:ring-0 text-gray-800 outline-none transition-all">
+                    </div>
                 </div>
-                <div class="mb-6 text-left">
-                    <label for="company" class="block mb-2 font-bold text-white">Company:</label>
-                    <input type="text" id="company" name="company" class="w-full p-3 border-none rounded-md text-base bg-white text-[#333]">
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div class="text-left">
+                        <label for="email" class="block mb-2 font-bold text-white text-sm uppercase tracking-wide">Email Address</label>
+                        <input type="email" id="email" name="email" required class="w-full p-3 rounded-lg bg-white border-2 border-transparent focus:border-brand-yellow focus:ring-0 text-gray-800 outline-none transition-all">
+                    </div>
+                    <div class="text-left">
+                        <label for="phone" class="block mb-2 font-bold text-white text-sm uppercase tracking-wide">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" class="w-full p-3 rounded-lg bg-white border-2 border-transparent focus:border-brand-yellow focus:ring-0 text-gray-800 outline-none transition-all">
+                    </div>
                 </div>
-                <div class="mb-6 text-left">
-                    <label for="email" class="block mb-2 font-bold text-white">Your Email:</label>
-                    <input type="email" id="email" name="email" required class="w-full p-3 border-none rounded-md text-base bg-white text-[#333]">
-                </div>
-                <div class="mb-6 text-left">
-                    <label for="phone" class="block mb-2 font-bold text-white">Phone Number:</label>
-                    <input type="tel" id="phone" name="phone" class="w-full p-3 border-none rounded-md text-base bg-white text-[#333]">
-                </div>
-                <div class="mb-6 text-left">
-                    <label for="service" class="block mb-2 font-bold text-white">Service Interest:</label>
-                    <select id="service" name="service" class="w-full p-3 border-none rounded-md text-base bg-white text-[#333]">
+
+                <div class="text-left">
+                    <label for="service" class="block mb-2 font-bold text-white text-sm uppercase tracking-wide">How can we help?</label>
+                    <select id="service" name="service" class="w-full p-3 rounded-lg bg-white border-2 border-transparent focus:border-brand-yellow focus:ring-0 text-gray-800 outline-none transition-all cursor-pointer">
                         <option value="">Select a service...</option>
-                        <option value="fractional-engineering">Affordable Systems Engineer</option>
-                        <option value="it-service-management">IT Service Management</option>
-                        <option value="hipaa-documentation">HIPAA Documentation Preparation</option>
-                        <option value="quick-assessment">Quick Systems Checkup and Assessment</option>
-                        <option value="it-process-playbook">IT Process & Playbook Development</option>
+                        <option value="hipaa-essentials">HIPAA Essentials (Assessments/Policy)</option>
+                        <option value="healthcare-it-support">Healthcare IT Support (Managed Services)</option>
+                        <option value="full-compliance">Full Compliance + Security</option>
+                        <option value="lead-magnet">Requesting IT Checklist</option>
+                        <option value="fractional-engineering">Systems Engineering</option>
+                        <option value="it-service-management">IT Service Management Automation</option>
                         <option value="consultation">General Consultation</option>
                     </select>
                 </div>
-                <div class="mb-6 text-left">
-                    <label for="message" class="block mb-2 font-bold text-white">Project Details:</label>
-                    <textarea id="message" name="message" placeholder="Tell us about your technical challenges and how we can help..." required class="w-full p-3 border-none rounded-md text-base bg-white text-[#333] resize-y min-h-[120px]"></textarea>
+
+                <div class="text-left">
+                    <label for="message" class="block mb-2 font-bold text-white text-sm uppercase tracking-wide">Practice Details</label>
+                    <textarea id="message" name="message" placeholder="Tell us about your practice, EMR system, or current challenges..." required class="w-full p-3 rounded-lg bg-white border-2 border-transparent focus:border-brand-yellow focus:ring-0 text-gray-800 outline-none transition-all min-h-[120px] resize-y"></textarea>
                 </div>
-                <button type="submit" class="w-full bg-white text-brand-red p-4 border-none rounded-md font-bold text-base cursor-pointer transition-all duration-300 hover:bg-brand-bg hover:-translate-y-0.5">Get Expert Consultation</button>
+
+                <button type="submit" class="w-full bg-white text-brand-red py-4 rounded-lg font-black text-lg uppercase tracking-widest hover:bg-gray-100 hover:-translate-y-1 transition-all duration-300 shadow-lg">
+                    Submit Request
+                </button>
             </form>
         </div>
     </div>
 
-    <footer class="bg-[#333] text-white text-center py-8">
-        <div class="container mx-auto px-5 max-w-[1200px]">
-            <p>&copy; 2025 Cardinal Computer Systems. Professional IT Consulting and Affordable Engineering Services.</p>
+    <footer class="bg-[#1A1A1A] text-white/60 text-center py-8 border-t border-white/10">
+        <div class="container mx-auto px-4 max-w-7xl">
+            <p class="text-sm">&copy; 2025 Cardinal Computer Systems. HIPAA-ready IT support for small healthcare practices in Southern Maryland.</p>
         </div>
     </footer>
 
@@ -244,9 +364,6 @@
         function toggleMobileMenu() {
             const hamburger = document.querySelector('.hamburger');
             const mobileMenu = document.getElementById('mobileMenu');
-            
-            // Replaced classList.toggle with logic compatible with Tailwind's "group" strategy
-            // But since we used the 'active' class in Tailwind variants, we keep this JS exactly as is.
             hamburger.classList.toggle('active');
             mobileMenu.classList.toggle('active');
         }
@@ -254,32 +371,34 @@
         function closeMobileMenu() {
             const hamburger = document.querySelector('.hamburger');
             const mobileMenu = document.getElementById('mobileMenu');
-            
             hamburger.classList.remove('active');
             mobileMenu.classList.remove('active');
         }
 
+        // Modal Functions
         function openModal() {
-            document.getElementById('contactModal').style.display = 'block';
+            document.getElementById('contactModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; 
         }
 
         function openModalWithService(serviceValue) {
-            document.getElementById('contactModal').style.display = 'block';
+            openModal();
             const serviceSelect = document.getElementById('service');
             serviceSelect.value = serviceValue;
             setTimeout(() => {
                 serviceSelect.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }, 300);
+            }, 100);
         }
 
         function closeModal() {
-            document.getElementById('contactModal').style.display = 'none';
+            document.getElementById('contactModal').classList.add('hidden');
+            document.body.style.overflow = 'auto'; 
         }
 
         window.onclick = function(event) {
             const modal = document.getElementById('contactModal');
             if (event.target === modal) {
-                modal.style.display = 'none';
+                closeModal();
             }
         }
 
@@ -289,20 +408,30 @@
             }
         });
 
+        // FAQ Accordion
         document.querySelectorAll('.faq-question').forEach(question => {
             question.addEventListener('click', () => {
                 const answer = question.nextElementSibling;
-                // Since we use 'hidden' class now, we toggle that
+                const icon = question.querySelector('svg');
+                
+                document.querySelectorAll('.faq-answer').forEach(item => {
+                    if (item !== answer) item.classList.add('hidden');
+                });
+                document.querySelectorAll('.faq-question svg').forEach(item => {
+                    if (item !== icon) item.style.transform = 'rotate(0deg)';
+                });
+
                 if (answer.classList.contains('hidden')) {
-                     // Close others
-                     document.querySelectorAll('.faq-answer').forEach(a => a.classList.add('hidden'));
                      answer.classList.remove('hidden');
+                     if(icon) icon.style.transform = 'rotate(180deg)';
                 } else {
                      answer.classList.add('hidden');
+                     if(icon) icon.style.transform = 'rotate(0deg)';
                 }
             });
         });
 
+        // Smooth Scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -317,6 +446,4 @@
         });
     </script>
 </body>
-
 </html>
-
