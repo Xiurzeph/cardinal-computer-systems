@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog | Cardinal Computer Systems</title>
+    <link rel="stylesheet" href="dist/output.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+</head>
+<body class="bg-[#f4f4f4]">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+        const ADMIN_EMAIL = "xiurzeph112112@gmail.com"; // Matches your portal admin
+
+        // --- BLOG DASHBOARD COMPONENT ---
+        const BlogApp = () => {
+            const [posts, setPosts] = useState([]);
+            const [user, setUser] = useState(null);
+            const [editingPost, setEditingPost] = useState(null);
+
+            // Fetch blogs from Firestore
+            useEffect(() => {
+                const unsubscribe = db.collection('blogs').orderBy('date', 'desc').onSnapshot(snapshot => {
+                    const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                    setPosts(data);
+                });
+                return () => unsubscribe();
+            }, []);
+
+            const handleSave = async (e) => {
+                e.preventDefault();
+                const postData = {
+                    title: e.target.title.value,
+                    content: e.target.content.value,
+                    date: new Date().toISOString(),
+                    author: "Joseph Ruiz"
+                };
+
+                if (editingPost?.id) {
+                    await db.collection('blogs').doc(editingPost.id).update(postData);
+                } else {
+                    await db.collection('blogs').add(postData);
+                }
+                setEditingPost(null);
+            };
+
+            const isAdmin = user?.email === ADMIN_EMAIL;
+
+            return (
+                <div className="max-w-4xl mx-auto p-6">
+                    <header className="flex justify-between items-center mb-10">
+                        <h1 className="text-3xl font-bold text-[#D92323]">Cardinal Blog</h1>
+                        {!user ? (
+                            <button onClick={login} className="text-sm font-bold">Admin Login</button>
+                        ) : (
+                            <div className="flex gap-4">
+                                {isAdmin && <button onClick={() => setEditingPost({})} className="bg-[#D92323] text-white px-4 py-2 rounded">New Post</button>}
+                                <button onClick={logout}>Exit</button>
+                            </div>
+                        )}
+                    </header>
+
+                    {/* Editor UI (Visible only to Admin) */}
+                    {isAdmin && editingPost && (
+                        <form onSubmit={handleSave} className="bg-white p-6 rounded-lg shadow-md mb-10">
+                            <input name="title" defaultValue={editingPost.title} placeholder="Post Title" className="w-full mb-4 p-2 border" required />
+                            <textarea name="content" defaultValue={editingPost.content} placeholder="Write your article here..." className="w-full h-64 p-2 border mb-4" required />
+                            <div className="flex gap-2">
+                                <button type="submit" className="bg-black text-white px-6 py-2 rounded">Publish</button>
+                                <button type="button" onClick={() => setEditingPost(null)}>Cancel</button>
+                            </div>
+                        </form>
+                    )}
+
+                    {/* Public Feed */}
+                    <div className="space-y-8">
+                        {posts.map(post => (
+                            <article key={post.id} className="bg-white p-8 rounded-lg shadow-sm border-l-4 border-[#D92323]">
+                                <h2 className="text-2xl font-bold mb-2">{post.title}</h2>
+                                <p className="text-xs text-gray-400 mb-4">{new Date(post.date).toLocaleDateString()}</p>
+                                <div className="prose text-gray-700">{post.content}</div>
+                                {isAdmin && (
+                                    <button onClick={() => setEditingPost(post)} className="mt-4 text-sm text-blue-600 underline">Edit Post</button>
+                                )}
+                            </article>
+                        ))}
+                    </div>
+                </div>
+            );
+        };
+        // ... (Include Login/Auth functions from your Portal code)
+    </script>
+</body>
+</html>
