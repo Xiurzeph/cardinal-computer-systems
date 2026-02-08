@@ -1,12 +1,12 @@
-﻿{
-    "name":  "cardinal-clients",
-    "version":  "1.0.0",
-    "description":  "Tailwind build for the Cardinal Project Portal",
-    "scripts":  {
-                    "build":  "npx tailwindcss -i ./src/tailwind.css -o ./dist/output.css --minify",
-                    "watch":  "npx tailwindcss -i ./src/tailwind.css -o ./dist/output.css --watch"
-                },
-    "devDependencies":  {
-                            "tailwindcss":  "^3.4.0"
-                        }
+{
+  "name": "cardinal-clients",
+  "version": "1.0.0",
+  "description": "Tailwind build for the Cardinal Project Portal",
+  "scripts": {
+    "build": "npx tailwindcss -i ./src/tailwind.css -o ./dist/output.css --minify",
+    "watch": "npx tailwindcss -i ./src/tailwind.css -o ./dist/output.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.0"
+  }
 }
