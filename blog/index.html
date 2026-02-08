@@ -13,6 +13,23 @@
     <div id="root"></div>
 
     <script type="text/babel">
+        // FIREBASE CONFIGURATION
+const firebaseConfig = {
+    apiKey: "YOUR_NEW_RESTRICTED_KEY", 
+    authDomain: "buildslsf.firebaseapp.com",
+    projectId: "buildslsf",
+    storageBucket: "buildslsf.firebasestorage.app",
+    messagingSenderId: "316613726051",
+    appId: "1:316613726051:web:014419d2860bb815448d56"
+};
+
+// Initialize Firebase
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+}
+const db = firebase.firestore();
+const auth = firebase.auth();
+        
         const { useState, useEffect } = React;
         const ADMIN_EMAIL = "xiurzeph112112@gmail.com"; // Matches your portal admin
 
