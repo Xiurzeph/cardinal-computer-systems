@@ -50,18 +50,17 @@
             const [error, setError] = useState(null);
             const [loading, setLoading] = useState(false);
 
-            // REVERTED: Now using Popup again
+            // Using Popup exclusively as requested
             const handleGoogleLogin = async () => {
                 setLoading(true);
                 setError(null);
                 try {
                     const provider = new firebase.auth.GoogleAuthProvider();
-                    // Adding specific prompt to help bypass some cached COOP issues
                     provider.setCustomParameters({ prompt: 'select_account' });
                     await auth.signInWithPopup(provider);
                 } catch (err) {
-                    console.error("Popup Blocked or Failed:", err);
-                    setError("Login failed. Check if popups are blocked or try again.");
+                    console.error("Popup Error:", err);
+                    setError("Popup blocked or closed. Please try again.");
                     setLoading(false);
                 }
             };
@@ -86,13 +85,13 @@
                         </div>
 
                         {mode === 'admin' ? (
-                            <button onClick={handleGoogleLogin} disabled={loading} className="w-full flex items-center justify-center gap-3 bg-white border border-gray-300 hover:bg-gray-50 py-4 rounded-lg font-bold">
+                            <button onClick={handleGoogleLogin} disabled={loading} className="w-full flex items-center justify-center gap-3 bg-white border border-gray-300 hover:bg-gray-50 py-4 rounded-lg font-bold transition-all active:scale-95">
                                 {loading ? "Opening Popup..." : "Sign in with Google"}
                             </button>
                         ) : (
                             <form onSubmit={handleClientSubmit} className="space-y-6">
                                 <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full px-4 py-3 rounded border border-gray-300 focus:ring-2 focus:ring-[#D92323] outline-none" placeholder="Project Access Code" required />
-                                <button type="submit" disabled={loading} className="w-full bg-[#1A1A1A] text-white font-bold py-3 rounded hover:bg-black">
+                                <button type="submit" disabled={loading} className="w-full bg-[#1A1A1A] text-white font-bold py-3 rounded hover:bg-black transition-colors">
                                     {loading ? "Verifying..." : "View Dashboard"}
                                 </button>
                             </form>
@@ -111,17 +110,17 @@
         const Dashboard = ({ user }) => {
             const [plan, setPlan] = useState([]);
             const [syncStatus, setSyncStatus] = useState("loading");
+            const [retryCount, setRetryCount] = useState(0);
             const isAdmin = user.email?.toLowerCase() === ADMIN_EMAIL.toLowerCase();
 
             useEffect(() => {
-                // IMPORTANT: The 'Permission Denied' usually happens if this runs 
-                // while request.auth is still 'null' inside the Firebase engine.
                 if (!user || !user.uid) return;
 
                 const targetId = !isAdmin && CLIENT_PROJECTS[user.email?.toLowerCase()] 
                     ? CLIENT_PROJECTS[user.email.toLowerCase()] 
                     : "BLDS-WEB-001-REV5";
 
+                setSyncStatus("loading");
                 const unsubscribe = db.collection('projects').doc(targetId).onSnapshot(doc => {
                     if (doc.exists) {
                         setPlan(doc.data().projectPlan || []);
@@ -130,43 +129,51 @@
                         setSyncStatus("missing");
                     }
                 }, err => {
-                    // This catches the Permission Denied errors on line 109 area
                     console.error("Firestore Permission Error:", err);
                     setSyncStatus("error");
                 });
                 return () => unsubscribe();
-            }, [user, isAdmin]);
+            }, [user, isAdmin, retryCount]);
 
             return (
                 <div className="min-h-screen bg-zinc-50 font-sans text-[#1A1A1A] pb-20">
                     <header className="bg-white border-b p-4 flex justify-between items-center shadow-sm">
                         <span className="font-bold text-[#D92323]">Cardinal Portal</span>
                         <div className="flex items-center gap-4">
-                            <span className="text-xs text-gray-500">{user.email}</span>
+                            <span className="text-xs text-gray-500 truncate max-w-[150px]">{user.email}</span>
                             <button onClick={() => auth.signOut()} className="text-xs font-bold uppercase tracking-widest hover:text-[#D92323]">Logout</button>
                         </div>
                     </header>
                     
                     <main className="max-w-5xl mx-auto px-4 py-8">
                         {syncStatus === "error" ? (
-                            <div className="bg-red-50 p-6 rounded border border-red-200 text-[#D92323] text-center">
-                                <h3 className="font-bold mb-2">Sync Error / Permission Denied</h3>
-                                <p className="text-sm">This is likely caused by Chrome "Tracking Prevention" blocking your login token.</p>
-                                <p className="text-xs mt-4 uppercase font-bold text-gray-400">Fix: Click the 'Eye' icon in the address bar &gt; Allow Cookies.</p>
+                            <div className="bg-white p-8 rounded-lg shadow-md border-l-4 border-[#D92323] text-center">
+                                <h3 className="text-[#D92323] font-black text-xl mb-2">Sync Permission Denied</h3>
+                                <p className="text-gray-600 mb-6 text-sm">Chrome is likely blocking the login token from reaching the database.</p>
+                                <div className="space-y-4">
+                                    <button onClick={() => setRetryCount(prev => prev + 1)} className="bg-[#1A1A1A] text-white px-6 py-2 rounded font-bold hover:bg-black transition-all">
+                                        Retry Connection
+                                    </button>
+                                    <p className="text-[10px] text-gray-400 uppercase tracking-tighter font-bold">
+                                        Pro-tip: Click the "Eye" icon in your address bar and select "Allow Cookies"
+                                    </p>
+                                </div>
                             </div>
                         ) : syncStatus === "missing" ? (
-                             <div className="bg-amber-50 p-4 rounded border border-amber-200 text-amber-700 text-center">
-                                Project document not found in 'projects' collection.
+                             <div className="bg-amber-50 p-6 rounded border border-amber-200 text-amber-700 text-center">
+                                Project document <strong>BLDS-WEB-001-REV5</strong> not found.
                             </div>
                         ) : (
                             <div className="space-y-8">
-                                <h2 className="text-2xl font-black uppercase">Project Roadmap</h2>
-                                <p className="text-gray-400 italic text-sm">Active Project: {isAdmin ? "Master View" : "Client Portal"}</p>
+                                <h2 className="text-2xl font-black uppercase tracking-tight">Project Roadmap</h2>
                                 <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
                                     {plan.length > 0 ? (
-                                        <div className="text-sm">Data Loaded Successfully.</div>
+                                        <div className="text-sm text-green-600 font-bold">✓ Data Stream Active</div>
                                     ) : (
-                                        <p className="text-gray-400 italic text-sm">Project plan is empty. Waiting for data sync...</p>
+                                        <div className="flex items-center gap-3 text-gray-400 italic">
+                                            <div className="animate-spin h-4 w-4 border-2 border-[#D92323] border-t-transparent rounded-full"></div>
+                                            Syncing project data...
+                                        </div>
                                     )}
                                 </div>
                             </div>
@@ -188,7 +195,15 @@
                 return () => unsub();
             }, []);
 
-            if (loading) return <div className="min-h-screen flex items-center justify-center font-sans text-xs uppercase tracking-widest text-gray-400">Initializing Cardinal...</div>;
+            if (loading) return (
+                <div className="min-h-screen flex items-center justify-center bg-zinc-50">
+                    <div className="text-center">
+                        <div className="animate-bounce h-8 w-8 bg-[#D92323] mx-auto rounded-full mb-4"></div>
+                        <span className="text-[10px] uppercase tracking-[0.2em] text-gray-400 font-bold">Cardinal OS</span>
+                    </div>
+                </div>
+            );
+            
             return user ? <Dashboard user={user} /> : <LoginScreen />;
         };
 
