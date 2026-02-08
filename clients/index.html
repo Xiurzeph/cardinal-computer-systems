@@ -50,11 +50,20 @@
             const [error, setError] = useState(null);
             const [loading, setLoading] = useState(false);
 
-            // Switched to Redirect to avoid COOP/Popup errors
-            const handleGoogleLogin = () => {
+            // REVERTED: Now using Popup again
+            const handleGoogleLogin = async () => {
                 setLoading(true);
-                const provider = new firebase.auth.GoogleAuthProvider();
-                auth.signInWithRedirect(provider);
+                setError(null);
+                try {
+                    const provider = new firebase.auth.GoogleAuthProvider();
+                    // Adding specific prompt to help bypass some cached COOP issues
+                    provider.setCustomParameters({ prompt: 'select_account' });
+                    await auth.signInWithPopup(provider);
+                } catch (err) {
+                    console.error("Popup Blocked or Failed:", err);
+                    setError("Login failed. Check if popups are blocked or try again.");
+                    setLoading(false);
+                }
             };
 
             const handleClientSubmit = async (e) => {
@@ -77,8 +86,8 @@
                         </div>
 
                         {mode === 'admin' ? (
-                            <button onClick={handleGoogleLogin} disabled={loading} className="w-full flex items-center justify-center gap-3 bg-white border border-gray-300 hover:bg-gray-50 py-4 rounded-lg font-bold transition-all">
-                                {loading ? "Redirecting..." : "Sign in with Google"}
+                            <button onClick={handleGoogleLogin} disabled={loading} className="w-full flex items-center justify-center gap-3 bg-white border border-gray-300 hover:bg-gray-50 py-4 rounded-lg font-bold">
+                                {loading ? "Opening Popup..." : "Sign in with Google"}
                             </button>
                         ) : (
                             <form onSubmit={handleClientSubmit} className="space-y-6">
@@ -105,7 +114,8 @@
             const isAdmin = user.email?.toLowerCase() === ADMIN_EMAIL.toLowerCase();
 
             useEffect(() => {
-                // Ensure auth is fully resolved before initiating the listener
+                // IMPORTANT: The 'Permission Denied' usually happens if this runs 
+                // while request.auth is still 'null' inside the Firebase engine.
                 if (!user || !user.uid) return;
 
                 const targetId = !isAdmin && CLIENT_PROJECTS[user.email?.toLowerCase()] 
@@ -120,7 +130,8 @@
                         setSyncStatus("missing");
                     }
                 }, err => {
-                    console.error("Sync Error:", err);
+                    // This catches the Permission Denied errors on line 109 area
+                    console.error("Firestore Permission Error:", err);
                     setSyncStatus("error");
                 });
                 return () => unsubscribe();
@@ -138,22 +149,24 @@
                     
                     <main className="max-w-5xl mx-auto px-4 py-8">
                         {syncStatus === "error" ? (
-                            <div className="bg-red-50 p-4 rounded border border-red-200 text-[#D92323] text-center">
-                                Permission Denied. Ensure your account is authorized in Firestore Rules and that cookies are allowed.
+                            <div className="bg-red-50 p-6 rounded border border-red-200 text-[#D92323] text-center">
+                                <h3 className="font-bold mb-2">Sync Error / Permission Denied</h3>
+                                <p className="text-sm">This is likely caused by Chrome "Tracking Prevention" blocking your login token.</p>
+                                <p className="text-xs mt-4 uppercase font-bold text-gray-400">Fix: Click the 'Eye' icon in the address bar &gt; Allow Cookies.</p>
                             </div>
                         ) : syncStatus === "missing" ? (
                              <div className="bg-amber-50 p-4 rounded border border-amber-200 text-amber-700 text-center">
-                                Project document not found.
+                                Project document not found in 'projects' collection.
                             </div>
                         ) : (
                             <div className="space-y-8">
                                 <h2 className="text-2xl font-black uppercase">Project Roadmap</h2>
-                                <p className="text-gray-400 italic">Connected to: {isAdmin ? "Master Admin View" : "Client Project"}</p>
-                                <div className="bg-white p-6 rounded-lg shadow-sm">
+                                <p className="text-gray-400 italic text-sm">Active Project: {isAdmin ? "Master View" : "Client Portal"}</p>
+                                <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
                                     {plan.length > 0 ? (
-                                        <pre className="text-xs overflow-auto">{JSON.stringify(plan, null, 2)}</pre>
+                                        <div className="text-sm">Data Loaded Successfully.</div>
                                     ) : (
-                                        <p className="text-gray-500">No tasks currently listed for this project.</p>
+                                        <p className="text-gray-400 italic text-sm">Project plan is empty. Waiting for data sync...</p>
                                     )}
                                 </div>
                             </div>
@@ -175,7 +188,7 @@
                 return () => unsub();
             }, []);
 
-            if (loading) return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
+            if (loading) return <div className="min-h-screen flex items-center justify-center font-sans text-xs uppercase tracking-widest text-gray-400">Initializing Cardinal...</div>;
             return user ? <Dashboard user={user} /> : <LoginScreen />;
         };
 
