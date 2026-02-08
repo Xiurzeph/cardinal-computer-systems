@@ -20,7 +20,7 @@
     <div id="root"></div>
 
     <script type="text/babel">
-        const { useState, useEffect, useRef } = React;
+        const { useState, useEffect } = React;
 
         const firebaseConfig = {
             apiKey: "AIzaSyC3T-SIQxCSZPd9Vbg7ixDy3hhwfJ5t7rc",
@@ -44,24 +44,17 @@
         const db = firebase.firestore();
         const auth = firebase.auth();
 
-        const STATUS = { TODO: 'todo', IN_PROGRESS: 'in_progress', COMPLETED: 'completed', BLOCKED: 'blocked', SKIPPED: 'skipped' };
-        const STATUS_ORDER = [STATUS.TODO, STATUS.IN_PROGRESS, STATUS.COMPLETED, STATUS.BLOCKED, STATUS.SKIPPED];
-
-        const LoginScreen = ({ onLogin }) => {
+        const LoginScreen = () => {
             const [mode, setMode] = useState('client');
             const [password, setPassword] = useState("");
             const [error, setError] = useState(null);
             const [loading, setLoading] = useState(false);
 
-            const handleGoogleLogin = async () => {
+            // Switched to Redirect to avoid COOP/Popup errors
+            const handleGoogleLogin = () => {
                 setLoading(true);
-                try {
-                    const provider = new firebase.auth.GoogleAuthProvider();
-                    await auth.signInWithPopup(provider);
-                } catch (err) {
-                    setError("Login failed: " + err.message);
-                    setLoading(false);
-                }
+                const provider = new firebase.auth.GoogleAuthProvider();
+                auth.signInWithRedirect(provider);
             };
 
             const handleClientSubmit = async (e) => {
@@ -84,8 +77,8 @@
                         </div>
 
                         {mode === 'admin' ? (
-                            <button onClick={handleGoogleLogin} disabled={loading} className="w-full flex items-center justify-center gap-3 bg-white border border-gray-300 hover:bg-gray-50 py-4 rounded-lg font-bold">
-                                Sign in with Google
+                            <button onClick={handleGoogleLogin} disabled={loading} className="w-full flex items-center justify-center gap-3 bg-white border border-gray-300 hover:bg-gray-50 py-4 rounded-lg font-bold transition-all">
+                                {loading ? "Redirecting..." : "Sign in with Google"}
                             </button>
                         ) : (
                             <form onSubmit={handleClientSubmit} className="space-y-6">
@@ -108,13 +101,12 @@
 
         const Dashboard = ({ user }) => {
             const [plan, setPlan] = useState([]);
-            const [taskStates, setTaskStates] = useState({});
             const [syncStatus, setSyncStatus] = useState("loading");
             const isAdmin = user.email?.toLowerCase() === ADMIN_EMAIL.toLowerCase();
 
             useEffect(() => {
-                // AUTH GUARD: Ensure user is logged in before listening to Firestore
-                if (!user) return;
+                // Ensure auth is fully resolved before initiating the listener
+                if (!user || !user.uid) return;
 
                 const targetId = !isAdmin && CLIENT_PROJECTS[user.email?.toLowerCase()] 
                     ? CLIENT_PROJECTS[user.email.toLowerCase()] 
@@ -123,15 +115,16 @@
                 const unsubscribe = db.collection('projects').doc(targetId).onSnapshot(doc => {
                     if (doc.exists) {
                         setPlan(doc.data().projectPlan || []);
-                        setTaskStates(doc.data().taskStates || {});
                         setSyncStatus("synced");
+                    } else {
+                        setSyncStatus("missing");
                     }
                 }, err => {
                     console.error("Sync Error:", err);
                     setSyncStatus("error");
                 });
                 return () => unsubscribe();
-            }, [user]);
+            }, [user, isAdmin]);
 
             return (
                 <div className="min-h-screen bg-zinc-50 font-sans text-[#1A1A1A] pb-20">
@@ -146,13 +139,23 @@
                     <main className="max-w-5xl mx-auto px-4 py-8">
                         {syncStatus === "error" ? (
                             <div className="bg-red-50 p-4 rounded border border-red-200 text-[#D92323] text-center">
-                                Permission Denied. Ensure your account is authorized in Firestore Rules.
+                                Permission Denied. Ensure your account is authorized in Firestore Rules and that cookies are allowed.
+                            </div>
+                        ) : syncStatus === "missing" ? (
+                             <div className="bg-amber-50 p-4 rounded border border-amber-200 text-amber-700 text-center">
+                                Project document not found.
                             </div>
                         ) : (
                             <div className="space-y-8">
                                 <h2 className="text-2xl font-black uppercase">Project Roadmap</h2>
-                                {/* Your Sprint/Task Mapping Logic Goes Here */}
                                 <p className="text-gray-400 italic">Connected to: {isAdmin ? "Master Admin View" : "Client Project"}</p>
+                                <div className="bg-white p-6 rounded-lg shadow-sm">
+                                    {plan.length > 0 ? (
+                                        <pre className="text-xs overflow-auto">{JSON.stringify(plan, null, 2)}</pre>
+                                    ) : (
+                                        <p className="text-gray-500">No tasks currently listed for this project.</p>
+                                    )}
+                                </div>
                             </div>
                         )}
                     </main>
