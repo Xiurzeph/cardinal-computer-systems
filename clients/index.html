@@ -483,58 +483,7 @@
 
             return (
                 <div className="min-h-screen bg-zinc-50 font-sans text-cardinal-black pb-20">
-                    <header className="bg-white shadow-sm border-b sticky top-0 z-10 p-4">
-                        <div className="max-w-5xl mx-auto flex justify-between items-center flex-wrap gap-4">
-                            <div className="flex items-center gap-3">
-                                <img src="https://cardinalcomputersystems.com/cardinal-logo.png" className="w-10 h-10 object-contain" />
-                                <div>
-                                    <h1 className="font-bold leading-tight text-sm sm:text-base">Builds Setup Tracker</h1>
-                                    <div className="flex items-center gap-2 text-[10px] sm:text-xs">
-                                        {syncStatus === 'saving' ? <span className="text-red-600 animate-pulse">Saving...</span> : <span className="text-green-600">✓ Connected</span>}
-                                        <span className="text-gray-400">|</span>
-                                        <span className="font-bold uppercase text-gray-400">{isAdmin ? "Admin Mode" : "View Only"}</span>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            {isAdmin && (
-                                <div className="flex flex-col">
-                                    <label className="text-[9px] uppercase text-gray-400 font-bold">Project ID</label>
-                                    <input 
-                                        type="text" 
-                                        value={activeProjectId} 
-                                        onChange={(e) => setActiveProjectId(e.target.value)} 
-                                        className="text-xs border p-1 rounded bg-zinc-50 font-mono w-32 focus:border-cardinal-red outline-none"
-                                    />
-                                </div>
-                            )}
-
-                            <div className="flex items-center gap-4 ml-auto">
-                                <div className="flex flex-col items-end">
-                                    <label className="text-[10px] uppercase text-gray-400 font-bold">Account Balance</label>
-                                    {isAdmin ? (
-                                        <input 
-                                            type="text" 
-                                            placeholder="e.g. Remaining: $311.67"
-                                            value={balanceText}
-                                            onChange={(e) => setBalanceText(e.target.value)}
-                                            onBlur={() => saveData(null, null, balanceText)}
-                                            className="text-xs border-b border-gray-200 outline-none focus:border-cardinal-red p-1 text-right bg-transparent w-40 font-semibold text-gray-700"
-                                        />
-                                    ) : (
-                                        <span className="text-xs font-bold text-gray-700 p-1">{balanceText || "No outstanding balance"}</span>
-                                    )}
-                                </div>
-                                
-                                {!isAdmin && (
-                                    <a href="https://www.paypal.com/ncp/payment/EPJHVX6XAGW8C" target="_blank" className="bg-cardinal-red text-white px-4 py-2 rounded text-xs font-bold hover:bg-zinc-800 transition-all shadow-sm">
-                                        Pay Invoice
-                                    </a>
-                                )}
-                                <button onClick={onLogout} className="text-sm text-cardinal-red hover:underline ml-2 font-medium">Exit</button>
-                            </div>
-                        </div>
-                    </header>
+                    className
                     
                     <main className="max-w-5xl mx-auto px-4 py-8">
                         <div className="bg-white rounded-lg shadow p-6 mb-8 border-l-4 border-cardinal-red">
