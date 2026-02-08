@@ -219,7 +219,7 @@
 
                 try {
                     const provider = new firebase.auth.GoogleAuthProvider();
-                    await auth.signInWithPopup(provider);
+                    await auth.signInWithRedirect(provider);
                 } catch (err) {
                     console.error("Google Login Error:", err);
                     if (err.code === 'auth/popup-closed-by-user') {
