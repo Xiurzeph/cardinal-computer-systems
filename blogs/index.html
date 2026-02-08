@@ -89,8 +89,6 @@
                             
                             <ul className="hidden md:flex list-none gap-8 items-center mb-0">
                                 <NavItem href="https://cardinalcomputersystems.com/" text="Home" />
-                                <NavItem href="/cardinal-computer-systems/clients/" text="Clients" />
-                                <NavItem href="/cardinal-computer-systems/blogs/" text="Blog" active={true} />
                                 {user ? (
                                     <li>
                                         <button onClick={() => auth.signOut()} className="text-white font-bold hover:text-brand-yellow text-sm underline">Sign Out</button>
@@ -122,14 +120,17 @@
                     </header>
 
                     {/* --- MAIN BLOG CONTENT --- */}
-                    <main className="flex-grow max-w-4xl mx-auto w-full px-6 py-12">
-                        {isAdmin && (
-                            <div className="mb-8 flex justify-end">
-                                <button onClick={() => setEditingPost({})} className="bg-brand-red text-white px-6 py-2 rounded shadow-lg font-bold hover:bg-brand-dark">
-                                    + Create New Post
-                                </button>
-                            </div>
-                        )}
+                   <main className="flex-grow max-w-4xl mx-auto w-full px-6 pt-32 pb-12"> {/* Changed pt-12 to pt-32 */}
+    {isAdmin && (
+        <div className="mb-8 flex justify-end">
+            <button 
+                onClick={() => setEditingPost({})} 
+                className="bg-brand-red text-white px-6 py-2 rounded shadow-lg font-bold hover:bg-brand-dark transition-all"
+            >
+                + Create New Post
+            </button>
+        </div>
+    )}
 
                         {isAdmin && editingPost && (
                             <form onSubmit={handleSave} className="bg-white p-8 rounded shadow-xl mb-12 border-t-4 border-brand-red animate-modalSlideIn">
