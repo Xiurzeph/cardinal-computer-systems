@@ -478,9 +478,9 @@
                 saveData(np, null);
             };
 
-  //          const total = plan?.reduce((a, s) => a + s?.weeks.reduce((wa, w) => wa + w.tasks.length, 0), 0);
-   //         const done = Object.values(taskStates).filter(s => s === STATUS.COMPLETED || s === STATUS.SKIPPED).length;
-   //         const progress = total > 0 ? Math.round((done / total) * 100) : 0;
+            const total = plan?.reduce((a, s) => a + s?.weeks.reduce((wa, w) => wa + w.tasks.length, 0), 0);
+            const done = Object.values(taskStates).filter(s => s === STATUS.COMPLETED || s === STATUS.SKIPPED).length;
+            const progress = total > 0 ? Math.round((done / total) * 100) : 0;
 
             return (
                 <div className="min-h-screen bg-zinc-50 font-sans text-cardinal-black pb-20">
