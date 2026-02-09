@@ -1,0 +1,159 @@
+const { useState, useEffect } = React;
+const ADMIN_EMAIL = "xiurzeph112112@gmail.com"; 
+
+// Firebase Init
+const firebaseConfig = {
+    apiKey: "AIzaSyC3T-SIQxCSZPd9Vbg7ixDy3hhwfJ5t7rc",
+    authDomain: "cardinal-computer-center.firebaseapp.com",
+    projectId: "cardinal-computer-center",
+    storageBucket: "cardinal-computer-center.firebasestorage.app",
+    messagingSenderId: "606626380669",
+    appId: "1:606626380669:web:ff374410281763905d6a14",
+    measurementId: "G-5SGWF0RT8C"
+};
+
+if (!firebase.apps.length) { 
+    firebase.initializeApp(firebaseConfig); 
+}
+const db = firebase.firestore();
+const auth = firebase.auth();
+
+const BlogApp = () => {
+    const [posts, setPosts] = useState([]);
+    const [user, setUser] = useState(null);
+    const [editingPost, setEditingPost] = useState(null);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    useEffect(() => {
+        const unsubscribe = db.collection('blogs').orderBy('date', 'desc').onSnapshot(snapshot => {
+            const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            setPosts(data);
+        });
+        const authUnsub = auth.onAuthStateChanged(u => setUser(u));
+        return () => { unsubscribe(); authUnsub(); };
+    }, []);
+
+    const isAdmin = user?.email?.toLowerCase() === ADMIN_EMAIL.toLowerCase();
+
+    const handleSave = async (e) => {
+        e.preventDefault();
+        const postData = {
+            title: e.target.title.value,
+            content: e.target.content.value,
+            date: new Date().toISOString()
+        };
+        if (editingPost?.id) {
+            await db.collection('blogs').doc(editingPost.id).update(postData);
+        } else {
+            await db.collection('blogs').add(postData);
+        }
+        setEditingPost(null);
+    };
+
+    const handleDelete = async (id) => {
+        if (window.confirm("Are you sure you want to delete this post forever?")) {
+            await db.collection('blogs').doc(id).delete();
+        }
+    };
+
+    const handleShare = async (post) => {
+        if (navigator.share) {
+            try {
+                await navigator.share({
+                    title: post.title,
+                    text: `Check out this post from Cardinal Computer Systems: ${post.title}`,
+                    url: window.location.href
+                });
+            } catch (err) { console.log("Share failed", err); }
+        } else {
+            alert("Copy this link to share: " + window.location.href);
+        }
+    };
+
+    const NavItem = ({ href, text, active = false }) => (
+        <li>
+            <a href={href} className={`text-white font-medium hover:text-brand-yellow transition-colors relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-brand-yellow after:left-0 after:-bottom-1 after:transition-all hover:after:w-full ${active ? 'text-brand-yellow after:w-full' : ''}`}>
+                {text}
+            </a>
+        </li>
+    );
+
+    return (
+        <div className="min-h-screen flex flex-col pt-20">
+            <header className="bg-brand-red text-white shadow-lg fixed w-full top-0 z-50 transition-all duration-300">
+                <nav className="container mx-auto px-4 py-3 flex justify-between items-center max-w-7xl">
+                    <a href="https://cardinalcomputersystems.com/" className="flex items-center gap-3 group">
+                        <img src="../cardinal-logo.png" alt="Logo" className="h-10 w-auto transition-transform group-hover:scale-105" />
+                        <span className="text-xl md:text-2xl font-bold text-white tracking-tight">Cardinal Computer Systems</span>
+                    </a>
+                    <ul className="hidden md:flex list-none gap-8 items-center mb-0">
+                        <NavItem href="https://cardinalcomputersystems.com/" text="Home" />
+                        {user ? (
+                            <li><button onClick={() => auth.signOut()} className="text-white font-bold hover:text-brand-yellow text-sm underline">Sign Out</button></li>
+                        ) : (
+                            <li><button onClick={() => {
+                                const provider = new firebase.auth.GoogleAuthProvider();
+                                auth.signInWithPopup(provider)
+                                    .then((result) => {
+                                        console.log("Logged in as:", result.user.email);
+                                    })
+                                    .catch((error) => {
+                                        console.error("Auth Error:", error.code, error.message);
+                                    });
+                            }} className="bg-white/20 text-white px-3 py-1 rounded text-xs font-bold hover:bg-white/30">Admin</button></li>
+                        )}
+                    </ul>
+                </nav>
+            </header>
+
+            <main className="flex-grow max-w-4xl mx-auto w-full px-6 pt-32 pb-12">
+                {isAdmin && (
+                    <div className="mb-8 flex justify-end">
+                        <button onClick={() => setEditingPost({})} className="bg-brand-red text-white px-6 py-2 rounded shadow-lg font-bold hover:bg-brand-dark">+ Create New Post</button>
+                    </div>
+                )}
+
+                {isAdmin && editingPost && (
+                    <form onSubmit={handleSave} className="bg-white p-8 rounded shadow-xl mb-12 border-t-4 border-brand-red animate-modalSlideIn">
+                        <input name="title" defaultValue={editingPost.title} placeholder="Post Title" className="w-full mb-4 p-3 border rounded focus:ring-2 focus:ring-brand-red outline-none font-bold" required />
+                        <textarea name="content" defaultValue={editingPost.content} placeholder="Post Body (Markdown supported: # Header, **Bold**, - List)" className="w-full h-80 p-3 border rounded font-mono text-sm focus:ring-2 focus:ring-brand-red outline-none mb-4" required />
+                        <div className="flex gap-4">
+                            <button type="submit" className="bg-brand-red text-white px-6 py-2 rounded font-bold">Publish Post</button>
+                            <button type="button" onClick={() => setEditingPost(null)} className="text-gray-500">Cancel</button>
+                        </div>
+                    </form>
+                )}
+
+                <div className="space-y-12">
+                    {posts.map(post => (
+                        <article key={post.id} className="bg-white p-8 rounded shadow-sm border-l-4 border-brand-red group relative">
+                            <h2 className="text-3xl font-bold text-gray-900 mb-2">{post.title}</h2>
+                            <div className="flex justify-between items-center mb-6">
+                                <span className="text-xs text-gray-400 font-bold uppercase tracking-widest">{new Date(post.date).toLocaleDateString(undefined, { dateStyle: 'long' })}</span>
+                                <button onClick={() => handleShare(post)} className="text-gray-400 hover:text-brand-red transition-colors flex items-center gap-1 text-xs font-bold uppercase">
+                                    Share <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" /></svg>
+                                </button>
+                            </div>
+                            
+                            <div className="prose max-w-none text-gray-700 leading-relaxed" 
+                                 dangerouslySetInnerHTML={{ __html: marked.parse(post.content || '') }}>
+                            </div>
+
+                            {isAdmin && (
+                                <div className="mt-8 pt-4 border-t flex gap-6">
+                                    <button onClick={() => setEditingPost(post)} className="text-brand-red font-bold text-sm underline uppercase">Edit</button>
+                                    <button onClick={() => handleDelete(post.id)} className="text-red-800 font-bold text-sm underline uppercase">Delete Post</button>
+                                </div>
+                            )}
+                        </article>
+                    ))}
+                </div>
+            </main>
+
+            <footer className="bg-brand-red text-white py-12 text-center text-sm uppercase tracking-widest font-bold">&copy; 2026 Cardinal Computer Systems | All Rights Reserved</footer>
+        </div>
+    );
+};
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<BlogApp />);
