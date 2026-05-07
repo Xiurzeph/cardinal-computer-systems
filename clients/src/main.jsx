@@ -360,7 +360,7 @@ const Dashboard = ({ user, onLogout }) => {
     const [expandedNotes, setExpandedNotes] = useState({});
     const [balanceText, setBalanceText] = useState("");
     const [syncStatus, setSyncStatus] = useState("loading");
-    const [activeProjectId, setActiveProjectId] = useState("");
+    const [activeProjectId, setActiveProjectId] = useState("BLDS-WEB-001-REV5");
     const [taskToDelete, setTaskToDelete] = useState(null);
 
     const isAdmin = user.email?.toLowerCase() === ADMIN_EMAIL.toLowerCase();
