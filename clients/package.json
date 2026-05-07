@@ -3,10 +3,19 @@
   "version": "1.0.0",
   "description": "Tailwind build for the Cardinal Project Portal",
   "scripts": {
-    "build": "npx tailwindcss -i ./src/tailwind.css -o ./dist/output.css --minify",
+    "build:css": "npx tailwindcss -i ./src/tailwind.css -o ./dist/output.css --minify",
+    "build:js": "npx esbuild src/main.jsx --bundle --outfile=../dist/clients/main.js --loader:.js=jsx --target=es2020 --minify",
+    "build": "npm run build:css && npm run build:js",
     "watch": "npx tailwindcss -i ./src/tailwind.css -o ./dist/output.css --watch"
   },
   "devDependencies": {
+    "esbuild": "^0.28.0",
     "tailwindcss": "^3.4.0"
+  },
+  "dependencies": {
+    "firebase": "^12.13.0",
+    "lucide-react": "^1.14.0",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6"
   }
 }
