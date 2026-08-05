@@ -366,6 +366,7 @@
             const [expandedNotes, setExpandedNotes] = useState({}); 
             const [balanceText, setBalanceText] = useState("");
             const [syncStatus, setSyncStatus] = useState("loading"); 
+            const [dbError, setDbError] = useState(null);
             
             const [allProjects, setAllProjects] = useState([]);
             const [activeProjectId, setActiveProjectId] = useState(""); 
@@ -388,6 +389,7 @@
                 const unsubscribeProjects = db.collection("projects")
                     .orderBy("createdAt", "desc")
                     .onSnapshot(querySnapshot => {
+                        setDbError(null);
                         const projectsList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
                         setAllProjects(projectsList);
 
@@ -402,6 +404,7 @@
                     }, err => {
                         console.error("Projects List Sync Error:", err);
                         setSyncStatus("error");
+                        setDbError(err.message);
                     });
 
                 return () => unsubscribeProjects();
@@ -426,6 +429,7 @@
 
                 // Query 2: Listen only to the actively selected project document
                 const unsubscribeDoc = db.collection('projects').doc(activeProjectId).onSnapshot(doc => {
+                    setDbError(null);
                     if (doc.exists) {
                         const data = doc.data();
                         setPlan(data.projectPlan || []);
@@ -442,6 +446,7 @@
                 }, err => {
                     console.error("Active Project Sync Error:", err);
                     setSyncStatus("error");
+                    setDbError(err.message);
                 });
 
                 return () => unsubscribeDoc();
@@ -467,6 +472,7 @@
                 if (IS_DEMO_MODE) return;
                 
                 setSyncStatus("saving");
+                setDbError(null);
                 try {
                     const docRef = db.collection('projects').doc(activeProjectId);
                     // Using set with merge: true safely creates the doc if it's brand new, or updates if it exists.
@@ -481,6 +487,7 @@
                 } catch (e) {
                     console.error("Save Error:", e);
                     setSyncStatus("error");
+                    setDbError(e.message);
                 }
             };
 
@@ -615,13 +622,54 @@
                                         Pay Invoice
                                     </a>
                                 )}
-                                <button onClick={onLogout} className="text-sm text-cardinal-red hover:underline ml-2 font-medium">Exit</button>
+                                {isAdmin && activeProjectId && (
+                                    <button 
+                                        onClick={() => saveData(plan, taskStates, balanceText)} 
+                                        disabled={syncStatus === 'saving'}
+                                        className="bg-cardinal-black text-white px-4 py-2 rounded text-xs font-bold hover:bg-zinc-800 transition-all shadow-sm ml-2 disabled:opacity-50"
+                                    >
+                                        {syncStatus === 'saving' ? 'Saving...' : 'Save Project'}
+                                    </button>
+                                )}
+                                {activeProjectId && (
+                                    <button 
+                                        onClick={() => { setActiveProjectId(""); setIsCreatingNew(false); }} 
+                                        className="text-sm text-gray-600 hover:text-cardinal-black ml-2 font-medium border border-gray-200 px-3 py-1.5 rounded bg-white shadow-sm transition-colors"
+                                    >
+                                        Close Project
+                                    </button>
+                                )}
+                                <button onClick={onLogout} className="text-sm text-cardinal-red hover:underline ml-4 font-medium">Sign Out</button>
                             </div>
                         </div>
                     </header>
 
-                    {}
                     <main className="max-w-5xl mx-auto px-4 py-8">
+                        {dbError && (
+                            <div className="bg-red-100 border-l-4 border-red-500 text-red-800 p-4 mb-8 shadow-sm rounded-r-lg">
+                                <h3 className="font-bold text-sm flex items-center gap-2">
+                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                                    Database Connection Error
+                                </h3>
+                                <p className="mt-1 text-sm">{dbError}</p>
+                                {dbError.toLowerCase().includes("permission") && (
+                                    <div className="mt-3 text-xs bg-red-50 p-3 rounded border border-red-200 text-red-900">
+                                        <strong>How to fix:</strong> Go to Firebase Console &rarr; Firestore Database &rarr; Rules. Update the rules to allow access:
+                                        <pre className="mt-2 text-[10px] bg-zinc-900 text-green-400 p-3 rounded font-mono overflow-x-auto">
+{`rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /projects/{document=**} {
+      allow read, write: if request.auth != null; 
+    }
+  }
+}`}
+                                        </pre>
+                                    </div>
+                                )}
+                            </div>
+                        )}
+
                         {syncStatus === "no_access" && (
                             <div className="bg-red-50 border-l-4 border-red-500 text-red-700 p-4 mb-8">
                                 <p className="font-bold">Access Denied or No Project Assigned</p>
