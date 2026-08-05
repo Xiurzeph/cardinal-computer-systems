@@ -29,8 +29,12 @@
         // ==========================================
         //  LIVE FIREBASE CONFIGURATION
         // ==========================================
+        
+        // 🔑 INSERT YOUR REAL FIREBASE API KEY HERE
+        const FIREBASE_API_KEY = "YOUR_NEW_RESTRICTED_KEY"; 
+
         const firebaseConfig = {
-            apiKey: "YOUR_NEW_RESTRICTED_KEY", 
+            apiKey: FIREBASE_API_KEY, 
             authDomain: "buildslsf.firebaseapp.com",
             projectId: "buildslsf",
             storageBucket: "buildslsf.firebasestorage.app",
@@ -46,7 +50,7 @@
         const ADMIN_EMAIL = "xiurzeph112112@gmail.com"; 
 
         // Check for Demo Mode
-        const IS_DEMO_MODE = firebaseConfig.apiKey.includes("REPLACE") || firebaseConfig.apiKey.includes("YOUR_NEW");
+        const IS_DEMO_MODE = FIREBASE_API_KEY.includes("REPLACE") || FIREBASE_API_KEY.includes("YOUR_NEW");
 
         let db, auth;
         if (!IS_DEMO_MODE) {
