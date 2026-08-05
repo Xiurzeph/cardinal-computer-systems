@@ -383,115 +383,134 @@
         };
 
         const Dashboard = ({ user, onLogout }) => {
+            // FIX: Initialize with default data so Client sees content immediately
             const [plan, setPlan] = useState(initialProjectData); 
             const [taskStates, setTaskStates] = useState({}); 
             const [expandedNotes, setExpandedNotes] = useState({}); 
             const [balanceText, setBalanceText] = useState("");
             const [syncStatus, setSyncStatus] = useState("loading"); 
-            const [activeProjectId, setActiveProjectId] = useState("BLDS-WEB-001-REV5"); 
-            const [allProjects, setAllProjects] = useState([]); 
+            // Required Enhancement 3: Do not hardcode project ID, require explicit selection
+            const [activeProjectId, setActiveProjectId] = useState(""); 
+            const [allProjects, setAllProjects] = useState([]); // New state for all projects
 
+            // Robust Admin Check
             const isAdmin = user.email?.toLowerCase() === ADMIN_EMAIL.toLowerCase();
 
+            // Fetch list of available projects (Required Enhancements 1, 2, 3)
             useEffect(() => {
                 if (IS_DEMO_MODE) {
                     setSyncStatus("demo");
                     return;
                 }
 
+                const clientEmail = user.email?.toLowerCase();
+                if (!isAdmin && !CLIENT_PROJECTS[clientEmail] && !IS_DEMO_MODE) {
+                    setSyncStatus("no_access");
+                    setAllProjects([]);
+                    return;
+                }
+
                 const fetchProjects = async () => {
+                    // Targets "projects" collection, matches `collection(db, "projects")` equivalent in compat
+                    // Includes `orderBy("createdAt", "desc")`
                     const projectsRef = db.collection("projects").orderBy("createdAt", "desc");
 
                     const unsubscribe = projectsRef.onSnapshot(querySnapshot => {
                         const projects = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-                        setAllProjects(projects);
-                        let targetId = activeProjectId;
-                        if (isAdmin) {
-                            if (projects.length > 0 && !projects.some(p => p.id === activeProjectId)) {
-                                targetId = projects[0].id; 
-                            } else if (projects.length === 0) {
-                                targetId = null; 
-                            }
-                        } else {
-                            const clientEmail = user.email?.toLowerCase();
-                            const clientProject = CLIENT_PROJECTS[clientEmail];
-                            if (clientProject && projects.some(p => p.id === clientProject)) {
-                                targetId = clientProject;
-                            } else if (!clientProject) {
-                                targetId = null; 
-                            } else {
-                                targetId = null; 
-                            }
+                        
+                        let availableProjects = projects;
+                        // Optional filter for non-admins to only see their mapped projects in the dropdown
+                        if (!isAdmin) {
+                            const assignedId = CLIENT_PROJECTS[clientEmail];
+                            availableProjects = projects.filter(p => p.id === assignedId);
                         }
 
-                        setActiveProjectId(targetId);
-
-                        if (targetId) {
-                            db.collection('projects').doc(targetId).onSnapshot(doc => {
-                                if (doc.exists) {
-                                    const data = doc.data();
-                                    setPlan(data.projectPlan || initialProjectData);
-                                    setTaskStates(data.taskStates || {});
-                                    setBalanceText(data.balanceText || "");
-                                    setSyncStatus("synced");
-                                } else {
-                                    if (isAdmin) {
-                                        db.collection('projects').doc(targetId).set({ projectPlan: initialProjectData, taskStates: {}, balanceText: "", createdAt: new Date() });
-                                        setPlan(initialProjectData);
-                                    } else {
-                                        setPlan([]); 
-                                    }
-                                    setTaskStates({});
-                                    setBalanceText("");
-                                    setSyncStatus("synced");
-                                }
-                            }, err => {
-                                console.error("Specific Project Sync Error:", err);
-                                setSyncStatus("error");
-                                setPlan([]);
-                            });
-                        } else {
-                            setPlan([]); 
-                            setTaskStates({});
-                            setBalanceText("");
-                            setSyncStatus("synced");
+                        // Populate options list, but DO NOT auto-select docs[0]
+                        setAllProjects(availableProjects);
+                        
+                        // Clear active selection if their previous selection was removed
+                        if (activeProjectId && !availableProjects.some(p => p.id === activeProjectId)) {
+                            setActiveProjectId("");
                         }
+
+                        setSyncStatus("synced");
                     }, err => {
                         console.error("All Projects Sync Error:", err);
                         setSyncStatus("error");
                         setAllProjects([]);
-                        setPlan([]);
                     });
                     return unsubscribe;
-            };
+                };
 
-                const clientEmail = user.email?.toLowerCase();
-                if (!isAdmin && !CLIENT_PROJECTS[clientEmail] && !IS_DEMO_MODE) {
-                    setSyncStatus("no_access");
+                fetchProjects();
+            }, [user.email, isAdmin, IS_DEMO_MODE]);
+
+            // Fetch specific project detail WHEN activeProjectId changes (Required Enhancements 5, 6, 7)
+            useEffect(() => {
+                if (!activeProjectId || IS_DEMO_MODE) {
+                    // Clear detail view data if no project is selected
                     setPlan([]);
+                    setTaskStates({});
+                    setBalanceText("");
                     return;
                 }
 
-                fetchProjects();
-            }, [user.email, isAdmin, IS_DEMO_MODE, activeProjectId]); 
+                setSyncStatus("loading");
+                const unsubscribe = db.collection('projects').doc(activeProjectId).onSnapshot(doc => {
+                    if (doc.exists) {
+                        const data = doc.data();
+                        setPlan(data.projectPlan || initialProjectData);
+                        setTaskStates(data.taskStates || {});
+                        setBalanceText(data.balanceText || "");
+                        setSyncStatus("synced");
+                    } else {
+                        if (isAdmin) {
+                            // If admin selects a project ID that doesn't exist, create it cleanly
+                            db.collection('projects').doc(activeProjectId).set({ 
+                                projectPlan: initialProjectData, 
+                                taskStates: {}, 
+                                balanceText: "", 
+                                createdAt: new Date() 
+                            });
+                            setPlan(initialProjectData);
+                        } else {
+                            setPlan([]); 
+                        }
+                        setTaskStates({});
+                        setBalanceText("");
+                        setSyncStatus("synced");
+                    }
+                }, err => {
+                    console.error("Specific Project Sync Error:", err);
+                    setSyncStatus("error");
+                    setPlan([]);
+                });
+
+                return unsubscribe;
+            }, [activeProjectId, isAdmin, IS_DEMO_MODE]);
 
             const saveData = async (newPlan, newStates, newBalance) => {
                 if (!isAdmin && !IS_DEMO_MODE) return;
+                
+                // Security verification: Ensure we target the currently selected project exactly
                 if (!activeProjectId) {
-                    console.warn("No active project to save data to.");
+                    console.warn("No active project selected to save data to.");
                     return;
                 }
+
                 const p = newPlan || plan;
                 const s = newStates || taskStates;
                 const b = typeof newBalance === 'string' ? newBalance : balanceText;
 
-                if (newPlan) setPlan(p); 
-                if (newStates) setTaskStates(s); 
-                if (typeof newBalance === 'string') setBalanceText(b); 
+                if (newPlan) setPlan(p); // Use 'p' here
+                if (newStates) setTaskStates(s); // Use 's' here
+                if (typeof newBalance === 'string') setBalanceText(b); // Use 'b' here
 
                 if (IS_DEMO_MODE) return;
                 setSyncStatus("saving");
                 try {
+                    // Required Enhancement: target exactly doc(db, "projects", activeProjectId)
+                    // Write operation securely constrained to the explicit project selected by the admin
                     await db.collection('projects').doc(activeProjectId).update({
                         projectPlan: p,
                         taskStates: s,
@@ -556,39 +575,42 @@
                                     <div className="flex items-center gap-2 text-[10px] sm:text-xs">
                                         {syncStatus === 'saving' ? <span className="text-red-600 animate-pulse">Saving...</span> : <span className="text-green-600">✓ Connected</span>}
                                         <span className="text-gray-400">|</span>
-                                        <span className="font-bold uppercase text-gray-400">{isAdmin ? "Admin Mode" : "View Only"}</span>
-                                        {syncStatus === "no_access" && <span className="text-red-600 font-bold">No Project Access</span>}
-                </div>
+                                        <span className="font-bold uppercase text-gray-400">{isAdmin ? "Admin Mode" : "Client Portal"}</span>
+                                        {syncStatus === "no_access" && <span className="text-red-600 font-bold ml-1">No Project Access</span>}
+                                    </div>
                                 </div>
                             </div>
 
-                            {isAdmin && (
-                                <div className="flex flex-col">
-                                    <label className="text-[9px] uppercase text-gray-400 font-bold">Project ID</label>
-                                    {allProjects.length > 0 ? (
-                                        <select
-                                            id="projectSelect"
-                                            value={activeProjectId || ''}
-                                            onChange={(e) => setActiveProjectId(e.target.value)}
-                                            className="text-xs border p-1 rounded bg-zinc-50 font-mono w-32 focus:border-cardinal-red outline-none"
-                                        >
-                                            {allProjects.map(project => (
-                                                <option key={project.id} value={project.id}>
-                                                    {project.id}
-                                                </option>
-                                            ))}
-                                        </select>
-                                    ) : (
+                            <div className="flex flex-col">
+                                <label className="text-[9px] uppercase text-gray-400 font-bold mb-1">Select Project</label>
+                                {allProjects.length > 0 ? (
+                                    <select
+                                        id="projectSelect"
+                                        value={activeProjectId || ''}
+                                        onChange={(e) => setActiveProjectId(e.target.value)}
+                                        className="text-xs border border-gray-300 p-1.5 rounded bg-white font-mono min-w-[180px] focus:border-cardinal-red focus:ring-1 focus:ring-cardinal-red outline-none shadow-sm cursor-pointer"
+                                    >
+                                        <option value="" disabled>-- Choose a project --</option>
+                                        {allProjects.map(project => (
+                                            <option key={project.id} value={project.id}>
+                                                {project.id}
+                                            </option>
+                                        ))}
+                                    </select>
+                                ) : (
+                                    isAdmin ? (
                                         <input
                                             type="text"
                                             value={activeProjectId || ''}
                                             onChange={(e) => setActiveProjectId(e.target.value)}
-                                            className="text-xs border p-1 rounded bg-zinc-50 font-mono w-32 focus:border-cardinal-red outline-none"
-                                            placeholder="Enter Project ID"
+                                            className="text-xs border border-gray-300 p-1.5 rounded bg-white font-mono w-48 focus:border-cardinal-red outline-none shadow-sm"
+                                            placeholder="Enter New Project ID"
                                         />
-                                    )}
-                                </div>
-                            )}
+                                    ) : (
+                                        <span className="text-xs text-gray-500 font-bold bg-gray-100 p-1.5 rounded border border-gray-200">No Projects Found</span>
+                                    )
+                                )}
+                            </div>
 
                             <div className="flex items-center gap-4 ml-auto">
                                 <div className="flex flex-col items-end">
@@ -618,17 +640,31 @@
                     </header>
 
                     <main className="max-w-5xl mx-auto px-4 py-8">
-                        {(!activeProjectId || plan.length === 0) && syncStatus !== "loading" && (isAdmin ? (
-                            <div className="bg-yellow-50 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-8">
-                                <p className="font-bold">No Projects Found</p>
-                                <p>As an admin, you can create a new project by entering a Project ID above.</p>
+                        {/* Empty States Handling */}
+                        
+                        {syncStatus === "no_access" && (
+                            <div className="bg-red-50 border-l-4 border-red-500 text-red-700 p-5 mb-8 rounded shadow-sm">
+                                <p className="font-bold text-lg mb-1">Access Denied</p>
+                                <p>Please contact your administrator. No projects are currently mapped to your email.</p>
                             </div>
-                        ) : (
-                            <div className="bg-red-50 border-l-4 border-red-500 text-red-700 p-4 mb-8">
-                                <p className="font-bold">Access Denied or No Project Assigned</p>
-                                <p>Please contact support or your administrator to gain access to a project.</p>
+                        )}
+
+                        {syncStatus !== "loading" && syncStatus !== "no_access" && allProjects.length === 0 && (
+                            <div className="bg-yellow-50 border-l-4 border-yellow-500 text-yellow-800 p-5 mb-8 rounded shadow-sm">
+                                <p className="font-bold text-lg mb-1">No Projects Available</p>
+                                <p>{isAdmin ? "As an admin, you can create a new project by entering a Project ID in the input box above." : "You currently have no active projects associated with your account."}</p>
                             </div>
-                        ))}
+                        )}
+
+                        {allProjects.length > 0 && !activeProjectId && (
+                            <div className="bg-blue-50 border-l-4 border-cardinal-black text-gray-800 p-6 mb-8 rounded shadow-sm flex items-center gap-4">
+                                <svg className="w-8 h-8 text-cardinal-black opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <div>
+                                    <p className="font-bold text-lg mb-1">Project Selection Required</p>
+                                    <p className="text-sm">Please select a project from the dropdown menu in the header to view tracking details and tasks.</p>
+                                </div>
+                            </div>
+                        )}
 
                         {activeProjectId && plan.length > 0 && (
                             <>
