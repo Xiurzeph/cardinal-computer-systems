@@ -203,7 +203,45 @@
                 <div className="bg-red-500 h-4 rounded-full transition-all duration-1000" style={{ width: `${progress}%` }}></div>
             </div>
         );
-
+        const handleFirebaseAuthError = (error) => {
+            let userFriendlyMessage = "An unknown authentication error occurred.";
+            if (error && error.code) {
+                switch (error.code) {
+                    case 'auth/invalid-action':
+                        userFriendlyMessage = "The authentication action is invalid or not supported. This often means a sign-in method (e.g., Email/Password or Google) is not enabled in your Firebase project's Authentication settings.";
+                        break;
+                    case 'auth/user-not-found':
+                        userFriendlyMessage = "No user found with this email address.";
+                        break;
+                    case 'auth/wrong-password':
+                        userFriendlyMessage = "Incorrect password. Please try again.";
+                        break;
+                    case 'auth/email-already-in-use':
+                        userFriendlyMessage = "This email is already in use by another account.";
+                        break;
+                    case 'auth/popup-blocked':
+                        userFriendlyMessage = "Browser popup blocked for Google Sign-In. Please allow popups for this site.";
+                        break;
+                    case 'auth/popup-closed-by-user':
+                        userFriendlyMessage = "Google Sign-In popup was closed before completion.";
+                        break;
+                    case 'auth/network-request-failed':
+                        userFriendlyMessage = "Network error. Please check your internet connection.";
+                        break;
+                    case 'auth/invalid-email':
+                        userFriendlyMessage = "The email address format is invalid.";
+                        break;
+                    case 'auth/operation-not-allowed':
+                        userFriendlyMessage = "The sign-in method is not enabled. Please check Firebase project settings.";
+                        break;
+                    default:
+                        userFriendlyMessage = `Firebase Auth Error: ${error.message || 'Unknown'}. Please try again.`;
+                }
+            } else if (error && error.message) {
+                userFriendlyMessage = error.message;
+            }
+            return userFriendlyMessage;
+        };
         const StatusCheckbox = ({ status, onClick, disabled }) => {
             const base = `w-6 h-6 min-w-[24px] rounded border-2 flex items-center justify-center mt-0.5 select-none transition-all duration-200 flex-shrink-0 ${disabled ? 'opacity-50' : 'cursor-pointer'}`;
             const clickHandler = disabled ? undefined : onClick;
