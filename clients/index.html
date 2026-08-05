@@ -48,7 +48,6 @@
         // Check for Demo Mode
         const IS_DEMO_MODE = firebaseConfig.apiKey.includes("REPLACE") || firebaseConfig.apiKey.includes("YOUR_NEW");
 
-        // Initialize Firebase
         let db, auth;
         if (!IS_DEMO_MODE) {
             try {
@@ -140,41 +139,12 @@
                         ]
                     }
                 ]
-            },
-            {
-                id: "sprint3",
-                title: "Sprint 3: Products & Launch",
-                dates: "Feb 25 - Mar 11",
-                goal: "Populating the store and preparing for public traffic.",
-                weeks: [
-                    {
-                        id: "w5",
-                        title: "Week 5: Product Import (Phase 2)",
-                        checkIn: "Wed, Mar 4",
-                        tasks: [
-                            { id: "t_res", title: "Niche Product Research", note: "" },
-                            { id: "t_imp", title: "AutoDS Product Imports", note: "" },
-                            { id: "t_desc", title: "Description Formatting (Kollab Style)", note: "" },
-                            { id: "t_img", title: "Image Optimization", note: "" }
-                        ]
-                    },
-                    {
-                        id: "w6",
-                        title: "Week 6: QA & Launch",
-                        checkIn: "Wed, Mar 11",
-                        tasks: [
-                            { id: "t_mob", title: "Mobile Responsiveness Check", note: "" },
-                            { id: "t_test", title: "Test Orders (End-to-End)", note: "" },
-                            { id: "t_pg", title: "Payment Gateway Verification", note: "" },
-                            { id: "t_live", title: "GO LIVE 🚀", note: "" }
-                        ]
-                    }
-                ]
             }
         ];
 
         const LoginScreen = ({ onLogin }) => {
             const [mode, setMode] = useState('client');
+            const [email, setEmail] = useState("");
             const [password, setPassword] = useState("");
             const [error, setError] = useState(null);
             const [loading, setLoading] = useState(false);
@@ -187,10 +157,9 @@
                     setLockoutTime(storedLockout);
                 }
 
-                // Handle Redirect Result for Google Sign-In
                 if (!IS_DEMO_MODE && auth) {
                     auth.getRedirectResult().then((result) => {
-                        if (result && result.user) {
+                        if (result.user) {
                             onLogin(result.user);
                         }
                     }).catch((err) => {
@@ -233,7 +202,6 @@
                     const provider = new firebase.auth.GoogleAuthProvider();
                     provider.setCustomParameters({ prompt: 'select_account' });
                     
-                    // Try popup first; fallback to redirect if popup fails or is blocked
                     try {
                         await auth.signInWithPopup(provider);
                     } catch (popupErr) {
@@ -247,7 +215,7 @@
                 } catch (err) {
                     console.error("Google Login Error:", err);
                     if (err.code === 'auth/unauthorized-domain' || err.message.includes('unauthorized domain')) {
-                        setError("Domain not authorized. Please add this domain to Firebase Console > Auth > Settings > Authorized Domains.");
+                        setError("Domain not authorized. Add your current domain in Firebase Console > Auth > Settings > Authorized Domains.");
                     } else {
                         setError("Google Sign-In failed: " + err.message);
                     }
@@ -267,15 +235,15 @@
                 setLoading(true);
                 setError(null);
                 
-                const loginEmail = "director@lsfdc.org";
+                const targetEmail = mode === 'client' ? "director@lsfdc.org" : email;
 
                 if (IS_DEMO_MODE) {
-                    setTimeout(() => onLogin({ email: loginEmail || "demo@user.com" }), 800);
+                    setTimeout(() => onLogin({ email: targetEmail || "demo@user.com" }), 800);
                     return;
                 }
 
                 try {
-                    await auth.signInWithEmailAndPassword(loginEmail, password);
+                    await auth.signInWithEmailAndPassword(targetEmail, password);
                     localStorage.removeItem('auth_attempts');
                     localStorage.removeItem('auth_lockout_until');
                 } catch (err) {
@@ -310,47 +278,53 @@
                         {isFileProtocol && (
                             <div className="bg-red-50 border-l-4 border-red-500 text-red-700 p-4 mb-6 text-xs text-left">
                                 <p className="font-bold">⚠️ Local File Detected</p>
-                                <p>Firebase Authentication will NOT work when opening the file directly (file://). Please upload this file to a web host (like GitHub Pages) or run a local server.</p>
+                                <p>Firebase Authentication will NOT work when opening the file directly (file://). Please host this page on a web server.</p>
                             </div>
                         )}
 
-                        {mode === 'admin' ? (
-                            <div className="mb-6">
-                                <button 
-                                    onClick={handleGoogleLogin}
-                                    type="button"
-                                    disabled={loading}
-                                    className="w-full flex items-center justify-center gap-3 bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 font-bold py-4 rounded-lg transition-all shadow-sm hover:shadow-md"
-                                >
-                                    <svg className="w-6 h-6" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-                                    Sign in with Google
-                                </button>
-                                {error && <div className="bg-red-50 border border-red-200 text-cardinal-red text-xs mt-4 p-3 rounded text-center">{error}</div>}
-                                <p className="text-xs text-gray-400 text-center mt-4">Restricted to authorized administrators.</p>
-                                <p className="text-[10px] text-gray-300 text-center mt-2">Note: Disable AdBlockers if login fails.</p>
-                            </div>
-                        ) : (
-                            <form onSubmit={handleSubmit} className="space-y-6">
+                        <div className="mb-6">
+                            <button 
+                                onClick={handleGoogleLogin}
+                                type="button"
+                                disabled={loading}
+                                className="w-full flex items-center justify-center gap-3 bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 font-bold py-4 rounded-lg transition-all shadow-sm hover:shadow-md"
+                            >
+                                <svg className="w-6 h-6" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+                                Sign in with Google
+                            </button>
+                            {error && <div className="bg-red-50 border border-red-200 text-cardinal-red text-xs mt-4 p-3 rounded text-center">{error}</div>}
+                        </div>
+
+                        <div className="relative my-6 text-center">
+                            <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-gray-200"></div></div>
+                            <span className="relative bg-white px-3 text-xs text-gray-400 uppercase font-semibold">Or use access code</span>
+                        </div>
+
+                        <form onSubmit={handleSubmit} className="space-y-6">
+                            {mode === 'admin' && (
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                                        Project Access Code
-                                    </label>
-                                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full px-4 py-3 rounded border border-gray-300 focus:ring-2 focus:ring-cardinal-red focus:outline-none" required disabled={isLocked || loading} placeholder="Enter your access code..." />
-                                    {error && <p className="text-cardinal-red text-sm mt-2 font-bold">{error}</p>}
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">Admin Email</label>
+                                    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full px-4 py-3 rounded border border-gray-300 focus:ring-2 focus:ring-cardinal-red focus:outline-none" required disabled={loading} placeholder="admin@domain.com" />
                                 </div>
-                                <button 
-                                    type="submit" 
-                                    disabled={loading || isLocked} 
-                                    className={`w-full text-white font-bold py-3 rounded transition-colors disabled:opacity-50 ${isLocked ? 'bg-gray-400 cursor-not-allowed' : 'bg-cardinal-black hover:bg-gray-800'}`}
-                                >
-                                    {loading ? "Verifying..." : (isLocked ? "Locked" : "View Dashboard")}
-                                </button>
-                            </form>
-                        )}
+                            )}
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    Project Access Code
+                                </label>
+                                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full px-4 py-3 rounded border border-gray-300 focus:ring-2 focus:ring-cardinal-red focus:outline-none" required disabled={isLocked || loading} placeholder="Enter your access code..." />
+                            </div>
+                            <button 
+                                type="submit" 
+                                disabled={loading || isLocked} 
+                                className={`w-full text-white font-bold py-3 rounded transition-colors disabled:opacity-50 ${isLocked ? 'bg-gray-400 cursor-not-allowed' : 'bg-cardinal-black hover:bg-gray-800'}`}
+                            >
+                                {loading ? "Verifying..." : (isLocked ? "Locked" : "View Dashboard")}
+                            </button>
+                        </form>
 
                         <div className="mt-6 text-center border-t pt-4">
                             <button onClick={() => switchMode(mode === 'client' ? 'admin' : 'client')} className="text-xs text-gray-400 hover:text-cardinal-red underline">
-                                {mode === 'client' ? "Admin Login" : "Back to Client Access"}
+                                {mode === 'client' ? "Admin Access" : "Back to Client Portal"}
                             </button>
                         </div>
                     </div>
@@ -383,118 +357,98 @@
         };
 
         const Dashboard = ({ user, onLogout }) => {
-            // FIX: Initialize with default data so Client sees content immediately
-            const [plan, setPlan] = useState(initialProjectData); 
+            const [plan, setPlan] = useState([]); 
             const [taskStates, setTaskStates] = useState({}); 
             const [expandedNotes, setExpandedNotes] = useState({}); 
             const [balanceText, setBalanceText] = useState("");
             const [syncStatus, setSyncStatus] = useState("loading"); 
-            // Required Enhancement 3: Do not hardcode project ID, require explicit selection
+            
+            const [allProjects, setAllProjects] = useState([]);
             const [activeProjectId, setActiveProjectId] = useState(""); 
-            const [allProjects, setAllProjects] = useState([]); // New state for all projects
+            const [isCreatingNew, setIsCreatingNew] = useState(false);
 
-            // Robust Admin Check
             const isAdmin = user.email?.toLowerCase() === ADMIN_EMAIL.toLowerCase();
 
-            // Fetch list of available projects (Required Enhancements 1, 2, 3)
+            useEffect(() => {
+                if (IS_DEMO_MODE) return;
+
+                const clientEmail = user.email?.toLowerCase();
+                const assignedProjectId = CLIENT_PROJECTS[clientEmail];
+
+                if (!isAdmin && !assignedProjectId) {
+                    setSyncStatus("no_access");
+                    return;
+                }
+
+                // Query 1: Get the list of all projects ordered by createdAt desc
+                const unsubscribeProjects = db.collection("projects")
+                    .orderBy("createdAt", "desc")
+                    .onSnapshot(querySnapshot => {
+                        const projectsList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                        setAllProjects(projectsList);
+
+                        // Auto-select logic on initial load
+                        if (!activeProjectId) {
+                            if (isAdmin && projectsList.length > 0) {
+                                setActiveProjectId(projectsList[0].id);
+                            } else if (!isAdmin && assignedProjectId) {
+                                setActiveProjectId(assignedProjectId);
+                            }
+                        }
+                    }, err => {
+                        console.error("Projects List Sync Error:", err);
+                        setSyncStatus("error");
+                    });
+
+                return () => unsubscribeProjects();
+            }, [user.email, isAdmin]);
+
             useEffect(() => {
                 if (IS_DEMO_MODE) {
+                    setPlan(initialProjectData);
                     setSyncStatus("demo");
                     return;
                 }
 
-                const clientEmail = user.email?.toLowerCase();
-                if (!isAdmin && !CLIENT_PROJECTS[clientEmail] && !IS_DEMO_MODE) {
-                    setSyncStatus("no_access");
-                    setAllProjects([]);
-                    return;
-                }
-
-                const fetchProjects = async () => {
-                    // Targets "projects" collection, matches `collection(db, "projects")` equivalent in compat
-                    // Includes `orderBy("createdAt", "desc")`
-                    const projectsRef = db.collection("projects").orderBy("createdAt", "desc");
-
-                    const unsubscribe = projectsRef.onSnapshot(querySnapshot => {
-                        const projects = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-                        
-                        let availableProjects = projects;
-                        // Optional filter for non-admins to only see their mapped projects in the dropdown
-                        if (!isAdmin) {
-                            const assignedId = CLIENT_PROJECTS[clientEmail];
-                            availableProjects = projects.filter(p => p.id === assignedId);
-                        }
-
-                        // Populate options list, but DO NOT auto-select docs[0]
-                        setAllProjects(availableProjects);
-                        
-                        // Clear active selection if their previous selection was removed
-                        if (activeProjectId && !availableProjects.some(p => p.id === activeProjectId)) {
-                            setActiveProjectId("");
-                        }
-
-                        setSyncStatus("synced");
-                    }, err => {
-                        console.error("All Projects Sync Error:", err);
-                        setSyncStatus("error");
-                        setAllProjects([]);
-                    });
-                    return unsubscribe;
-                };
-
-                fetchProjects();
-            }, [user.email, isAdmin, IS_DEMO_MODE]);
-
-            // Fetch specific project detail WHEN activeProjectId changes (Required Enhancements 5, 6, 7)
-            useEffect(() => {
-                if (!activeProjectId || IS_DEMO_MODE) {
-                    // Clear detail view data if no project is selected
+                if (!activeProjectId) {
                     setPlan([]);
                     setTaskStates({});
                     setBalanceText("");
+                    setSyncStatus("synced");
                     return;
                 }
 
                 setSyncStatus("loading");
-                const unsubscribe = db.collection('projects').doc(activeProjectId).onSnapshot(doc => {
+
+                // Query 2: Listen only to the actively selected project document
+                const unsubscribeDoc = db.collection('projects').doc(activeProjectId).onSnapshot(doc => {
                     if (doc.exists) {
                         const data = doc.data();
-                        setPlan(data.projectPlan || initialProjectData);
+                        setPlan(data.projectPlan || []);
                         setTaskStates(data.taskStates || {});
                         setBalanceText(data.balanceText || "");
                         setSyncStatus("synced");
                     } else {
-                        if (isAdmin) {
-                            // If admin selects a project ID that doesn't exist, create it cleanly
-                            db.collection('projects').doc(activeProjectId).set({ 
-                                projectPlan: initialProjectData, 
-                                taskStates: {}, 
-                                balanceText: "", 
-                                createdAt: new Date() 
-                            });
-                            setPlan(initialProjectData);
-                        } else {
-                            setPlan([]); 
-                        }
+                        // Document doesn't exist yet
+                        setPlan([]);
                         setTaskStates({});
                         setBalanceText("");
                         setSyncStatus("synced");
                     }
                 }, err => {
-                    console.error("Specific Project Sync Error:", err);
+                    console.error("Active Project Sync Error:", err);
                     setSyncStatus("error");
-                    setPlan([]);
                 });
 
-                return unsubscribe;
-            }, [activeProjectId, isAdmin, IS_DEMO_MODE]);
+                return () => unsubscribeDoc();
+            }, [activeProjectId]);
 
             const saveData = async (newPlan, newStates, newBalance) => {
                 if (!isAdmin && !IS_DEMO_MODE) return;
                 
-                // Security verification: Ensure we target the currently selected project exactly
-                if (!activeProjectId) {
-                    console.warn("No active project selected to save data to.");
+                // Do not attempt save if there is no active project ID
+                if (!activeProjectId || activeProjectId.trim() === "") {
+                    console.warn("No active project ID defined to save data.");
                     return;
                 }
 
@@ -502,20 +456,23 @@
                 const s = newStates || taskStates;
                 const b = typeof newBalance === 'string' ? newBalance : balanceText;
 
-                if (newPlan) setPlan(p); // Use 'p' here
-                if (newStates) setTaskStates(s); // Use 's' here
-                if (typeof newBalance === 'string') setBalanceText(b); // Use 'b' here
+                if (newPlan) setPlan(p);
+                if (newStates) setTaskStates(s);
+                if (typeof newBalance === 'string') setBalanceText(b);
 
                 if (IS_DEMO_MODE) return;
+                
                 setSyncStatus("saving");
                 try {
-                    // Required Enhancement: target exactly doc(db, "projects", activeProjectId)
-                    // Write operation securely constrained to the explicit project selected by the admin
-                    await db.collection('projects').doc(activeProjectId).update({
-                        projectPlan: p,
+                    const docRef = db.collection('projects').doc(activeProjectId);
+                    // Using set with merge: true safely creates the doc if it's brand new, or updates if it exists.
+                    await docRef.set({
+                        projectPlan: p.length > 0 ? p : initialProjectData, // Give default skeleton if empty
                         taskStates: s,
-                        balanceText: b
-                    });
+                        balanceText: b,
+                        createdAt: firebase.firestore.FieldValue.serverTimestamp() // ensure sort order works
+                    }, { merge: true });
+                    
                     setSyncStatus("synced");
                 } catch (e) {
                     console.error("Save Error:", e);
@@ -546,6 +503,7 @@
 
             const handleTitleBlur = () => saveData(plan, null);
             const handleNoteBlur = () => saveData(plan, null);
+            
             const addTask = (sI, wI) => {
                 if (!isAdmin) return;
                 const np = [...plan];
@@ -554,11 +512,12 @@
             };
 
             const removeTask = (sI, wI, tI) => {
-                if (!isAdmin || !confirm("Delete task?")) return;
+                if (!isAdmin) return;
+                // Immediate delete per rules (no confirm/alerts)
                 const np = [...plan];
                 np[sI].weeks[wI].tasks.splice(tI, 1);
                 saveData(np, null);
-        };
+            };
 
             const total = plan.reduce((a, s) => a + s.weeks.reduce((wa, w) => wa + w.tasks.length, 0), 0);
             const done = Object.values(taskStates).filter(s => s === STATUS.COMPLETED || s === STATUS.SKIPPED).length;
@@ -575,42 +534,60 @@
                                     <div className="flex items-center gap-2 text-[10px] sm:text-xs">
                                         {syncStatus === 'saving' ? <span className="text-red-600 animate-pulse">Saving...</span> : <span className="text-green-600">✓ Connected</span>}
                                         <span className="text-gray-400">|</span>
-                                        <span className="font-bold uppercase text-gray-400">{isAdmin ? "Admin Mode" : "Client Portal"}</span>
-                                        {syncStatus === "no_access" && <span className="text-red-600 font-bold ml-1">No Project Access</span>}
+                                        <span className="font-bold uppercase text-gray-400">{isAdmin ? "Admin Mode" : "View Only"}</span>
+                                        {syncStatus === "no_access" && <span className="text-red-600 font-bold">No Project Access</span>}
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="flex flex-col">
-                                <label className="text-[9px] uppercase text-gray-400 font-bold mb-1">Select Project</label>
-                                {allProjects.length > 0 ? (
-                                    <select
-                                        id="projectSelect"
-                                        value={activeProjectId || ''}
-                                        onChange={(e) => setActiveProjectId(e.target.value)}
-                                        className="text-xs border border-gray-300 p-1.5 rounded bg-white font-mono min-w-[180px] focus:border-cardinal-red focus:ring-1 focus:ring-cardinal-red outline-none shadow-sm cursor-pointer"
-                                    >
-                                        <option value="" disabled>-- Choose a project --</option>
-                                        {allProjects.map(project => (
-                                            <option key={project.id} value={project.id}>
-                                                {project.id}
-                                            </option>
-                                        ))}
-                                    </select>
-                                ) : (
-                                    isAdmin ? (
-                                        <input
-                                            type="text"
-                                            value={activeProjectId || ''}
-                                            onChange={(e) => setActiveProjectId(e.target.value)}
-                                            className="text-xs border border-gray-300 p-1.5 rounded bg-white font-mono w-48 focus:border-cardinal-red outline-none shadow-sm"
-                                            placeholder="Enter New Project ID"
-                                        />
-                                    ) : (
-                                        <span className="text-xs text-gray-500 font-bold bg-gray-100 p-1.5 rounded border border-gray-200">No Projects Found</span>
-                                    )
-                                )}
-                            </div>
+                            {/* DYNAMIC ADMIN DROPDOWN / NEW PROJECT CREATOR */}
+                            {isAdmin && (
+                                <div className="flex flex-col">
+                                    <label className="text-[9px] uppercase text-gray-400 font-bold mb-1">Select Project</label>
+                                    <div className="flex items-center gap-2">
+                                        {!isCreatingNew && allProjects.length > 0 ? (
+                                            <select
+                                                id="projectSelect"
+                                                value={activeProjectId || ''}
+                                                onChange={(e) => setActiveProjectId(e.target.value)}
+                                                className="text-xs border border-gray-300 p-1.5 rounded bg-white font-mono min-w-[180px] focus:border-cardinal-red focus:ring-1 focus:ring-cardinal-red outline-none shadow-sm cursor-pointer"
+                                            >
+                                                <option value="" disabled>-- Choose a project --</option>
+                                                {allProjects.map(project => (
+                                                    <option key={project.id} value={project.id}>
+                                                        {project.id}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                        ) : (
+                                            <input
+                                                type="text"
+                                                value={activeProjectId || ''}
+                                                onChange={(e) => setActiveProjectId(e.target.value)}
+                                                className="text-xs border border-gray-300 p-1.5 rounded bg-white font-mono w-48 focus:border-cardinal-red outline-none shadow-sm"
+                                                placeholder="Enter New Project ID"
+                                            />
+                                        )}
+
+                                        {allProjects.length > 0 && (
+                                            <button 
+                                                onClick={() => {
+                                                    setIsCreatingNew(!isCreatingNew);
+                                                    if (!isCreatingNew) {
+                                                        setActiveProjectId(""); // Clear when creating new
+                                                    } else {
+                                                        // Default back to first project when cancelling
+                                                        setActiveProjectId(allProjects[0]?.id || "");
+                                                    }
+                                                }}
+                                                className="text-[10px] bg-zinc-100 hover:bg-zinc-200 text-cardinal-black px-2 py-1.5 rounded border border-zinc-200 font-bold transition-colors"
+                                            >
+                                                {isCreatingNew ? "Cancel" : "+ New"}
+                                            </button>
+                                        )}
+                                    </div>
+                                </div>
+                            )}
 
                             <div className="flex items-center gap-4 ml-auto">
                                 <div className="flex flex-col items-end">
@@ -639,30 +616,31 @@
                         </div>
                     </header>
 
+                    {}
                     <main className="max-w-5xl mx-auto px-4 py-8">
-                        {/* Empty States Handling */}
-                        
                         {syncStatus === "no_access" && (
-                            <div className="bg-red-50 border-l-4 border-red-500 text-red-700 p-5 mb-8 rounded shadow-sm">
-                                <p className="font-bold text-lg mb-1">Access Denied</p>
-                                <p>Please contact your administrator. No projects are currently mapped to your email.</p>
+                            <div className="bg-red-50 border-l-4 border-red-500 text-red-700 p-4 mb-8">
+                                <p className="font-bold">Access Denied or No Project Assigned</p>
+                                <p>Please contact support or your administrator to gain access to a project.</p>
                             </div>
                         )}
 
-                        {syncStatus !== "loading" && syncStatus !== "no_access" && allProjects.length === 0 && (
-                            <div className="bg-yellow-50 border-l-4 border-yellow-500 text-yellow-800 p-5 mb-8 rounded shadow-sm">
-                                <p className="font-bold text-lg mb-1">No Projects Available</p>
-                                <p>{isAdmin ? "As an admin, you can create a new project by entering a Project ID in the input box above." : "You currently have no active projects associated with your account."}</p>
+                        {isAdmin && !activeProjectId && syncStatus !== "loading" && !isCreatingNew && (
+                            <div className="bg-yellow-50 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-8">
+                                <p className="font-bold">No Projects Found</p>
+                                <p>Click the '+ New' button to create a new project workflow.</p>
                             </div>
                         )}
-
-                        {allProjects.length > 0 && !activeProjectId && (
-                            <div className="bg-blue-50 border-l-4 border-cardinal-black text-gray-800 p-6 mb-8 rounded shadow-sm flex items-center gap-4">
-                                <svg className="w-8 h-8 text-cardinal-black opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        
+                        {isAdmin && activeProjectId && plan.length === 0 && syncStatus !== "loading" && (
+                             <div className="bg-blue-50 border-l-4 border-blue-500 text-blue-700 p-4 mb-8 flex justify-between items-center">
                                 <div>
-                                    <p className="font-bold text-lg mb-1">Project Selection Required</p>
-                                    <p className="text-sm">Please select a project from the dropdown menu in the header to view tracking details and tasks.</p>
+                                    <p className="font-bold">New Project Initialized: {activeProjectId}</p>
+                                    <p className="text-sm">This project is currently empty. Start by saving the initial template.</p>
                                 </div>
+                                <button onClick={() => saveData(initialProjectData, {}, balanceText)} className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm font-bold shadow transition-colors">
+                                    Load Default Template
+                                </button>
                             </div>
                         )}
 
@@ -742,7 +720,7 @@
                                                                         />
                                                                     )}
                                                                 </div>
-            );
+                                                            );
                                                         })}
                                                     </div>
                                                     {isAdmin && (
@@ -785,6 +763,7 @@
         const App = () => {
             const [user, setUser] = useState(null);
             const [loading, setLoading] = useState(true);
+            
             useEffect(() => {
                 if (IS_DEMO_MODE) { setLoading(false); return; }
                 const unsub = auth.onAuthStateChanged(u => {
@@ -797,12 +776,14 @@
                 });
                 return () => unsub();
             }, []);
+            
             if (loading) return (
                 <div className="min-h-screen flex flex-col items-center justify-center bg-zinc-100">
                     <img src="https://cardinalcomputersystems.com/cardinal-logo.png" className="w-16 h-16 animate-pulse opacity-50 mb-4" />
                     <div className="text-cardinal-red font-black text-xs uppercase tracking-widest">Initializing Secure Portal</div>
                 </div>
             );
+            
             return user ? <Dashboard user={user} onLogout={() => auth.signOut()} /> : <LoginScreen onLogin={setUser} />;
         };
 
