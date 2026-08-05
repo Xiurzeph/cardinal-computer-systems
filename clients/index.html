@@ -46,7 +46,7 @@
         const ADMIN_EMAIL = "xiurzeph112112@gmail.com"; 
 
         // Check for Demo Mode
-        const IS_DEMO_MODE = firebaseConfig.apiKey.includes("REPLACE");
+        const IS_DEMO_MODE = firebaseConfig.apiKey.includes("REPLACE") || firebaseConfig.apiKey.includes("YOUR_NEW");
 
         // Initialize Firebase
         let db, auth;
@@ -186,6 +186,18 @@
                 if (storedLockout > Date.now()) {
                     setLockoutTime(storedLockout);
                 }
+
+                // Handle Redirect Result for Google Sign-In
+                if (!IS_DEMO_MODE && auth) {
+                    auth.getRedirectResult().then((result) => {
+                        if (result && result.user) {
+                            onLogin(result.user);
+                        }
+                    }).catch((err) => {
+                        console.error("Redirect Auth Error:", err);
+                        setError("Google Sign-In Error: " + err.message);
+                    });
+                }
             }, []);
 
             useEffect(() => {
@@ -219,12 +231,22 @@
 
                 try {
                     const provider = new firebase.auth.GoogleAuthProvider();
-                    await auth.signInWithPopup(provider);
+                    provider.setCustomParameters({ prompt: 'select_account' });
+                    
+                    // Try popup first; fallback to redirect if popup fails or is blocked
+                    try {
+                        await auth.signInWithPopup(provider);
+                    } catch (popupErr) {
+                        if (popupErr.code === 'auth/popup-blocked' || popupErr.code === 'auth/popup-closed-by-user') {
+                            console.warn("Popup blocked/failed. Falling back to signInWithRedirect...");
+                            await auth.signInWithRedirect(provider);
+                        } else {
+                            throw popupErr;
+                        }
+                    }
                 } catch (err) {
                     console.error("Google Login Error:", err);
-                    if (err.code === 'auth/popup-closed-by-user') {
-                        setError("Login cancelled.");
-                    } else if (err.code === 'auth/unauthorized-domain' || err.message.includes('unauthorized domain')) {
+                    if (err.code === 'auth/unauthorized-domain' || err.message.includes('unauthorized domain')) {
                         setError("Domain not authorized. Please add this domain to Firebase Console > Auth > Settings > Authorized Domains.");
                     } else {
                         setError("Google Sign-In failed: " + err.message);
@@ -343,7 +365,6 @@
         );
 
         const StatusCheckbox = ({ status, onClick, disabled }) => {
-            // UPDATED: Replaced "status-transition" with "transition-all duration-200 ease-out"
             const base = `w-6 h-6 min-w-[24px] rounded border-2 flex items-center justify-center mt-0.5 select-none transition-all duration-200 ease-out flex-shrink-0 ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`;
             const clickHandler = disabled ? undefined : onClick;
 
@@ -362,16 +383,14 @@
         };
 
         const Dashboard = ({ user, onLogout }) => {
-            // FIX: Initialize with default data so Client sees content immediately
             const [plan, setPlan] = useState(initialProjectData); 
             const [taskStates, setTaskStates] = useState({}); 
             const [expandedNotes, setExpandedNotes] = useState({}); 
             const [balanceText, setBalanceText] = useState("");
             const [syncStatus, setSyncStatus] = useState("loading"); 
             const [activeProjectId, setActiveProjectId] = useState("BLDS-WEB-001-REV5"); 
-            const [allProjects, setAllProjects] = useState([]); // New state for all projects
+            const [allProjects, setAllProjects] = useState([]); 
 
-            // Robust Admin Check
             const isAdmin = user.email?.toLowerCase() === ADMIN_EMAIL.toLowerCase();
 
             useEffect(() => {
@@ -383,16 +402,15 @@
                 const fetchProjects = async () => {
                     const projectsRef = db.collection("projects").orderBy("createdAt", "desc");
 
-                    // Snapshot listener for real-time updates
                     const unsubscribe = projectsRef.onSnapshot(querySnapshot => {
                         const projects = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
                         setAllProjects(projects);
                         let targetId = activeProjectId;
                         if (isAdmin) {
                             if (projects.length > 0 && !projects.some(p => p.id === activeProjectId)) {
-                                targetId = projects[0].id; // Default to the latest project for admin
+                                targetId = projects[0].id; 
                             } else if (projects.length === 0) {
-                                targetId = null; // No projects available
+                                targetId = null; 
                             }
                         } else {
                             const clientEmail = user.email?.toLowerCase();
@@ -400,31 +418,29 @@
                             if (clientProject && projects.some(p => p.id === clientProject)) {
                                 targetId = clientProject;
                             } else if (!clientProject) {
-                                targetId = null; // Client has no assigned project
+                                targetId = null; 
                             } else {
-                                targetId = null; // Client's project not found in Firestore
+                                targetId = null; 
                             }
                         }
 
                         setActiveProjectId(targetId);
 
                         if (targetId) {
-                            // If targetId is set, fetch its specific data
                             db.collection('projects').doc(targetId).onSnapshot(doc => {
                                 if (doc.exists) {
                                     const data = doc.data();
                                     setPlan(data.projectPlan || initialProjectData);
                                     setTaskStates(data.taskStates || {});
                                     setBalanceText(data.balanceText || "");
-                    setSyncStatus("synced");
+                                    setSyncStatus("synced");
                                 } else {
                                     if (isAdmin) {
-                                        // If admin, create a new project with initial data if it doesn't exist
                                         db.collection('projects').doc(targetId).set({ projectPlan: initialProjectData, taskStates: {}, balanceText: "", createdAt: new Date() });
                                         setPlan(initialProjectData);
                                     } else {
-                                        setPlan([]); // No project found for client
-                }
+                                        setPlan([]); 
+                                    }
                                     setTaskStates({});
                                     setBalanceText("");
                                     setSyncStatus("synced");
@@ -435,7 +451,7 @@
                                 setPlan([]);
                             });
                         } else {
-                            setPlan([]); // No active project selected or available
+                            setPlan([]); 
                             setTaskStates({});
                             setBalanceText("");
                             setSyncStatus("synced");
@@ -457,7 +473,7 @@
                 }
 
                 fetchProjects();
-            }, [user.email, isAdmin, IS_DEMO_MODE, activeProjectId]); // Re-run when user, admin status, or demo mode changes
+            }, [user.email, isAdmin, IS_DEMO_MODE, activeProjectId]); 
 
             const saveData = async (newPlan, newStates, newBalance) => {
                 if (!isAdmin && !IS_DEMO_MODE) return;
@@ -469,9 +485,9 @@
                 const s = newStates || taskStates;
                 const b = typeof newBalance === 'string' ? newBalance : balanceText;
 
-                if (newPlan) setPlan(p); // Use 'p' here
-                if (newStates) setTaskStates(s); // Use 's' here
-                if (typeof newBalance === 'string') setBalanceText(b); // Use 'b' here
+                if (newPlan) setPlan(p); 
+                if (newStates) setTaskStates(s); 
+                if (typeof newBalance === 'string') setBalanceText(b); 
 
                 if (IS_DEMO_MODE) return;
                 setSyncStatus("saving");
@@ -759,4 +775,3 @@
     </script>
 </body>
 </html>
-
